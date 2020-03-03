@@ -3,10 +3,12 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "gpio.h"
+
 
 
 static void prvSetupHardware(void);
-void SystemClock_Config(void);
+static void SystemClock_Config(void);
 
 
 
@@ -14,6 +16,7 @@ int main(void)
 {
   prvSetupHardware();
 
+  xTaskCreate(vLEDTask, "LEDTask", 100, NULL, 1, NULL);
 
   vTaskStartScheduler();
 
@@ -28,14 +31,13 @@ static void prvSetupHardware(void)
 {
   HAL_Init();
   SystemClock_Config();
+  GPIOA_ClockConfig();
+  GPIOA_LED2_Config();
 }
 
 
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
-void SystemClock_Config(void)
+
+static void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
@@ -69,14 +71,8 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
 
-/* USER CODE END 4 */
 
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -84,22 +80,3 @@ void Error_Handler(void)
 
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
-void assert_failed(uint8_t *file, uint32_t line)
-{ 
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
-}
-#endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
