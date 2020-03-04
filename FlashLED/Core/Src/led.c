@@ -3,8 +3,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
+#include "stm32f4xx.h"
+#include "stm32f401xe.h"
 
 
 
@@ -14,6 +14,15 @@
 
 #define LONG_DELAY_MS 1000
 #define SHORT_DELAY_MS 250
+
+
+
+/*****************************************************************************/
+/*                             PRIVATE MACROS                                */
+/*****************************************************************************/
+
+#define LED2_ON()  SET_BIT(GPIOA->BSRR, (1 << 5))
+#define LED2_OFF() SET_BIT(GPIOA->BSRR, (1 << 21))
 
 
 

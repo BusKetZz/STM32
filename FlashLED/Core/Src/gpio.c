@@ -1,7 +1,7 @@
 #include "gpio.h"
 
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
+#include "stm32f4xx.h"
+#include "stm32f401xe.h"
 
 
 
@@ -11,17 +11,14 @@
 
 void GPIOA_ClockConfig(void)
 {
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);
 }
 
 
 
 void GPIOA_LED2_Config(void)
 {
-  GPIO_InitTypeDef gpioA;
-  gpioA.Pin = GPIO_PIN_5;
-  gpioA.Mode = GPIO_MODE_OUTPUT_PP;
-  gpioA.Pull = GPIO_NOPULL;
-  gpioA.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &gpioA);
+  SET_BIT(GPIOA->MODER, (1 << 10));
+  CLEAR_BIT(GPIOA->OSPEEDR, (3 << 10));
+  CLEAR_BIT(GPIOA->PUPDR, (3 << 10));
 }
