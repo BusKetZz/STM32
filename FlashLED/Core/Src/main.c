@@ -44,8 +44,10 @@ static void prvSetupHardware(void)
 {
   HAL_Init();
   SystemClock_Config();
-  GPIOA_ClockConfig();
+  
+  GPIOA_Clock_Config();
   GPIOA_LED2_Config();
+  GPIOA_USART1_Config();
 }
 
 
