@@ -3,6 +3,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "dma.h"
 #include "gpio.h"
 #include "led.h"
 
@@ -44,10 +45,15 @@ static void prvSetupHardware(void)
 {
   HAL_Init();
   SystemClock_Config();
-  
+
   GPIOA_Clock_Config();
   GPIOA_LED2_Config();
   GPIOA_USART1_Config();
+
+  DMA2_Clock_Config();
+  DMA2_NVIC_Config();
+  DMA2_USART1_RX_Config();
+  DMA2_USART1_TX_Config();
 }
 
 
