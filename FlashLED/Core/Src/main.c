@@ -51,9 +51,8 @@ static void prvSetupHardware(void)
   GPIOA_USART1_Config();
 
   DMA2_Clock_Config();
-  DMA2_NVIC_Config();
   DMA2_USART1_RX_Config();
-  DMA2_USART1_TX_Config();
+  DMA2_USART1_RX_NVIC_Config();
 }
 
 
