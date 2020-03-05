@@ -12,6 +12,9 @@
 /*                             PRIVATE DEFINES                               */
 /*****************************************************************************/
 
+#define LONG_BLINK_AMOUNT_DEFAULT 3
+#define SHORT_BLINK_AMOUNT_DEFAULT 7
+
 #define LONG_DELAY_MS 1000
 #define SHORT_DELAY_MS 250
 
@@ -27,14 +30,33 @@
 
 
 /*****************************************************************************/
+/*                           PRIVATE VARIABLES                               */
+/*****************************************************************************/
+
+static uint8_t longBlinkAmount  = LONG_BLINK_AMOUNT_DEFAULT;
+static uint8_t shortBlinkAmount = SHORT_BLINK_AMOUNT_DEFAULT;
+
+
+
+/*****************************************************************************/
+/*                     PUBLIC FUNCTIONS DEFINITIONS                          */
+/*****************************************************************************/
+
+void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount, 
+                             const uint8_t newShortBlinksAmount)
+{
+  longBlinkAmount = newLongBlinksAmount;
+  shortBlinkAmount = newShortBlinksAmount;
+}
+
+
+
+/*****************************************************************************/
 /*                            FreeRTOS TASK                                  */
 /*****************************************************************************/
 
 void vLEDTask(void *pvParameters)
 {
-  uint8_t longBlinkAmount = 3;
-  uint8_t shortBlinkAmount = 7;
-
   LED2_OFF();
 
   for(;;)
