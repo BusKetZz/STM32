@@ -1,12 +1,12 @@
+#include "dma.h"
+#include "gpio.h"
+#include "led.h"
 #include "main.h"
+#include "usart.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "dma.h"
-#include "gpio.h"
-#include "led.h"
-#include "usart.h"
 
 
 
