@@ -6,6 +6,7 @@
 #include "dma.h"
 #include "gpio.h"
 #include "led.h"
+#include "usart.h"
 
 
 
@@ -48,11 +49,14 @@ static void prvSetupHardware(void)
 
   GPIOA_Clock_Config();
   GPIOA_LED2_Config();
-  GPIOA_USART1_Config();
+  GPIOA_USART1_RX_Config();
 
   DMA2_Clock_Config();
   DMA2_USART1_RX_Config();
   DMA2_USART1_RX_NVIC_Config();
+
+  USART1_Clock_Config();
+  USART1_RX_Config();
 }
 
 
