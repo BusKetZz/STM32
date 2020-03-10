@@ -1,7 +1,6 @@
 #include "led.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
+#include "cmsis_os.h"
 
 #include "stm32f4xx.h"
 #include "stm32f401xe.h"
@@ -52,10 +51,10 @@ void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount,
 
 
 /*****************************************************************************/
-/*                            FreeRTOS TASK                                  */
+/*                       FreeRTOS TASK DEFINITION                            */
 /*****************************************************************************/
 
-void vLEDTask(void *pvParameters)
+void StartLED2Task(void *argument)
 {
   LED2_OFF();
 
@@ -65,22 +64,22 @@ void vLEDTask(void *pvParameters)
         longBlinkCounter++)
     {
       LED2_ON();
-      vTaskDelay(LONG_DELAY_MS / portTICK_RATE_MS);
+      osDelay(LONG_DELAY_MS);
       LED2_OFF();
-      vTaskDelay(LONG_DELAY_MS / portTICK_RATE_MS);
+      osDelay(LONG_DELAY_MS);
     }
 
     for(uint8_t shortBlinkCounter = 0; shortBlinkCounter < shortBlinkAmount;
         shortBlinkCounter++)
     {
       LED2_ON();
-      vTaskDelay(SHORT_DELAY_MS / portTICK_RATE_MS);
+      osDelay(SHORT_DELAY_MS);
       LED2_OFF();
-      vTaskDelay(SHORT_DELAY_MS / portTICK_RATE_MS);
+      osDelay(SHORT_DELAY_MS);
     }
 
-    vTaskDelay(LONG_DELAY_MS / portTICK_RATE_MS);
+    osDelay(LONG_DELAY_MS);
   }
 
-  vTaskDelete(NULL);
+  osThreadTerminate(NULL);
 }

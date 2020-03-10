@@ -13,7 +13,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                    PUBLIC FUNCTIONS DECLARATIONS                          */
+/*                     PUBLIC FUNCTIONS DECLARATIONS                         */
 /*****************************************************************************/
 
 void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount, 
@@ -25,7 +25,7 @@ void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount,
 /*                       FreeRTOS TASK DECLARATION                           */
 /*****************************************************************************/
 
-void vLEDTask(void *pvParameters);
+void StartLED2Task(void *argument);
 
 
 
