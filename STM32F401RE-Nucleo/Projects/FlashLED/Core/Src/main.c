@@ -1,4 +1,8 @@
+#include "dma.h"
+#include "gpio.h"
+#include "led.h"
 #include "main.h"
+#include "usart.h"
 
 #include "cmsis_os.h"
 
@@ -9,10 +13,24 @@
 #include "stm32f4xx_ll_utils.h"
 
 
-osThreadId_t IdleTaskHandle;
-const osThreadAttr_t IdleTask_attributes = {
+
+/*****************************************************************************/
+/*                PRIVATE FreeRTOS VARIABLES DECLARATIONS                    */
+/*****************************************************************************/
+
+static osThreadId_t IdleTaskHandle;
+static const osThreadAttr_t IdleTaskAttributes = 
+{
   .name = "IdleTask",
   .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 128 * 4
+};
+
+static osThreadId_t LED2TaskHandle;
+static const osThreadAttr_t LED2TaskAttributes =
+{
+  .name = "LED2Task",
+  .priority = (osPriority_t)osPriorityAboveNormal1,
   .stack_size = 128 * 4
 };
 
@@ -21,10 +39,11 @@ const osThreadAttr_t IdleTask_attributes = {
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DECLARATIONS                        */
 /*****************************************************************************/
-
+static void HardwareInitialSetup(void);
 static void SYSCFG_PWR_Clock_Enable(void);
 static void NVIC_PendSV_SysTick_IRQn_Config(void);
 static void SystemClock_Config(void);
+static void ComponentsSetup(void);
 
 void StartIdleTask(void *argument);
 
@@ -36,14 +55,13 @@ void StartIdleTask(void *argument);
 
 int main(void)
 {
-  SYSCFG_PWR_Clock_Enable();
-  NVIC_PendSV_SysTick_IRQn_Config();
-  SystemClock_Config();
-
+  HardwareInitialSetup();
+  ComponentsSetup();
 
   osKernelInitialize();
 
-  IdleTaskHandle = osThreadNew(StartIdleTask, NULL, &IdleTask_attributes);
+  IdleTaskHandle = osThreadNew(StartIdleTask, NULL, &IdleTaskAttributes);
+  LED2TaskHandle = osThreadNew(StartLED2Task, NULL, &LED2TaskAttributes);
 
   osKernelStart();
  
@@ -57,6 +75,15 @@ int main(void)
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DEFINITIONS                         */
 /*****************************************************************************/
+
+static void HardwareInitialSetup(void)
+{
+  SYSCFG_PWR_Clock_Enable();
+  NVIC_PendSV_SysTick_IRQn_Config();
+  SystemClock_Config();
+}
+
+
 
 static void SYSCFG_PWR_Clock_Enable(void)
 {
@@ -104,6 +131,21 @@ static void NVIC_PendSV_SysTick_IRQn_Config(void)
 
   NVIC_SetPriority(PendSV_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
+}
+
+
+
+static void ComponentsSetup(void)
+{
+  GPIOA_Clock_Config();
+  GPIOA_LED2_Config();
+
+  DMA2_Clock_Config();
+  DMA2_USART1_RX_Config();
+  DMA2_USART1_RX_NVIC_Config();
+
+  USART1_Clock_Config();
+  USART1_RX_Config();
 }
 
 
