@@ -1,0 +1,11 @@
+*/Debug/
+*/Release/
+
+*/.settings/
+*/.mxproject
+*/*.ioc
+*/*.launch
+
+RemoteSystemsTempFiles/
+.metadata/
+.vscode/
