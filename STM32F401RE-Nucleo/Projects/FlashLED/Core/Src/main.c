@@ -2,6 +2,7 @@
 #include "gpio.h"
 #include "led.h"
 #include "main.h"
+#include "idle_task.h"
 #include "usart.h"
 
 #include "cmsis_os.h"
@@ -44,8 +45,6 @@ static void SYSCFG_PWR_Clock_Enable(void);
 static void NVIC_PendSV_SysTick_IRQn_Config(void);
 static void SystemClock_Config(void);
 static void ComponentsSetup(void);
-
-void StartIdleTask(void *argument);
 
 
 
@@ -146,16 +145,6 @@ static void ComponentsSetup(void)
 
   USART1_Clock_Config();
   USART1_RX_Config();
-}
-
-
-
-void StartIdleTask(void *argument)
-{
-  for(;;)
-  {
-    osDelay(1);
-  }
 }
 
 
