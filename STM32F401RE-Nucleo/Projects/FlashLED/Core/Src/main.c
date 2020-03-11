@@ -72,6 +72,8 @@ int main(void)
 
   IdleTaskHandle = osThreadNew(StartIdleTask, NULL, &IdleTaskAttributes);
   Led2TaskHandle = osThreadNew(StartLed2Task, NULL, &Led2TaskAttributes);
+  Dma2Usart1RxTaskHandle = osThreadNew(StartDma2Usart1RxTask, NULL, 
+                                       &Dma2Usart1RxAttributes);
 
   osKernelStart();
  
