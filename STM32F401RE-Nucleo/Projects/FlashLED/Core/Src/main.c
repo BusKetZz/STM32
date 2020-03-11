@@ -37,6 +37,16 @@ const osThreadAttr_t Led2TaskAttributes =
 
 
 
+osThreadId_t Dma2Usart1RxTaskHandle;
+const osThreadAttr_t Dma2Usart1RxAttributes =
+{
+  .name = "Dma2Usart1RxTask",
+  .priority = (osPriority_t)osPriorityNormal1,
+  .stack_size = 128 * 4
+};
+
+
+
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DECLARATIONS                        */
 /*****************************************************************************/
