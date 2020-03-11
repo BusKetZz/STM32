@@ -25,7 +25,7 @@ void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount,
 /*                         RTOS TASK DECLARATION                             */
 /*****************************************************************************/
 
-void StartLED2Task(void *argument);
+void StartLed2Task(void *argument);
 
 
 

@@ -19,19 +19,19 @@
 /*                  PRIVATE RTOS VARIABLES DECLARATIONS                      */
 /*****************************************************************************/
 
-static osThreadId_t IdleTaskHandle;
-static const osThreadAttr_t IdleTaskAttributes = 
+osThreadId_t IdleTaskHandle;
+const osThreadAttr_t IdleTaskAttributes =
 {
   .name = "IdleTask",
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
 
-static osThreadId_t LED2TaskHandle;
-static const osThreadAttr_t LED2TaskAttributes =
+osThreadId_t Led2TaskHandle;
+const osThreadAttr_t Led2TaskAttributes =
 {
-  .name = "LED2Task",
-  .priority = (osPriority_t)osPriorityAboveNormal1,
+  .name = "Led2Task",
+  .priority = (osPriority_t)osPriorityNormal1,
   .stack_size = 128 * 4
 };
 
@@ -61,7 +61,7 @@ int main(void)
   osKernelInitialize();
 
   IdleTaskHandle = osThreadNew(StartIdleTask, NULL, &IdleTaskAttributes);
-  LED2TaskHandle = osThreadNew(StartLED2Task, NULL, &LED2TaskAttributes);
+  Led2TaskHandle = osThreadNew(StartLed2Task, NULL, &Led2TaskAttributes);
 
   osKernelStart();
  
