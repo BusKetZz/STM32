@@ -1,3 +1,4 @@
+#include "dma.h"
 #include "led.h"
 
 #include "cmsis_os.h"
@@ -13,8 +14,11 @@
 #define LED2_Pin         LL_GPIO_PIN_5
 #define LED2_GPIO_Port   GPIOA
 
-#define LONG_BLINKS_AMOUNT_DEFAULT 3
-#define SHORT_BLINKS_AMOUNT_DEFAULT 7
+#define LONG_BLINKS_COUNT_DEFAULT  3
+#define SHORT_BLINKS_COUNT_DEFAULT 7
+
+#define LONG_BLINKS_INDEX  0
+#define SHORT_BLINKS_INDEX 1
 
 #define LONG_DELAY_MS 1000
 #define SHORT_DELAY_MS 250
@@ -31,44 +35,30 @@
 
 
 /*****************************************************************************/
-/*                           PRIVATE VARIABLES                               */
-/*****************************************************************************/
-
-static uint8_t longBlinksAmount  = LONG_BLINKS_AMOUNT_DEFAULT;
-static uint8_t shortBlinksAmount = SHORT_BLINKS_AMOUNT_DEFAULT;
-
-
-
-/*****************************************************************************/
-/*                     PUBLIC FUNCTIONS DEFINITIONS                          */
-/*****************************************************************************/
-
-void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount, 
-                             const uint8_t newShortBlinksAmount)
-{
-  longBlinksAmount = newLongBlinksAmount;
-  shortBlinksAmount = newShortBlinksAmount;
-}
-
-
-
-/*****************************************************************************/
 /*                         RTOS TASK DEFINITION                              */
 /*****************************************************************************/
 
 void StartLed2Task(void *argument)
 {
-  uint32_t longBlinksCount;
-  uint32_t shortBlinksCount;
+  uint8_t blinksCount[2] = {[LONG_BLINKS_INDEX] = LONG_BLINKS_COUNT_DEFAULT,
+                            [SHORT_BLINKS_INDEX] = SHORT_BLINKS_COUNT_DEFAULT};
+  uint8_t newBlinksCount[2];
+  osStatus_t foundNewCounts = osError;
 
   LED2_OFF();
 
   for(;;)
   {
-    longBlinksCount = longBlinksAmount;
-    shortBlinksCount = shortBlinksAmount;
+    foundNewCounts = osMessageQueueGet(GetQueueHandleForLed2Task(), 
+                                       newBlinksCount, NULL, 0);
+    if(foundNewCounts == osOK)
+    {
+      blinksCount[LONG_BLINKS_INDEX] = newBlinksCount[LONG_BLINKS_INDEX];
+      blinksCount[SHORT_BLINKS_INDEX] = newBlinksCount[SHORT_BLINKS_INDEX];
+    }
 
-    for(uint32_t longBlinks=0; longBlinks < longBlinksCount; longBlinks++)
+    for(uint8_t longBlinks = 0; longBlinks < blinksCount[LONG_BLINKS_INDEX];
+        longBlinks++)
     {
       LED2_ON();
       osDelay(LONG_DELAY_MS);
@@ -76,7 +66,8 @@ void StartLed2Task(void *argument)
       osDelay(LONG_DELAY_MS);
     }
 
-    for(uint32_t shortBlinks=0; shortBlinks < shortBlinksCount; shortBlinks++)
+    for(uint8_t shortBlinks = 0; shortBlinks < blinksCount[SHORT_BLINKS_INDEX]; 
+        shortBlinks++)
     {
       LED2_ON();
       osDelay(SHORT_DELAY_MS);
