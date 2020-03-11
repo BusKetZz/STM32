@@ -89,20 +89,19 @@ osMessageQueueId_t GetQueueHandleForLed2Task(void)
 
 
 
-
 /*****************************************************************************/
 /*                         RTOS TASK DEFINITION                              */
 /*****************************************************************************/
 
 void StartDma2Usart1RxTask(void *argument)
 {
-  uint8_t led2UpdatedBlinksCount[2];
+  uint8_t led2UpdatedBlinksCount[2] = {0};
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
                                       sizeof(led2UpdatedBlinksCount), NULL);
 
   for(;;)
   {
-
+    /* TODO */
 
     osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 1, 0);
   }
