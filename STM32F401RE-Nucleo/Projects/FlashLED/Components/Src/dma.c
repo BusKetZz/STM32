@@ -12,7 +12,7 @@
 /*                            PRIVATE DEFINES                                */
 /*****************************************************************************/
 
-#define FRAME_SIZE 6
+#define BUFFER_SIZE 32
 
 
 
@@ -28,7 +28,9 @@
 /*                           PRIVATE VARIABLES                               */
 /*****************************************************************************/
 
-static uint8_t dma2Usart1RxBuffer[FRAME_SIZE];
+static uint8_t dma2Usart1RxBuffer[BUFFER_SIZE];
+
+static const char *MAGIC_WORD = "ABCD";
 
 
 
@@ -72,4 +74,18 @@ void DMA2_USART1_RX_NVIC_Config(void)
   NVIC_SetPriority(DMA2_Stream2_IRQn, 
                    NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
   NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+}
+
+
+
+/*****************************************************************************/
+/*                         RTOS TASK DEFINITION                              */
+/*****************************************************************************/
+
+void StartDma2Usart1RxTask(void *argument)
+{
+  for(;;)
+  {
+
+  }
 }

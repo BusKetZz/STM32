@@ -18,6 +18,14 @@ void DMA2_USART1_RX_NVIC_Config(void);
 
 
 
+/*****************************************************************************/
+/*                         RTOS TASK DECLARATION                             */
+/*****************************************************************************/
+
+void StartDma2Usart1RxTask(void *argument);
+
+
+
 #ifdef  __cplusplus
 }
 #endif
