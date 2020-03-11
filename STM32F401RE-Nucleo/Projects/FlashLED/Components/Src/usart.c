@@ -38,14 +38,3 @@ void USART1_RX_Config(void)
 
   LL_USART_Enable(USART1);
 }
-
-
-
-void USART1_RX_ProcessData(const uint8_t *dataFromDma2)
-{
-  if(dataFromDma2[0] == 'A' && dataFromDma2[1] == 'B' &&
-     dataFromDma2[2] == 'C' && dataFromDma2[3] == 'D')
-  {
-    LED2_UpdateBlinkPattern(dataFromDma2[4], dataFromDma2[5]);
-  }
-}

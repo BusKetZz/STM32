@@ -16,7 +16,7 @@
 
 
 /*****************************************************************************/
-/*                PRIVATE FreeRTOS VARIABLES DECLARATIONS                    */
+/*                  PRIVATE RTOS VARIABLES DECLARATIONS                      */
 /*****************************************************************************/
 
 static osThreadId_t IdleTaskHandle;
@@ -40,6 +40,7 @@ static const osThreadAttr_t LED2TaskAttributes =
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DECLARATIONS                        */
 /*****************************************************************************/
+
 static void HardwareInitialSetup(void);
 static void SYSCFG_PWR_Clock_Enable(void);
 static void NVIC_PendSV_SysTick_IRQn_Config(void);
@@ -151,5 +152,5 @@ static void ComponentsSetup(void)
 
 void Error_Handler(void)
 {
-
+  /* TODO */
 }

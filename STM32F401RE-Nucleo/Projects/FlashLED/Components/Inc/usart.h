@@ -18,7 +18,6 @@ extern "C"
 
 void USART1_Clock_Config(void);
 void USART1_RX_Config(void);
-void USART1_RX_ProcessData(const uint8_t *dataFromDma2);
 
 
 
