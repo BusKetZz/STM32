@@ -1,7 +1,7 @@
 #include "dma.h"
 #include "usart.h"
 
-#include "stm32f401xe.h"
+#include "cmsis_os2.h"
 
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_dma.h"
@@ -13,6 +13,8 @@
 /*****************************************************************************/
 
 #define BUFFER_SIZE 32
+
+#define LED2TASK_QUEUE_MESSAGES_COUNT (uint32_t)1
 
 
 
@@ -31,6 +33,8 @@
 static uint8_t dma2Usart1RxBuffer[BUFFER_SIZE];
 
 static const char *MAGIC_WORD = "ABCD";
+
+static osMessageQueueId_t queueHandleForLed2Task;
 
 
 
@@ -78,14 +82,28 @@ void DMA2_USART1_RX_NVIC_Config(void)
 
 
 
+osMessageQueueId_t GetQueueHandleForLed2Task(void)
+{
+  return queueHandleForLed2Task;
+}
+
+
+
+
 /*****************************************************************************/
 /*                         RTOS TASK DEFINITION                              */
 /*****************************************************************************/
 
 void StartDma2Usart1RxTask(void *argument)
 {
+  uint8_t led2UpdatedBlinksCount[2];
+  queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
+                                      sizeof(led2UpdatedBlinksCount), NULL);
+
   for(;;)
   {
 
+
+    osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 1, 0);
   }
 }

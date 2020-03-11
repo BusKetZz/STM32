@@ -8,6 +8,10 @@ extern "C"
 
 
 
+#include "cmsis_os2.h"
+
+
+
 /*****************************************************************************/
 /*                    PUBLIC FUNCTIONS DECLARATIONS                          */
 /*****************************************************************************/
@@ -15,6 +19,8 @@ extern "C"
 void DMA2_Clock_Config(void);
 void DMA2_USART1_RX_Config(void);
 void DMA2_USART1_RX_NVIC_Config(void);
+
+osMessageQueueId_t GetQueueHandleForLed2Task(void);
 
 
 
