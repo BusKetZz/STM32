@@ -53,7 +53,7 @@ void LED2_UpdateBlinkPattern(const uint8_t newLongBlinksAmount,
 
 
 /*****************************************************************************/
-/*                       FreeRTOS TASK DEFINITION                            */
+/*                         RTOS TASK DEFINITION                              */
 /*****************************************************************************/
 
 void StartLED2Task(void *argument)
