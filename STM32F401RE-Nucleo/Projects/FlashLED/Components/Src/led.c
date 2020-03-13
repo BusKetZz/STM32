@@ -50,7 +50,7 @@ void StartLed2Task(void *argument)
   for(;;)
   {
     foundNewCounts = osMessageQueueGet(GetQueueHandleForLed2Task(), 
-                                       newBlinksCount, NULL, 0);
+                                       newBlinksCount, NULL, 1000);
     if(foundNewCounts == osOK)
     {
       blinksCount[LONG_BLINKS_INDEX] = newBlinksCount[LONG_BLINKS_INDEX];
@@ -74,8 +74,6 @@ void StartLed2Task(void *argument)
       LED2_OFF();
       osDelay(SHORT_DELAY_MS);
     }
-
-    osDelay(LONG_DELAY_MS);
   }
 
   osThreadTerminate(NULL);
