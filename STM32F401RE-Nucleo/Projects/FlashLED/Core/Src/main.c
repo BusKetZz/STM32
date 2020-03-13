@@ -41,7 +41,7 @@ osThreadId_t Dma2Usart1RxTaskHandle;
 const osThreadAttr_t Dma2Usart1RxAttributes =
 {
   .name = "Dma2Usart1RxTask",
-  .priority = (osPriority_t)osPriorityNormal1,
+  .priority = (osPriority_t)osPriorityNormal2,
   .stack_size = 128 * 4
 };
 
