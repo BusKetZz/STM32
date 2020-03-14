@@ -14,16 +14,9 @@
 /*                            PRIVATE DEFINES                                */
 /*****************************************************************************/
 
-#define DMA2_BUFFER_SIZE 8
+#define DMA2_BUFFER_SIZE 32
 
 #define LED2TASK_QUEUE_MESSAGES_COUNT (uint32_t)1
-
-#define MAGIC_FOUND 0
-#define MAGIC_NOT_FOUND -1
-
-#define PART_OF_MAGIC_FOUND MAGIC_FOUND
-
-#define CONFIGURATION_BYTES_COUNT 2
 
 
 
@@ -32,6 +25,18 @@
 /*****************************************************************************/
 
 #define ARRAY_LENGTH(x)    (sizeof(x) / sizeof((x)[0]))
+
+
+
+/*****************************************************************************/
+/*                           PRIVATE VARIABLES                               */
+/*****************************************************************************/
+
+enum magicFound_t
+{
+  FOUND = 0,
+  NOT_FOUND = -1,
+};
 
 
 
@@ -106,7 +111,7 @@ void StartDma2Usart1RxTask(void *argument)
   int oldPosition = 0;
   int currentPosition = 0;
   const int magicWordLength = strlen(MAGIC_WORD);
-  int isMagicFound = MAGIC_NOT_FOUND;
+  enum magicFound_t isMagicFound = NOT_FOUND;
   uint8_t led2UpdatedBlinksCount[2] = {0};
 
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
@@ -117,13 +122,13 @@ void StartDma2Usart1RxTask(void *argument)
     currentPosition = GetCurrentPositionInDma2Usart1RxBuffer();
     if(currentPosition != oldPosition)
     {
-      while(isMagicFound == MAGIC_NOT_FOUND)
+      while(isMagicFound == NOT_FOUND)
       {
         if((ARRAY_LENGTH(dma2Usart1RxBuffer)-oldPosition) >= magicWordLength)
         {
           isMagicFound = memcmp(dma2Usart1RxBuffer + oldPosition, MAGIC_WORD,
                                 magicWordLength);
-          if(isMagicFound == MAGIC_FOUND)
+          if(isMagicFound == FOUND)
           {
             oldPosition = UpdateLed2BufferAndPosition(magicWordLength,
                                                       led2UpdatedBlinksCount,
@@ -134,15 +139,15 @@ void StartDma2Usart1RxTask(void *argument)
         else if((ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition) != 0)
         {
           size_t offset = ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition;
-          int isPartOfMagicFound = MAGIC_NOT_FOUND;
+          enum magicFound_t isPartOfMagicFound = NOT_FOUND;
           isPartOfMagicFound = memcmp(dma2Usart1RxBuffer + oldPosition, MAGIC_WORD,
                                       offset);
-          if(isPartOfMagicFound == PART_OF_MAGIC_FOUND)
+          if(isPartOfMagicFound == FOUND)
           {
             size_t leftBytes = magicWordLength - offset;
             isMagicFound = memcmp(dma2Usart1RxBuffer, MAGIC_WORD + offset,
                                   leftBytes);
-            if(isMagicFound == MAGIC_FOUND)
+            if(isMagicFound == FOUND)
             {
               oldPosition = leftBytes;
               oldPosition = UpdateLed2BufferAndPosition(0, led2UpdatedBlinksCount,
@@ -158,10 +163,10 @@ void StartDma2Usart1RxTask(void *argument)
       }
     }
 
-    if(isMagicFound == MAGIC_FOUND)
+    if(isMagicFound == FOUND)
       osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 0, 0);
       
-    isMagicFound = MAGIC_NOT_FOUND;
+    isMagicFound = NOT_FOUND;
 
     osDelay(1);
   }
