@@ -74,6 +74,8 @@ void StartLed2Task(void *argument)
       LED2_OFF();
       osDelay(SHORT_DELAY_MS);
     }
+
+    osDelay(1000);
   }
 
   osThreadTerminate(NULL);
