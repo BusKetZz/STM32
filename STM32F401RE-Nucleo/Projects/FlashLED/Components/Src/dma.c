@@ -62,7 +62,8 @@ static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
 static enum Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                               size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
-                                          size_t positionIndex);
+                                          size_t positionIndex,
+                                          size_t magicWordLength);
 
 
 
@@ -133,7 +134,8 @@ void StartDma2Usart1RxTask(void *argument)
           if(isMagicFound == Magic_Found)
           {
             oldPosition = UpdateLed2BufferAndPosition(led2UpdatedBlinksCount,
-                                                      oldPosition);
+                                                      oldPosition,
+                                                      MAGIC_WORD_LENGTH);
             break;
           }
         }
@@ -150,7 +152,7 @@ void StartDma2Usart1RxTask(void *argument)
             {
               oldPosition = leftBytes;
               oldPosition = UpdateLed2BufferAndPosition(led2UpdatedBlinksCount,
-                                                        oldPosition);
+                                                        oldPosition, 0);
               break;
             }
           }
@@ -167,7 +169,7 @@ void StartDma2Usart1RxTask(void *argument)
       
     isMagicFound = Magic_NotFound;
 
-    osDelay(1);
+    osDelay(1000);
   }
 }
 
@@ -200,10 +202,11 @@ static enum Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
 
 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
-                                          size_t positionIndex)
+                                          size_t positionIndex,
+                                          size_t magicWordLength)
                                        
 {
-  size_t newPosition = positionIndex + MAGIC_WORD_LENGTH;
+  size_t newPosition = positionIndex + magicWordLength;
   if(ARRAY_LENGTH(dma2Usart1RxBuffer) - newPosition == 1)
   {
     led2UpdatedBlinksCount[0] = dma2Usart1RxBuffer[newPosition];
