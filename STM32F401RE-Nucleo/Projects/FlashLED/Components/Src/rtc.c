@@ -118,13 +118,13 @@ time_t RTC_GetTimeInSeconds(void)
 
   struct tm timeDataFromRTC =
   {
-    .tm_wday = rtcDateStruct.WeekDay,
-    .tm_mday = rtcDateStruct.Day,
-    .tm_mon  = rtcDateStruct.Month - 1,
-    .tm_year = rtcDateStruct.Year + EPOCH_OFFSET,
-    .tm_hour = rtcTimeStruct.Hours,
-    .tm_min  = rtcTimeStruct.Minutes,
-    .tm_sec  = rtcTimeStruct.Seconds
+    .tm_wday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.WeekDay),
+    .tm_mday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Day),
+    .tm_mon  = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Month) - 1,
+    .tm_year = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Year) + EPOCH_OFFSET,
+    .tm_hour = __LL_RTC_CONVERT_BCD2BIN(rtcTimeStruct.Hours),
+    .tm_min  = __LL_RTC_CONVERT_BCD2BIN(rtcTimeStruct.Minutes),
+    .tm_sec  = __LL_RTC_CONVERT_BCD2BIN(rtcTimeStruct.Seconds)
   };
 
   time_t timeInSeconds = mktime(&timeDataFromRTC);
