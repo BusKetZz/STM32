@@ -13,7 +13,7 @@ extern "C"
 /*****************************************************************************/
 
 void RTC_Clock_Config(void);
-void RTC_Settings_Config(void);
+void RTC_InitialSettings_Config(void);
 
 
 
