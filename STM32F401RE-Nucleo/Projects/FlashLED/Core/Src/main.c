@@ -1,8 +1,9 @@
 #include "dma.h"
 #include "gpio.h"
+#include "idle_task.h"
 #include "led.h"
 #include "main.h"
-#include "idle_task.h"
+#include "rtc.h"
 #include "usart.h"
 
 #include "cmsis_os.h"
@@ -115,12 +116,13 @@ static void SystemClock_Config(void)
   }
   LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE2);
   LL_RCC_HSI_SetCalibTrimming(16);
-  LL_RCC_HSI_Enable();
 
+  LL_RCC_HSI_Enable();
   while(LL_RCC_HSI_IsReady() != 1)
   {
     
   }
+
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
@@ -158,6 +160,9 @@ static void ComponentsSetup(void)
 
   USART1_Clock_Config();
   USART1_RX_Config();
+
+  RTC_Clock_Config();
+  RTC_InitialSettings_Config();
 }
 
 
