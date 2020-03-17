@@ -4,6 +4,8 @@
 #include "stm32f4xx_ll_rcc.h"
 #include "stm32f4xx_ll_rtc.h"
 
+#include <time.h>
+
 
 
 /*****************************************************************************/
@@ -13,8 +15,9 @@
 #define RTC_SYNCH_PREDIV           ((uint32_t)0xF9)
 #define RTC_ASYNCH_PREDIV          ((uint32_t)0x7F)
 
-
 #define RTC_BKP_DATE_TIME_UPDATED ((uint32_t)0x32F2)
+
+#define EPOCH_OFFSET 100
 
 
 
@@ -64,25 +67,25 @@ void RTC_InitialSettings_Config(void)
     LL_RTC_SetSynchPrescaler(RTC, RTC_SYNCH_PREDIV);
     LL_RTC_SetAsynchPrescaler(RTC, RTC_ASYNCH_PREDIV);
 
-    LL_RTC_DateTypeDef RTC_DateStruct =
+    LL_RTC_DateTypeDef rtcDateStruct =
     {
       .WeekDay = LL_RTC_WEEKDAY_WEDNESDAY,
       .Month   = LL_RTC_MONTH_JANUARY,
       .Day     = 0x01,
       .Year    = 0x20
     };
-    LL_RTC_DATE_Config(RTC, RTC_DateStruct.WeekDay, RTC_DateStruct.Day,
-                       RTC_DateStruct.Month, RTC_DateStruct.Year);
+    LL_RTC_DATE_Config(RTC, rtcDateStruct.WeekDay, rtcDateStruct.Day,
+                       rtcDateStruct.Month, rtcDateStruct.Year);
 
-    LL_RTC_TimeTypeDef RTC_TimeStruct =
+    LL_RTC_TimeTypeDef rtcTimeStruct =
     {
       .TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
       .Hours      = 0x12,
       .Minutes    = 0x00,
       .Seconds    = 0x00
     };
-    LL_RTC_TIME_Config(RTC, RTC_TimeStruct.TimeFormat, RTC_TimeStruct.Hours,
-                       RTC_TimeStruct.Minutes, RTC_TimeStruct.Seconds);
+    LL_RTC_TIME_Config(RTC, rtcTimeStruct.TimeFormat, rtcTimeStruct.Hours,
+                       rtcTimeStruct.Minutes, rtcTimeStruct.Seconds);
 
     LL_RTC_SetHourFormat(RTC, LL_RTC_HOURFORMAT_24HOUR);
 
@@ -92,6 +95,41 @@ void RTC_InitialSettings_Config(void)
 
     LL_RTC_BAK_SetRegister(RTC, LL_RTC_BKP_DR0, RTC_BKP_DATE_TIME_UPDATED);
   }
+}
+
+
+
+time_t RTC_GetTimeSinceEpoch(void)
+{
+  LL_RTC_TimeTypeDef rtcTimeStruct =
+  {
+    .Hours   = LL_RTC_TIME_GetHour(RTC),
+    .Minutes = LL_RTC_TIME_GetMinute(RTC),
+    .Seconds = LL_RTC_TIME_GetSecond(RTC) 
+  };
+
+  LL_RTC_DateTypeDef rtcDateStruct =
+  {
+    .WeekDay = LL_RTC_DATE_GetWeekDay(RTC),
+    .Month   = LL_RTC_DATE_GetMonth(RTC),
+    .Day     = LL_RTC_DATE_GetDay(RTC),
+    .Year    = LL_RTC_DATE_GetYear(RTC)
+  };
+
+  struct tm timeDataFromRTC =
+  {
+    .tm_wday = rtcDateStruct.WeekDay,
+    .tm_mday = rtcDateStruct.Day,
+    .tm_mon  = rtcDateStruct.Month - 1,
+    .tm_year = rtcDateStruct.Year + EPOCH_OFFSET,
+    .tm_hour = rtcTimeStruct.Hours,
+    .tm_min  = rtcTimeStruct.Minutes,
+    .tm_sec  = rtcTimeStruct.Seconds
+  };
+
+  time_t timeInSeconds = mktime(&timeDataFromRTC);
+
+  return timeInSeconds;
 }
 
 
