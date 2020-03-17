@@ -18,7 +18,7 @@ extern "C"
 
 void RTC_Clock_Config(void);
 void RTC_InitialSettings_Config(void);
-time_t RTC_GetTimeSinceEpoch(void);
+time_t RTC_GetTimeInSeconds(void);
 
 
 

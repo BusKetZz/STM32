@@ -99,7 +99,7 @@ void RTC_InitialSettings_Config(void)
 
 
 
-time_t RTC_GetTimeSinceEpoch(void)
+time_t RTC_GetTimeInSeconds(void)
 {
   LL_RTC_TimeTypeDef rtcTimeStruct =
   {
