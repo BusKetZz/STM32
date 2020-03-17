@@ -1,4 +1,5 @@
 #include "dma.h"
+#include "rtc.h"
 #include "usart.h"
 
 #include "cmsis_os2.h"
@@ -165,8 +166,12 @@ void StartDma2Usart1RxTask(void *argument)
     }
 
     if(isMagicFound == Magic_Found)
+    {
       osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 0, 0);
       
+      time_t rtcTimeInSeconds = RTC_GetTimeInSeconds();
+    }
+
     isMagicFound = Magic_NotFound;
 
     osDelay(1000);
