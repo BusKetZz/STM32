@@ -14,7 +14,7 @@ extern "C"
 
 void GPIOA_Clock_Config(void);
 void GPIOA_LED2_Config(void);
-void GPIOA_USART1_RX_Config(void);
+void GPIOA_USART1_TX_RX_Config(void);
 
 
 
