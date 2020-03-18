@@ -19,22 +19,23 @@ void USART1_Clock_Config(void)
 
 
 
-void USART1_RX_Config(void)
+void USART1_TX_RX_Config(void)
 {
-  LL_USART_InitTypeDef USART1_RX_InitStructure =
+  LL_USART_InitTypeDef USART1_TX_RX_InitStructure =
   {
     .BaudRate = 115200,
     .DataWidth = LL_USART_DATAWIDTH_8B,
     .StopBits = LL_USART_STOPBITS_1,
     .Parity = LL_USART_PARITY_NONE,
-    .TransferDirection = LL_USART_DIRECTION_RX,
+    .TransferDirection = LL_USART_DIRECTION_TX_RX,
     .HardwareFlowControl = LL_USART_HWCONTROL_NONE,
     .OverSampling = LL_USART_OVERSAMPLING_16
   };
 
-  LL_USART_Init(USART1, &USART1_RX_InitStructure);
+  LL_USART_Init(USART1, &USART1_TX_RX_InitStructure);
   LL_USART_ConfigAsyncMode(USART1);
   LL_USART_EnableDMAReq_RX(USART1);
+  LL_USART_EnableDMAReq_TX(USART1);
 
   LL_USART_Enable(USART1);
 }
