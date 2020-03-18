@@ -153,13 +153,14 @@ static void ComponentsSetup(void)
 {
   GPIOA_Clock_Config();
   GPIOA_LED2_Config();
-  GPIOA_USART1_RX_Config();
+  GPIOA_USART1_TX_RX_Config();
 
   DMA2_Clock_Config();
   DMA2_USART1_RX_Config();
+  DMA2_USART1_TX_Config();
 
   USART1_Clock_Config();
-  USART1_RX_Config();
+  USART1_TX_RX_Config();
 
   RTC_Clock_Config();
   RTC_InitialSettings_Config();
