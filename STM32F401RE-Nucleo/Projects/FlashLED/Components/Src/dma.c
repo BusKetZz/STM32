@@ -56,16 +56,30 @@ static osMessageQueueId_t queueHandleForLed2Task;
 
 
 /*****************************************************************************/
+/*                           PRIVATE STRUCTURES                              */
+/*****************************************************************************/
+
+static struct __attribute__((packed))
+{
+  char magicWord[MAGIC_WORD_LENGTH + 1];
+  time_t rtcTime;
+}feedbackMessage;
+
+
+
+/*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DECLARATIONS                        */
 /*****************************************************************************/
 
+static void InitializeFeedbackMessage(void);
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
 static enum Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                               size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
                                           size_t positionIndex,
                                           size_t magicWordLength);
-
+static void SendFeedbackMessage(void);
+static void FeedbackMessageUpdateTime(void);
 
 
 /*****************************************************************************/
@@ -101,6 +115,26 @@ void DMA2_USART1_RX_Config(void)
 
 
 
+void DMA2_USART1_TX_Config(void)
+{
+  LL_DMA_SetChannelSelection(DMA2, LL_DMA_STREAM_7, LL_DMA_CHANNEL_4);
+  LL_DMA_SetDataTransferDirection(DMA2, LL_DMA_STREAM_7, 
+                                  LL_DMA_DIRECTION_MEMORY_TO_PERIPH);
+  LL_DMA_SetStreamPriorityLevel(DMA2, LL_DMA_STREAM_7, LL_DMA_PRIORITY_LOW);
+  LL_DMA_SetMode(DMA2, LL_DMA_STREAM_7, LL_DMA_MODE_NORMAL);
+  LL_DMA_SetPeriphIncMode(DMA2, LL_DMA_STREAM_7, LL_DMA_PERIPH_NOINCREMENT);
+  LL_DMA_SetMemoryIncMode(DMA2, LL_DMA_STREAM_7, LL_DMA_MEMORY_INCREMENT);
+  LL_DMA_SetPeriphSize(DMA2, LL_DMA_STREAM_7, LL_DMA_PDATAALIGN_BYTE);
+  LL_DMA_SetMemorySize(DMA2, LL_DMA_STREAM_7, LL_DMA_MDATAALIGN_BYTE);
+  LL_DMA_DisableFifoMode(DMA2, LL_DMA_STREAM_7);
+
+  LL_DMA_SetPeriphAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&USART1->DR);
+  LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_7, sizeof(feedbackMessage));
+  LL_DMA_SetMemoryAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&feedbackMessage);
+}
+
+
+
 osMessageQueueId_t GetQueueHandleForLed2Task(void)
 {
   return queueHandleForLed2Task;
@@ -121,6 +155,7 @@ void StartDma2Usart1RxTask(void *argument)
 
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
                                       sizeof(led2UpdatedBlinksCount), NULL);
+  InitializeFeedbackMessage();
 
   for(;;)
   {
@@ -169,7 +204,7 @@ void StartDma2Usart1RxTask(void *argument)
     {
       osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 0, 0);
       
-      time_t rtcTimeInSeconds = RTC_GetTimeInSeconds();
+      SendFeedbackMessage();
     }
 
     isMagicFound = Magic_NotFound;
@@ -183,6 +218,14 @@ void StartDma2Usart1RxTask(void *argument)
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DEFINITIONS                         */
 /*****************************************************************************/
+
+static void InitializeFeedbackMessage(void)
+{
+  strncpy(feedbackMessage.magicWord, MAGIC_WORD, MAGIC_WORD_LENGTH + 1);
+  feedbackMessage.rtcTime = 0;
+}
+
+
 
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void)
 {
@@ -231,4 +274,30 @@ static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
   }
 
   return newPosition;
+}
+
+
+
+static void SendFeedbackMessage(void)
+{
+  FeedbackMessageUpdateTime();
+
+  if(!LL_DMA_IsEnabledStream(DMA2, LL_DMA_STREAM_7))
+  {
+    LL_DMA_ClearFlag_TC7(DMA2);
+    LL_DMA_ClearFlag_HT7(DMA2);
+    LL_DMA_ClearFlag_DME7(DMA2);
+    LL_DMA_ClearFlag_FE7(DMA2);
+    LL_DMA_ClearFlag_TE7(DMA2);
+
+    LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_7);
+  }
+}
+
+
+
+static void FeedbackMessageUpdateTime(void)
+{
+  time_t rtcTimeInSeconds = RTC_GetTimeInSeconds();
+  feedbackMessage.rtcTime = rtcTimeInSeconds;
 }
