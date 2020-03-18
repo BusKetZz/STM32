@@ -49,13 +49,13 @@ void GPIOA_LED2_Config(void)
 
 
 
-void GPIOA_USART1_RX_Config(void)
+void GPIOA_USART1_TX_RX_Config(void)
 {
   /*
     PA9  ---> USART1_TX
     PA10 ---> USART1_RX
   */
-  LL_GPIO_InitTypeDef USART1_RX_GPIO_InitStruct =
+  LL_GPIO_InitTypeDef USART1_TX_RX_GPIO_InitStruct =
   {
     .Pin = USART1_TX_Pin | USART1_RX_Pin,
     .Mode = LL_GPIO_MODE_ALTERNATE,
@@ -65,5 +65,5 @@ void GPIOA_USART1_RX_Config(void)
     .Alternate = LL_GPIO_AF_7
   };
 
-  LL_GPIO_Init(USART1_GPIO_Port, &USART1_RX_GPIO_InitStruct);
+  LL_GPIO_Init(USART1_GPIO_Port, &USART1_TX_RX_GPIO_InitStruct);
 }
