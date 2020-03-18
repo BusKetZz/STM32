@@ -17,7 +17,7 @@ extern "C"
 /*****************************************************************************/
 
 void USART1_Clock_Config(void);
-void USART1_RX_Config(void);
+void USART1_TX_RX_Config(void);
 
 
 
