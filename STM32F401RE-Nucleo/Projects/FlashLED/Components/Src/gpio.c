@@ -15,6 +15,8 @@
 #define LED2_Pin         LL_GPIO_PIN_5
 #define LED2_GPIO_Port   GPIOA
 
+#define USART1_RX_Pin      LL_GPIO_PIN_10
+#define USART1_TX_Pin      LL_GPIO_PIN_9
 #define USART1_GPIO_Port   GPIOA
 
 
@@ -34,7 +36,7 @@ void GPIOA_LED2_Config(void)
 {
   LL_GPIO_ResetOutputPin(LED2_GPIO_Port, LED2_Pin);
 
-  LL_GPIO_InitTypeDef GPIO_LED2_InitStruct =
+  LL_GPIO_InitTypeDef LED2_GPIO_InitStruct =
   {
     .Pin = LED2_Pin,
     .Mode = LL_GPIO_MODE_OUTPUT,
@@ -42,7 +44,7 @@ void GPIOA_LED2_Config(void)
     .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
     .Pull = LL_GPIO_PULL_NO
   };
-  LL_GPIO_Init(LED2_GPIO_Port, &GPIO_LED2_InitStruct);
+  LL_GPIO_Init(LED2_GPIO_Port, &LED2_GPIO_InitStruct);
 }
 
 
@@ -50,11 +52,12 @@ void GPIOA_LED2_Config(void)
 void GPIOA_USART1_RX_Config(void)
 {
   /*
+    PA9  ---> USART1_TX
     PA10 ---> USART1_RX
   */
-  LL_GPIO_InitTypeDef GPIO_USART1_RX_InitStruct =
+  LL_GPIO_InitTypeDef USART1_RX_GPIO_InitStruct =
   {
-    .Pin = LL_GPIO_PIN_10,
+    .Pin = USART1_TX_Pin | USART1_RX_Pin,
     .Mode = LL_GPIO_MODE_ALTERNATE,
     .Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
     .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
@@ -62,5 +65,5 @@ void GPIOA_USART1_RX_Config(void)
     .Alternate = LL_GPIO_AF_7
   };
 
-  LL_GPIO_Init(USART1_GPIO_Port, &GPIO_USART1_RX_InitStruct);
+  LL_GPIO_Init(USART1_GPIO_Port, &USART1_RX_GPIO_InitStruct);
 }
