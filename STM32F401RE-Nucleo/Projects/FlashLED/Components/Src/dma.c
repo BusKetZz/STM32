@@ -35,11 +35,11 @@
 /*                             PRIVATE ENUMS                                 */
 /*****************************************************************************/
 
-enum Magic_t
+typedef enum isMagicFound_t
 {
   Magic_Found = 0,
   Magic_NotFound = -1,
-};
+}Magic_t;
 
 
 
@@ -73,7 +73,7 @@ static struct __attribute__((packed))
 
 static void InitializeFeedbackMessage(void);
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
-static enum Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
+static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                               size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
                                           size_t positionIndex,
@@ -129,8 +129,8 @@ void DMA2_USART1_TX_Config(void)
   LL_DMA_DisableFifoMode(DMA2, LL_DMA_STREAM_7);
 
   LL_DMA_SetPeriphAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&USART1->DR);
-  LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_7, sizeof(feedbackMessage));
   LL_DMA_SetMemoryAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&feedbackMessage);
+  LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_7, sizeof(feedbackMessage));
 }
 
 
@@ -150,7 +150,7 @@ void StartDma2Usart1RxTask(void *argument)
 {
   size_t oldPosition = 0;
   size_t currentPosition = 0;
-  enum Magic_t isMagicFound = Magic_NotFound;
+  Magic_t isMagicFound = Magic_NotFound;
   uint8_t led2UpdatedBlinksCount[2] = {0};
 
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
@@ -178,7 +178,7 @@ void StartDma2Usart1RxTask(void *argument)
         else if((ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition) != 0)
         {
           size_t offset = ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition;
-          enum Magic_t isPartOfMagicFound = Magic_NotFound;
+          Magic_t isPartOfMagicFound = Magic_NotFound;
           isPartOfMagicFound = FindMagic(oldPosition, 0, offset);
           if(isPartOfMagicFound == Magic_Found)
           {
@@ -235,7 +235,7 @@ static size_t GetCurrentPositionInDma2Usart1RxBuffer(void)
 
 
 
-static enum Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
+static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                          size_t magicWordLength)
 {
   int isMagicFound;
