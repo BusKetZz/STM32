@@ -200,6 +200,9 @@ void StartDma2Usart1RxTask(void *argument)
       }
     }
 
+    if(oldPosition == ARRAY_LENGTH(dma2Usart1RxBuffer))
+          oldPosition = 0;
+
     if(isMagicFound == Magic_Found)
     {
       osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 0, 0);
