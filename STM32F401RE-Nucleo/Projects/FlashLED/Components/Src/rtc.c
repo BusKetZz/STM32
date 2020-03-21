@@ -12,8 +12,8 @@
 /*                            PRIVATE DEFINES                                */
 /*****************************************************************************/
 
-#define RTC_SYNCH_PREDIV           ((uint32_t)0xF9)
-#define RTC_ASYNCH_PREDIV          ((uint32_t)0x7F)
+#define RTC_SYNCH_PREDIV           ((uint32_t)127)
+#define RTC_ASYNCH_PREDIV          ((uint32_t)255)
 
 #define RTC_BKP_DATE_TIME_UPDATED ((uint32_t)0x32F2)
 
@@ -38,17 +38,17 @@ void RTC_Clock_Config(void)
 {
   LL_PWR_EnableBkUpAccess();
 
-  LL_RCC_LSI_Enable();
-  while(LL_RCC_LSI_IsReady() != 1)
+  LL_RCC_LSE_Enable();
+  while(LL_RCC_LSE_IsReady() != 1)
   {
     
   }
 
-  if(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSI)
+  if(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSE)
   {
     LL_RCC_ForceBackupDomainReset();
     LL_RCC_ReleaseBackupDomainReset();
-    LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
+    LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
   }
 
   LL_RCC_EnableRTC();
