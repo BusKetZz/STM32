@@ -73,6 +73,8 @@ static struct __attribute__((packed))
 
 static void InitializeFeedbackMessage(void);
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
+static size_t CountBytesLeftToCheck(size_t currentPosition,
+                                    size_t oldPosition);
 static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                               size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
@@ -162,7 +164,9 @@ void StartDma2Usart1RxTask(void *argument)
     currentPosition = GetCurrentPositionInDma2Usart1RxBuffer();
     if(currentPosition != oldPosition)
     {
-      while(isMagicFound == Magic_NotFound)
+      while(isMagicFound == Magic_NotFound 
+            && CountBytesLeftToCheck(currentPosition, oldPosition) 
+            >= MAGIC_WORD_LENGTH)
       {
         if((ARRAY_LENGTH(dma2Usart1RxBuffer)-oldPosition) >= MAGIC_WORD_LENGTH)
         {
@@ -235,6 +239,20 @@ static size_t GetCurrentPositionInDma2Usart1RxBuffer(void)
   return ARRAY_LENGTH(dma2Usart1RxBuffer) - 
          LL_DMA_GetDataLength(DMA2, LL_DMA_STREAM_2);
 }
+
+
+
+static size_t CountBytesLeftToCheck(size_t currentPosition,
+                                    size_t oldPosition)
+{
+  if(currentPosition > oldPosition)
+    return currentPosition - oldPosition;
+  else if(currentPosition < oldPosition)
+    return (ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition) + currentPosition;
+  else
+    return 0;
+}
+
 
 
 
