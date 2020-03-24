@@ -17,7 +17,8 @@
 
 #define DMA2_BUFFER_SIZE 32
 
-#define MAGIC_WORD_LENGTH 4
+#define MAGIC_WORD_LENGTH  4
+#define CONFIG_BYTES_COUNT 2
 
 #define LED2TASK_QUEUE_MESSAGES_COUNT (uint32_t)1
 
@@ -166,7 +167,7 @@ void StartDma2Usart1RxTask(void *argument)
     {
       while(isMagicFound == Magic_NotFound 
             && CountBytesLeftToCheck(currentPosition, oldPosition) 
-            >= MAGIC_WORD_LENGTH)
+            >= (MAGIC_WORD_LENGTH + CONFIG_BYTES_COUNT))
       {
         if((ARRAY_LENGTH(dma2Usart1RxBuffer)-oldPosition) >= MAGIC_WORD_LENGTH)
         {
