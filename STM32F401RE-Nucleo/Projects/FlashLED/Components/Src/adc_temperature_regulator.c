@@ -6,6 +6,17 @@
 #include "stm32f4xx_ll_bus.h"
 
 
+/*****************************************************************************/
+/*                             PRIVATE ENUMS                                 */
+/*****************************************************************************/
+
+enum isAdcEnabled_t
+{
+  ADC_Disabled = 0,
+  ADC_Enabled  = 1
+};
+
+
 
 /*****************************************************************************/
 /*                     PUBLIC FUNCTIONS DEFINITIONS                          */
@@ -50,6 +61,12 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
                     &ADC1_TEMPERATURE_REGULATOR_CommonInitStruct);
 
   LL_ADC_DisableIT_EOCS(ADC1);
+
+  LL_ADC_Enable(ADC1);
+  while(LL_ADC_IsEnabled(ADC1) != ADC_Enabled)
+  {
+    ;
+  }
 }
 
 
@@ -60,7 +77,10 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
 
 void StartAdc1TemperatureRegulatorTask(void *argument)
 {
+  for(;;)
+  {
 
+  }
 
   osDelay(1000);
 }
