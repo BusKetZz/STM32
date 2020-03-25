@@ -1,5 +1,7 @@
 #include "adc_temperature_regulator.h"
 
+#include "cmsis_os2.h"
+
 #include "stm32f4xx_ll_adc.h"
 #include "stm32f4xx_ll_bus.h"
 
@@ -48,4 +50,17 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
                     &ADC1_TEMPERATURE_REGULATOR_CommonInitStruct);
 
   LL_ADC_DisableIT_EOCS(ADC1);
+}
+
+
+
+/*****************************************************************************/
+/*                         RTOS TASK DEFINITION                              */
+/*****************************************************************************/
+
+void StartAdc1TemperatureRegulatorTask(void *argument)
+{
+
+
+  osDelay(1000);
 }
