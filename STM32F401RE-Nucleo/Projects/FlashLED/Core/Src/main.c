@@ -49,6 +49,16 @@ const osThreadAttr_t Dma2Usart1RxAttributes =
 
 
 
+osThreadId_t Adc1TemperatureRegulatorTaskHandle;
+const osThreadAttr_t Adc1TemperatureRegulatorAttributes =
+{
+  .name = "Adc1TemperatureRegulatorTask",
+  .priority = (osPriority_t)osPriorityNormal1,
+  .stack_size = 128 * 4
+};
+
+
+
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DECLARATIONS                        */
 /*****************************************************************************/
@@ -76,6 +86,9 @@ int main(void)
   Led2TaskHandle = osThreadNew(StartLed2Task, NULL, &Led2TaskAttributes);
   Dma2Usart1RxTaskHandle = osThreadNew(StartDma2Usart1RxTask, NULL, 
                                        &Dma2Usart1RxAttributes);
+  Adc1TemperatureRegulatorTaskHandle =
+  osThreadNew(StartAdc1TemperatureRegulatorTask, NULL,
+              &Adc1TemperatureRegulatorAttributes);
 
   osKernelStart();
  
