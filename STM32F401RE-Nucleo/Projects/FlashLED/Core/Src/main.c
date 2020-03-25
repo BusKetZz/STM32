@@ -158,6 +158,7 @@ static void ComponentsSetup(void)
   GPIOA_USART1_TX_RX_Config();
 
   ADC1_TEMPERATURE_REGULATOR_Clock_Config();
+  ADC1_TEMPERATURE_REGULATOR_Settings_Config();
 
   DMA2_Clock_Config();
   DMA2_USART1_RX_Config();
