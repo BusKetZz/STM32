@@ -17,8 +17,11 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void);
 
 
 
+/*****************************************************************************/
+/*                         RTOS TASK DECLARATION                             */
+/*****************************************************************************/
 
-
+void StartAdc1TemperatureRegulatorTask(void *argument);
 
 
 
