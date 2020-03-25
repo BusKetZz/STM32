@@ -32,6 +32,19 @@ void GPIOA_Clock_Config(void)
 
 
 
+void GPIOA_ADC1_TEMPERATURE_REGULATOR_Config(void)
+{
+  LL_GPIO_InitTypeDef ADC1_TEMPERATURE_REGULATOR_GPIO_InitStruct =
+  {
+    .Pin  = LL_GPIO_PIN_0,
+    .Mode = LL_GPIO_MODE_ANALOG,
+    .Pull = LL_GPIO_PULL_NO 
+  };
+  LL_GPIO_Init(GPIOA, &ADC1_TEMPERATURE_REGULATOR_GPIO_InitStruct);
+}
+
+
+
 void GPIOA_LED2_Config(void)
 {
   LL_GPIO_ResetOutputPin(LED2_GPIO_Port, LED2_Pin);
