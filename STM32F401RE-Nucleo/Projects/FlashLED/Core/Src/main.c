@@ -1,3 +1,4 @@
+#include "adc_temperature_regulator.h"
 #include "dma.h"
 #include "gpio.h"
 #include "idle_task.h"
@@ -154,6 +155,8 @@ static void ComponentsSetup(void)
   GPIOA_Clock_Config();
   GPIOA_LED2_Config();
   GPIOA_USART1_TX_RX_Config();
+
+  ADC1_TEMPERATURE_REGULATOR_Clock_Config();
 
   DMA2_Clock_Config();
   DMA2_USART1_RX_Config();
