@@ -166,7 +166,7 @@ static void NVIC_PendSV_SysTick_IRQn_Config(void)
 static void ComponentsSetup(void)
 {
   GPIOA_Clock_Config();
-  GPIOA_ADC1_TEMPERATURE_REGULATOR_Config();
+  GPIOA_TEMPERATURE_REGULATOR_Config();
   GPIOA_LED2_Config();
   GPIOA_USART1_TX_RX_Config();
 
