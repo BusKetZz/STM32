@@ -32,15 +32,15 @@ void GPIOA_Clock_Config(void)
 
 
 
-void GPIOA_ADC1_TEMPERATURE_REGULATOR_Config(void)
+void GPIOA_TEMPERATURE_REGULATOR_Config(void)
 {
-  LL_GPIO_InitTypeDef ADC1_TEMPERATURE_REGULATOR_GPIO_InitStruct =
+  LL_GPIO_InitTypeDef ADC1_GPIO_ReadTemperature_InitStruct =
   {
     .Pin  = LL_GPIO_PIN_0,
     .Mode = LL_GPIO_MODE_ANALOG,
     .Pull = LL_GPIO_PULL_NO 
   };
-  LL_GPIO_Init(GPIOA, &ADC1_TEMPERATURE_REGULATOR_GPIO_InitStruct);
+  LL_GPIO_Init(GPIOA, &ADC1_GPIO_ReadTemperature_InitStruct);
 }
 
 
