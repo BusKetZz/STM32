@@ -48,7 +48,7 @@ enum isAdc1ConversionComplete
 /*                           PRIVATE VARIABLES                               */
 /*****************************************************************************/
 
-static const uint32_t thermistorResistance[THERMISTOR_RESISTANCE_COUNT] =
+static const uint32_t thermistorResistanceTable[THERMISTOR_RESISTANCE_COUNT] =
 {
  193500, 181461, 170268, 159850, 150146,
  141100, 132659, 124779, 117418, 110537,
@@ -84,7 +84,7 @@ static const uint32_t thermistorResistance[THERMISTOR_RESISTANCE_COUNT] =
     300
 };
 
-static const int temperature[TEMPERATURE_COUNT] =
+static const int temperatureTable[TEMPERATURE_COUNT] =
 {
   -30, -29, -28, -27, -26,
   -25, -24, -23, -22, -21,
@@ -192,12 +192,11 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 {
   uint32_t adcReadValue = 0;
   uint32_t thermistorResistance = 0;
-  int readTemperature = 0;
-
-  LL_ADC_REG_StartConversionSWStart(ADC1);
+  int temperature = 0;
 
   for(;;)
   {
+    LL_ADC_REG_StartConversionSWStart(ADC1);
     while(ADC1_IS_CONVERSION_COMPLETE() == ADC1_Conversion_NotComplete)
     {
       ;
@@ -216,7 +215,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     */
 
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
-    readTemperature = FindTemperature(thermistorResistance);
+    temperature = FindTemperature(thermistorResistance);
 
     osDelay(1000);
   }
@@ -242,5 +241,17 @@ static uint32_t CalculateThermistorResistance(uint32_t adcReadValue)
 
 static int FindTemperature(uint32_t thermistorResistance)
 {
-  
+  uint32_t tableIndex = 0;
+
+  while(tableIndex < (TEMPERATURE_COUNT - 1))
+  {
+    if(thermistorResistance >= thermistorResistanceTable[tableIndex])
+    {
+      return temperatureTable[tableIndex];
+    }
+    else
+    {
+      return temperatureTable[TEMPERATURE_COUNT-1];
+    }
+  }
 }
