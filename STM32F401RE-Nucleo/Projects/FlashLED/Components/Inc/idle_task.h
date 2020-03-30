@@ -9,7 +9,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                          RTOS TASK DECLARATION                            */
+/*                            RTOS TASK PROTOTYPE                            */
 /*****************************************************************************/
 
 void StartIdleTask(void *argument);
@@ -19,5 +19,5 @@ void StartIdleTask(void *argument);
 #ifdef  __cplusplus
 }
 #endif
- 
+
 #endif  /* IDLE_TASK_H */

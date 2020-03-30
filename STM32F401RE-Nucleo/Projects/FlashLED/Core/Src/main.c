@@ -18,7 +18,7 @@
 
 
 /*****************************************************************************/
-/*                  PRIVATE RTOS VARIABLES DECLARATIONS                      */
+/*                      RTOS VARIABLES DECLARATIONS                          */
 /*****************************************************************************/
 
 osThreadId_t IdleTaskHandle;
@@ -60,7 +60,7 @@ const osThreadAttr_t Adc1TemperatureRegulatorAttributes =
 
 
 /*****************************************************************************/
-/*                     PRIVATE FUNCTIONS DECLARATIONS                        */
+/*                      PRIVATE FUNCTIONS PROTOTYPES                         */
 /*****************************************************************************/
 
 static void HardwareInitialSetup(void);

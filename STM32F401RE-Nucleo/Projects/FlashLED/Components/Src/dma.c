@@ -69,7 +69,7 @@ static struct __attribute__((packed))
 
 
 /*****************************************************************************/
-/*                     PRIVATE FUNCTIONS DECLARATIONS                        */
+/*                      PRIVATE FUNCTIONS PROTOTYPES                         */
 /*****************************************************************************/
 
 static void InitializeFeedbackMessage(void);
@@ -83,6 +83,7 @@ static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
                                           size_t magicWordLength);
 static void SendFeedbackMessage(void);
 static void FeedbackMessageUpdateTime(void);
+
 
 
 /*****************************************************************************/

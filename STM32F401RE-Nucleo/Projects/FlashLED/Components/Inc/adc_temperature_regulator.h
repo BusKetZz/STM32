@@ -9,7 +9,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                    PUBLIC FUNCTIONS DECLARATIONS                          */
+/*                      PUBLIC FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
 void ADC1_TEMPERATURE_REGULATOR_Clock_Config(void);
@@ -18,7 +18,7 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void);
 
 
 /*****************************************************************************/
-/*                         RTOS TASK DECLARATION                             */
+/*                          RTOS TASK PROTOTYPE                              */
 /*****************************************************************************/
 
 void StartAdc1TemperatureRegulatorTask(void *argument);

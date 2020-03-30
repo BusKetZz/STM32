@@ -13,7 +13,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                    PUBLIC FUNCTIONS DECLARATIONS                          */
+/*                      PUBLIC FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
 void DMA2_Clock_Config(void);
@@ -25,7 +25,7 @@ osMessageQueueId_t GetQueueHandleForLed2Task(void);
 
 
 /*****************************************************************************/
-/*                         RTOS TASK DECLARATION                             */
+/*                           RTOS TASK PROTOTYPE                             */
 /*****************************************************************************/
 
 void StartDma2Usart1RxTask(void *argument);

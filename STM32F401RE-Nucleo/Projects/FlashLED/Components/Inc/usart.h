@@ -13,7 +13,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                    PUBLIC FUNCTIONS DECLARATIONS                          */
+/*                      PUBLIC FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
 void USART1_Clock_Config(void);

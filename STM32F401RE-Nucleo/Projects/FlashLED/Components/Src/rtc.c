@@ -22,7 +22,7 @@
 
 
 /*****************************************************************************/
-/*                     PRIVATE FUNCTIONS DECLARATIONS                        */
+/*                       PRIVATE FUNCTIONS PROTOTYPES                        */
 /*****************************************************************************/
 
 static void RTC_EnterInitMode(void);

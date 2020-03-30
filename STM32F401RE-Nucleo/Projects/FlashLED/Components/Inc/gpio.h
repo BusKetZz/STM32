@@ -9,7 +9,7 @@ extern "C"
 
 
 /*****************************************************************************/
-/*                    PUBLIC FUNCTIONS DECLARATIONS                          */
+/*                      PUBLIC FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
 void GPIOA_Clock_Config(void);
