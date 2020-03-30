@@ -41,6 +41,16 @@ void GPIOA_TEMPERATURE_REGULATOR_Config(void)
     .Pull = LL_GPIO_PULL_NO 
   };
   LL_GPIO_Init(GPIOA, &ADC1_GPIO_ReadTemperature_InitStruct);
+
+  LL_GPIO_InitTypeDef GPIO_Relay_Heater_InitStruct =
+  {
+    .Pin        = LL_GPIO_PIN_3,
+    .Mode       = LL_GPIO_MODE_OUTPUT,
+    .Speed      = LL_GPIO_SPEED_FREQ_LOW,
+    .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
+    .Pull       = LL_GPIO_PULL_NO
+  };
+  LL_GPIO_Init(GPIOA, &GPIO_Relay_Heater_InitStruct);
 }
 
 
