@@ -14,6 +14,8 @@
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
+#define TEMPERATURE_SET_POINT 25
+
 
 
 /*****************************************************************************/
@@ -210,12 +212,15 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
       return its value to calling function.
       At the end check whether temperature at this points is different than
       set temperature. 
-      If actual temperature is lower than specified, set GPIO pin to 1.
-      If actual temperature is greater than specified, reset GPIO pin to 0.
+      If yes, set/reset GPIO Pin (depends on relay logic)
     */
 
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
     temperature = FindTemperature(thermistorResistance);
+    if(temperature < TEMPERATURE_SET_POINT)
+    {
+      /* TODO */
+    }
 
     osDelay(1000);
   }
