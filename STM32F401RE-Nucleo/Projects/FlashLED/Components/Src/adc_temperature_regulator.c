@@ -4,6 +4,7 @@
 
 #include "stm32f4xx_ll_adc.h"
 #include "stm32f4xx_ll_bus.h"
+#include "stm32f4xx_ll_gpio.h"
 
 
 
@@ -23,6 +24,11 @@
 /*****************************************************************************/
 
 #define ADC1_IS_CONVERSION_COMPLETE() LL_ADC_IsActiveFlag_EOCS(ADC1)
+
+#define TURN_ON_HEATER()   LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3)
+#define TURN_OFF_HEATER()  LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_3)
+#define HEATER_IS_ON()    (LL_GPIO_IsOutputPinSet(GPIOA, LL_GPIO_PIN_3) == 0)
+#define HEATER_IS_OFF()   (LL_GPIO_IsOutputPinSet(GPIOA, LL_GPIO_PIN_3) == 1)
 
 
 
@@ -196,6 +202,8 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
   uint32_t thermistorResistance = 0;
   int temperature = 0;
 
+  TURN_OFF_HEATER();
+
   for(;;)
   {
     LL_ADC_REG_StartConversionSWStart(ADC1);
@@ -217,9 +225,13 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
     temperature = FindTemperature(thermistorResistance);
-    if(temperature < TEMPERATURE_SET_POINT)
+    if(temperature < TEMPERATURE_SET_POINT && HEATER_IS_OFF())
     {
-      /* TODO */
+      TURN_ON_HEATER();
+    }
+    else if(temperature >= TEMPERATURE_SET_POINT && HEATER_IS_ON())
+    {
+      TURN_OFF_HEATER();
     }
 
     osDelay(1000);
