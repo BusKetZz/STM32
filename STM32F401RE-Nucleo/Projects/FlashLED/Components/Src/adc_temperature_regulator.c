@@ -234,11 +234,11 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue)
 {
-  const uint32_t adcResolution = 4095;
-  const uint32_t resistanceOfVoltageDividerResistor = 10000;
+  const float adcResolution = 4095.0f;
+  const float resistanceOfVoltageDividerResistor = 10000.0f;
 
-  float thermistorResistance = resistanceOfVoltageDividerResistor *
-                               (adcResolution/adcReadValue - 1);
+  uint32_t thermistorResistance = resistanceOfVoltageDividerResistor *
+                                  (adcResolution/adcReadValue - 1.0f);
   return thermistorResistance;
 }
 
@@ -254,9 +254,6 @@ static int FindTemperature(uint32_t thermistorResistance)
     {
       return temperatureTable[tableIndex];
     }
-    else
-    {
-      return temperatureTable[TEMPERATURE_COUNT-1];
-    }
+    ++tableIndex;
   }
 }
