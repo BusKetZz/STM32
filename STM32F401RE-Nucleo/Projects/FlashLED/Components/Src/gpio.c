@@ -42,6 +42,7 @@ void GPIOA_TEMPERATURE_REGULATOR_Config(void)
   };
   LL_GPIO_Init(GPIOA, &ADC1_GPIO_ReadTemperature_InitStruct);
 
+  LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3);
   LL_GPIO_InitTypeDef GPIO_Relay_Heater_InitStruct =
   {
     .Pin        = LL_GPIO_PIN_3,
