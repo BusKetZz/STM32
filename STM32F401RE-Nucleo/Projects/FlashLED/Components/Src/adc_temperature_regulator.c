@@ -28,7 +28,7 @@
 #define TURN_ON_HEATER()   LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3)
 #define TURN_OFF_HEATER()  LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_3)
 #define HEATER_IS_ON()    (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_3) == 0)
-#define HEATER_IS_OFF()   (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_2) == 1)
+#define HEATER_IS_OFF()   (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_3) == 1)
 
 
 
