@@ -12,12 +12,18 @@
 /*                             PRIVATE DEFINES                               */
 /*****************************************************************************/
 
-#define LED2_Pin         LL_GPIO_PIN_5
-#define LED2_GPIO_Port   GPIOA
+#define ADC1_IN0_GPIO_PIN       LL_GPIO_PIN_0
+#define ADC1_IN0_GPIO_PORT      GPIOA
 
-#define USART1_RX_Pin      LL_GPIO_PIN_10
-#define USART1_TX_Pin      LL_GPIO_PIN_9
-#define USART1_GPIO_Port   GPIOA
+#define RELAY_HEATER_GPIO_PIN   LL_GPIO_PIN_3
+#define RELAY_HEATER_GPIO_PORT  GPIOA
+
+#define LED2_GPIO_PIN           LL_GPIO_PIN_5
+#define LED2_GPIO_PORT          GPIOA
+
+#define USART1_RX_GPIO_PIN      LL_GPIO_PIN_10
+#define USART1_TX_GPIO_PIN      LL_GPIO_PIN_9
+#define USART1_GPIO_PORT        GPIOA
 
 
 
@@ -36,39 +42,38 @@ void GPIOA_TEMPERATURE_REGULATOR_Config(void)
 {
   LL_GPIO_InitTypeDef ADC1_GPIO_ReadTemperature_InitStruct =
   {
-    .Pin  = LL_GPIO_PIN_0,
+    .Pin  = ADC1_IN0_GPIO_PIN,
     .Mode = LL_GPIO_MODE_ANALOG,
     .Pull = LL_GPIO_PULL_NO 
   };
-  LL_GPIO_Init(GPIOA, &ADC1_GPIO_ReadTemperature_InitStruct);
+  LL_GPIO_Init(ADC1_IN0_GPIO_PORT, &ADC1_GPIO_ReadTemperature_InitStruct);
 
-  LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3);
-  LL_GPIO_InitTypeDef GPIO_Relay_Heater_InitStruct =
+  LL_GPIO_InitTypeDef RelayHeater_GPIO_InitStruct =
   {
-    .Pin        = LL_GPIO_PIN_3,
+    .Pin        = RELAY_HEATER_GPIO_PIN,
     .Mode       = LL_GPIO_MODE_OUTPUT,
     .Speed      = LL_GPIO_SPEED_FREQ_LOW,
     .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
     .Pull       = LL_GPIO_PULL_NO
   };
-  LL_GPIO_Init(GPIOA, &GPIO_Relay_Heater_InitStruct);
+  LL_GPIO_Init(RELAY_HEATER_GPIO_PORT, &RelayHeater_GPIO_InitStruct);
 }
 
 
 
 void GPIOA_LED2_Config(void)
 {
-  LL_GPIO_ResetOutputPin(LED2_GPIO_Port, LED2_Pin);
+  LL_GPIO_ResetOutputPin(LED2_GPIO_PORT, LED2_GPIO_PIN);
 
   LL_GPIO_InitTypeDef LED2_GPIO_InitStruct =
   {
-    .Pin = LED2_Pin,
+    .Pin = LED2_GPIO_PIN,
     .Mode = LL_GPIO_MODE_OUTPUT,
     .Speed = LL_GPIO_SPEED_FREQ_LOW,
     .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
     .Pull = LL_GPIO_PULL_NO
   };
-  LL_GPIO_Init(LED2_GPIO_Port, &LED2_GPIO_InitStruct);
+  LL_GPIO_Init(LED2_GPIO_PORT, &LED2_GPIO_InitStruct);
 }
 
 
@@ -81,7 +86,7 @@ void GPIOA_USART1_TX_RX_Config(void)
   */
   LL_GPIO_InitTypeDef USART1_TX_RX_GPIO_InitStruct =
   {
-    .Pin = USART1_TX_Pin | USART1_RX_Pin,
+    .Pin = USART1_TX_GPIO_PIN | USART1_RX_GPIO_PIN,
     .Mode = LL_GPIO_MODE_ALTERNATE,
     .Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
     .OutputType = LL_GPIO_OUTPUT_PUSHPULL,
@@ -89,5 +94,5 @@ void GPIOA_USART1_TX_RX_Config(void)
     .Alternate = LL_GPIO_AF_7
   };
 
-  LL_GPIO_Init(USART1_GPIO_Port, &USART1_TX_RX_GPIO_InitStruct);
+  LL_GPIO_Init(USART1_GPIO_PORT, &USART1_TX_RX_GPIO_InitStruct);
 }
