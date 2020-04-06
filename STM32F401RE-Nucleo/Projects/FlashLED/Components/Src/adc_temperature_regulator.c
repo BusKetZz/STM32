@@ -12,6 +12,9 @@
 /*                            PRIVATE DEFINES                                */
 /*****************************************************************************/
 
+#define RELAY_HEATER_GPIO_PIN   LL_GPIO_PIN_8
+#define RELAY_HEATER_GPIO_PORT  GPIOA
+
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
@@ -25,10 +28,14 @@
 
 #define ADC1_IS_CONVERSION_COMPLETE() LL_ADC_IsActiveFlag_EOCS(ADC1)
 
-#define TURN_ON_HEATER()   LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3)
-#define TURN_OFF_HEATER()  LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_3)
-#define HEATER_IS_ON()    (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_3) == 0)
-#define HEATER_IS_OFF()   (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_3) == 1)
+#define TURN_ON_HEATER()   LL_GPIO_ResetOutputPin(RELAY_HEATER_GPIO_PORT,\
+                                                  RELAY_HEATER_GPIO_PIN)
+#define TURN_OFF_HEATER()  LL_GPIO_SetOutputPin(RELAY_HEATER_GPIO_PORT,\
+                                                RELAY_HEATER_GPIO_PIN)
+#define HEATER_IS_ON()    (LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT,\
+                                                 RELAY_HEATER_GPIO_PIN) == 0)
+#define HEATER_IS_OFF()   (LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT,\
+                                                 RELAY_HEATER_GPIO_PIN) == 1)
 
 
 
