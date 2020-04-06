@@ -53,8 +53,8 @@ osThreadId_t Adc1TemperatureRegulatorTaskHandle;
 const osThreadAttr_t Adc1TemperatureRegulatorAttributes =
 {
   .name = "Adc1TemperatureRegulatorTask",
-  .priority = (osPriority_t)osPriorityNormal1,
-  .stack_size = 128 * 4
+  .priority = (osPriority_t)osPriorityNormal2,
+  .stack_size = 256 * 4
 };
 
 
