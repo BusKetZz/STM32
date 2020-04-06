@@ -25,7 +25,7 @@ osThreadId_t IdleTaskHandle;
 const osThreadAttr_t IdleTaskAttributes =
 {
   .name = "IdleTask",
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityIdle,
   .stack_size = 128 * 4
 };
 
