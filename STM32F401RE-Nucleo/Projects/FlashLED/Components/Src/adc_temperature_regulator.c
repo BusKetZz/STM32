@@ -264,8 +264,9 @@ static int FindTemperature(uint32_t thermistorResistance)
   {
     if(thermistorResistance >= thermistorResistanceTable[tableIndex])
     {
-      return temperatureTable[tableIndex];
+      break;
     }
     ++tableIndex;
   }
+  return temperatureTable[tableIndex];
 }
