@@ -220,16 +220,6 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     }
     adcReadValue = LL_ADC_REG_ReadConversionData12(ADC1);
 
-    /*
-      Put adcReadValue into procedure which converts adcReadValue to thermistor
-      resistance.
-      Next, based on thermistor resistance find corresponding temperature and
-      return its value to calling function.
-      At the end check whether temperature at this points is different than
-      set temperature. 
-      If yes, set/reset GPIO Pin (depends on relay logic)
-    */
-
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
     temperature = FindTemperature(thermistorResistance);
     if(temperature < TEMPERATURE_SET_POINT && HEATER_IS_OFF())
