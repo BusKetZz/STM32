@@ -321,6 +321,5 @@ static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
 
 static void FeedbackMessageUpdateTime(void)
 {
-  time_t rtcTimeInSeconds = RTC_GetTimeInSeconds();
-  feedbackMessage.rtcTime = rtcTimeInSeconds;
+  feedbackMessage.rtcTime = RTC_GetTimeInSeconds();
 }
