@@ -72,16 +72,15 @@ static struct __attribute__((packed))
 /*                      PRIVATE FUNCTIONS PROTOTYPES                         */
 /*****************************************************************************/
 
-static void InitializeFeedbackMessage(void);
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
 static size_t CountBytesLeftToCheck(size_t currentPosition,
                                     size_t oldPosition);
 static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
-                              size_t magicWordLength); 
+                         size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
                                           size_t positionIndex,
                                           size_t magicWordLength);
-static void SendFeedbackMessage(void);
+static void InitializeFeedbackMessage(void);
 static void FeedbackMessageUpdateTime(void);
 
 
@@ -133,8 +132,6 @@ void DMA2_USART1_TX_Config(void)
   LL_DMA_DisableFifoMode(DMA2, LL_DMA_STREAM_7);
 
   LL_DMA_SetPeriphAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&USART1->DR);
-  LL_DMA_SetMemoryAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)&feedbackMessage);
-  LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_7, sizeof(feedbackMessage));
 }
 
 
@@ -142,6 +139,25 @@ void DMA2_USART1_TX_Config(void)
 osMessageQueueId_t GetQueueHandleForLed2Task(void)
 {
   return queueHandleForLed2Task;
+}
+
+
+
+void DMA2_USART1_TX_SendFeedbackMessage(void *objectAddress, size_t objectSize)
+{
+  LL_DMA_SetMemoryAddress(DMA2, LL_DMA_STREAM_7, (uint32_t)objectAddress);
+  LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_7, objectSize);
+
+  if(!LL_DMA_IsEnabledStream(DMA2, LL_DMA_STREAM_7))
+  {
+    LL_DMA_ClearFlag_TC7(DMA2);
+    LL_DMA_ClearFlag_HT7(DMA2);
+    LL_DMA_ClearFlag_DME7(DMA2);
+    LL_DMA_ClearFlag_FE7(DMA2);
+    LL_DMA_ClearFlag_TE7(DMA2);
+
+    LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_7);
+  }
 }
 
 
@@ -213,7 +229,9 @@ void StartDma2Usart1RxTask(void *argument)
     {
       osMessageQueuePut(queueHandleForLed2Task, led2UpdatedBlinksCount, 0, 0);
       
-      SendFeedbackMessage();
+      FeedbackMessageUpdateTime();
+      DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
+                                         sizeof(feedbackMessage));
     }
 
     isMagicFound = Magic_NotFound;
@@ -297,24 +315,6 @@ static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
   }
 
   return newPosition;
-}
-
-
-
-static void SendFeedbackMessage(void)
-{
-  FeedbackMessageUpdateTime();
-
-  if(!LL_DMA_IsEnabledStream(DMA2, LL_DMA_STREAM_7))
-  {
-    LL_DMA_ClearFlag_TC7(DMA2);
-    LL_DMA_ClearFlag_HT7(DMA2);
-    LL_DMA_ClearFlag_DME7(DMA2);
-    LL_DMA_ClearFlag_FE7(DMA2);
-    LL_DMA_ClearFlag_TE7(DMA2);
-
-    LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_7);
-  }
 }
 
 
