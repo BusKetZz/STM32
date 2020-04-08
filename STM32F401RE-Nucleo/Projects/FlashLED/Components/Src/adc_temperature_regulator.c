@@ -1,4 +1,6 @@
 #include "adc_temperature_regulator.h"
+#include "dma.h"
+#include "rtc.h"
 
 #include "cmsis_os2.h"
 
@@ -56,6 +58,14 @@ enum isAdc1ConversionComplete
   ADC1_Conversion_NotComplete = 0,
   ADC1_Conversion_Complete   = 1
 };
+
+
+
+typedef enum heaterState
+{
+  Heater_Off = 0,
+  Heater_On  = 1
+}heaterState_t;
 
 
 
@@ -138,12 +148,26 @@ static const int temperatureTable[TEMPERATURE_COUNT] =
 
 
 /*****************************************************************************/
+/*                           PRIVATE STRUCTURES                              */
+/*****************************************************************************/
+
+static struct __attribute__((packed))
+{
+  heaterState_t heaterState;
+  int temperature;
+  time_t rtcTime;
+}feedbackMessage;
+
+
+
+
+/*****************************************************************************/
 /*                     PRIVATE FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue);
 static int FindTemperature(uint32_t thermistorResistance);
-
+static void UpdateFeedbackMessage(int temperature, heaterState_t heaterState);
 
 
 /*****************************************************************************/
@@ -210,6 +234,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
   int temperature = 0;
 
   TURN_OFF_HEATER();
+  heaterState_t heaterState = Heater_Off;
 
   for(;;)
   {
@@ -225,12 +250,17 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     if(temperature < TEMPERATURE_SET_POINT && HEATER_IS_OFF())
     {
       TURN_ON_HEATER();
+      heaterState = Heater_On;
     }
     else if(temperature >= TEMPERATURE_SET_POINT && HEATER_IS_ON())
     {
       TURN_OFF_HEATER();
+      heaterState = Heater_Off;
     }
 
+    UpdateFeedbackMessage(temperature, heaterState);
+    DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
+                                       sizeof(feedbackMessage));
     osDelay(1000);
   }
 }
@@ -266,4 +296,13 @@ static int FindTemperature(uint32_t thermistorResistance)
     ++tableIndex;
   }
   return temperatureTable[tableIndex];
+}
+
+
+
+static void UpdateFeedbackMessage(int temperature, heaterState_t heaterState)
+{
+  feedbackMessage.temperature = temperature;
+  feedbackMessage.heaterState = heaterState;
+  feedbackMessage.rtcTime     = RTC_GetTimeInSeconds();
 }
