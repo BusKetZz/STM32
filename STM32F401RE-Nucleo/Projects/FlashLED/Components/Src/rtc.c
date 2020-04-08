@@ -127,9 +127,7 @@ time_t RTC_GetTimeInSeconds(void)
     .tm_sec  = __LL_RTC_CONVERT_BCD2BIN(rtcTimeStruct.Seconds)
   };
 
-  time_t timeInSeconds = mktime(&timeDataFromRTC);
-
-  return timeInSeconds;
+  return mktime(&timeDataFromRTC);
 }
 
 
