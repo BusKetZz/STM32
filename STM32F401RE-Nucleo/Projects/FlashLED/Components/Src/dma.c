@@ -18,7 +18,10 @@
 #define DMA2_BUFFER_SIZE 32
 
 #define MAGIC_WORD_LENGTH  4
+
 #define CONFIG_BYTES_COUNT 2
+#define LONG_BLINK_BYTE    0
+#define SHORT_BLINK_BYTE   1
 
 #define LED2TASK_QUEUE_MESSAGES_COUNT (uint32_t)1
 
@@ -171,7 +174,7 @@ void StartDma2Usart1RxTask(void *argument)
   size_t oldPosition = 0;
   size_t currentPosition = 0;
   MagicStatus_t isMagicFound = Magic_NotFound;
-  uint8_t led2UpdatedBlinksCount[2] = {0};
+  uint8_t led2UpdatedBlinksCount[CONFIG_BYTES_COUNT] = {0};
 
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
                                       sizeof(led2UpdatedBlinksCount), NULL);
@@ -266,26 +269,36 @@ static size_t CountBytesLeftToCheck(size_t currentPosition,
                                     size_t oldPosition)
 {
   if(currentPosition > oldPosition)
+  {
     return currentPosition - oldPosition;
+  }
   else if(currentPosition < oldPosition)
+  {
     return (ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition) + currentPosition;
+  }
   else
+  {
     return 0;
+  }
 }
 
 
 
 
 static MagicStatus_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
-                         size_t magicWordLength)
+                               size_t magicWordLength)
 {
   int isMagicFound;
   isMagicFound = memcmp(dma2Usart1RxBuffer + dma2BufferOffset,
                         MAGIC_WORD + magicWordOffset, magicWordLength);
   if(isMagicFound == 0)
+  {
     return Magic_Found;
+  }
   else
+  {
     return Magic_NotFound;
+  }
 }
 
 
@@ -298,20 +311,20 @@ static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
   size_t newPosition = positionIndex + magicWordLength;
   if(ARRAY_LENGTH(dma2Usart1RxBuffer) - newPosition == 1)
   {
-    led2UpdatedBlinksCount[0] = dma2Usart1RxBuffer[newPosition];
+    led2UpdatedBlinksCount[LONG_BLINK_BYTE] =dma2Usart1RxBuffer[newPosition];
     newPosition = 0;
-    led2UpdatedBlinksCount[1] = dma2Usart1RxBuffer[newPosition++];
+    led2UpdatedBlinksCount[SHORT_BLINK_BYTE]=dma2Usart1RxBuffer[newPosition++];
   }
   else if(ARRAY_LENGTH(dma2Usart1RxBuffer) - newPosition == 0)
   {
     newPosition = 0;
-    led2UpdatedBlinksCount[0] = dma2Usart1RxBuffer[newPosition++];
-    led2UpdatedBlinksCount[1] = dma2Usart1RxBuffer[newPosition++];
+    led2UpdatedBlinksCount[LONG_BLINK_BYTE] =dma2Usart1RxBuffer[newPosition++];
+    led2UpdatedBlinksCount[SHORT_BLINK_BYTE]=dma2Usart1RxBuffer[newPosition++];
   }
   else
   {
-    led2UpdatedBlinksCount[0] = dma2Usart1RxBuffer[newPosition++];
-    led2UpdatedBlinksCount[1] = dma2Usart1RxBuffer[newPosition++];
+    led2UpdatedBlinksCount[LONG_BLINK_BYTE] =dma2Usart1RxBuffer[newPosition++];
+    led2UpdatedBlinksCount[SHORT_BLINK_BYTE]=dma2Usart1RxBuffer[newPosition++];
   }
 
   return newPosition;
