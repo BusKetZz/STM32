@@ -40,7 +40,7 @@ typedef enum isMagicFound_t
 {
   Magic_Found = 0,
   Magic_NotFound = -1,
-}Magic_t;
+}MagicStatus_t;
 
 
 
@@ -75,7 +75,7 @@ static struct __attribute__((packed))
 static size_t GetCurrentPositionInDma2Usart1RxBuffer(void);
 static size_t CountBytesLeftToCheck(size_t currentPosition,
                                     size_t oldPosition);
-static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
+static MagicStatus_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                          size_t magicWordLength); 
 static size_t UpdateLed2BufferAndPosition(uint8_t *led2UpdatedBlinksCount,
                                           size_t positionIndex,
@@ -170,7 +170,7 @@ void StartDma2Usart1RxTask(void *argument)
 {
   size_t oldPosition = 0;
   size_t currentPosition = 0;
-  Magic_t isMagicFound = Magic_NotFound;
+  MagicStatus_t isMagicFound = Magic_NotFound;
   uint8_t led2UpdatedBlinksCount[2] = {0};
 
   queueHandleForLed2Task = osMessageQueueNew(LED2TASK_QUEUE_MESSAGES_COUNT, 
@@ -200,7 +200,7 @@ void StartDma2Usart1RxTask(void *argument)
         else if((ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition) != 0)
         {
           size_t offset = ARRAY_LENGTH(dma2Usart1RxBuffer) - oldPosition;
-          Magic_t isPartOfMagicFound = Magic_NotFound;
+          MagicStatus_t isPartOfMagicFound = Magic_NotFound;
           isPartOfMagicFound = FindMagic(oldPosition, 0, offset);
           if(isPartOfMagicFound == Magic_Found)
           {
@@ -276,7 +276,7 @@ static size_t CountBytesLeftToCheck(size_t currentPosition,
 
 
 
-static Magic_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
+static MagicStatus_t FindMagic(size_t dma2BufferOffset, size_t magicWordOffset,
                          size_t magicWordLength)
 {
   int isMagicFound;
