@@ -17,10 +17,10 @@
 #define RELAY_HEATER_GPIO_PIN   LL_GPIO_PIN_8
 #define RELAY_HEATER_GPIO_PORT  GPIOA
 
+#define TEMPERATURE_SET_POINT 25
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
-#define TEMPERATURE_SET_POINT 25
 
 
 
@@ -295,6 +295,7 @@ static int FindTemperature(uint32_t thermistorResistance)
     }
     ++tableIndex;
   }
+  
   return temperatureTable[tableIndex];
 }
 
