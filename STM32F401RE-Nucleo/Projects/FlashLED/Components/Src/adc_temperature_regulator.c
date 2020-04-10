@@ -68,7 +68,7 @@ typedef enum heaterState
 
 
 /*****************************************************************************/
-/*                           PRIVATE VARIABLES                               */
+/*                           REFERENCE TABLES                                */
 /*****************************************************************************/
 
 static const uint32_t thermistorResistanceTable[THERMISTOR_RESISTANCE_COUNT] =
@@ -261,7 +261,8 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     UpdateFeedbackMessage(temperature, heaterState);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
                                        sizeof(feedbackMessage));
-    osDelay(2000);
+
+    osDelay(1000);
   }
 }
 
