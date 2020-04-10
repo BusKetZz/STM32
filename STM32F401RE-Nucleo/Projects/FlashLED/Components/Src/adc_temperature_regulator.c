@@ -4,6 +4,8 @@
 
 #include "cmsis_os2.h"
 
+#include "stm32f4xx.h"
+
 #include "stm32f4xx_ll_adc.h"
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_gpio.h"
@@ -34,10 +36,6 @@
                                                   RELAY_HEATER_GPIO_PIN)
 #define TURN_OFF_HEATER()  LL_GPIO_SetOutputPin(RELAY_HEATER_GPIO_PORT,\
                                                 RELAY_HEATER_GPIO_PIN)
-#define HEATER_IS_ON()    (LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT,\
-                                                 RELAY_HEATER_GPIO_PIN) == 0)
-#define HEATER_IS_OFF()   (LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT,\
-                                                 RELAY_HEATER_GPIO_PIN) == 1)
 
 
 
@@ -63,8 +61,8 @@ enum isAdc1ConversionComplete
 
 typedef enum heaterState
 {
-  Heater_Off = 0,
-  Heater_On  = 1
+  Heater_On  = 0,
+  Heater_Off = 1
 }heaterState_t;
 
 
@@ -167,6 +165,7 @@ static struct __attribute__((packed))
 
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue);
 static int FindTemperature(uint32_t thermistorResistance);
+static heaterState_t CheckHeaterState(void);
 static void UpdateFeedbackMessage(int temperature, heaterState_t heaterState);
 
 
@@ -234,7 +233,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
   int temperature = 0;
 
   TURN_OFF_HEATER();
-  heaterState_t heaterState = Heater_Off;
+  heaterState_t heaterState = CheckHeaterState();
 
   for(;;)
   {
@@ -247,12 +246,13 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
     temperature = FindTemperature(thermistorResistance);
-    if(temperature < TEMPERATURE_SET_POINT && HEATER_IS_OFF())
+    heaterState = CheckHeaterState();
+    if(temperature < TEMPERATURE_SET_POINT && heaterState == Heater_Off)
     {
       TURN_ON_HEATER();
       heaterState = Heater_On;
     }
-    else if(temperature >= TEMPERATURE_SET_POINT && HEATER_IS_ON())
+    else if(temperature >= TEMPERATURE_SET_POINT && heaterState == Heater_On)
     {
       TURN_OFF_HEATER();
       heaterState = Heater_Off;
@@ -261,7 +261,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     UpdateFeedbackMessage(temperature, heaterState);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
                                        sizeof(feedbackMessage));
-    osDelay(1000);
+    osDelay(2000);
   }
 }
 
@@ -297,6 +297,20 @@ static int FindTemperature(uint32_t thermistorResistance)
   }
   
   return temperatureTable[tableIndex];
+}
+
+
+
+static heaterState_t CheckHeaterState(void)
+{
+  if(LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT, RELAY_HEATER_GPIO_PIN) == 0)
+  {
+    return Heater_On;
+  }
+  else
+  {
+    return Heater_Off;
+  }
 }
 
 
