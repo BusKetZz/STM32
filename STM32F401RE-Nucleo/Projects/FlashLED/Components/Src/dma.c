@@ -1,3 +1,4 @@
+#include "adc_temperature_regulator.h"
 #include "dma.h"
 #include "rtc.h"
 #include "usart.h"
@@ -153,13 +154,17 @@ void DMA2_USART1_TX_SendFeedbackMessage(void *objectAddress, size_t objectSize)
 
   if(!LL_DMA_IsEnabledStream(DMA2, LL_DMA_STREAM_7))
   {
+    LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_7);
+
+    while(LL_DMA_IsActiveFlag_TC7(DMA2) == 0)
+    {
+      ;
+    }
     LL_DMA_ClearFlag_TC7(DMA2);
     LL_DMA_ClearFlag_HT7(DMA2);
     LL_DMA_ClearFlag_DME7(DMA2);
     LL_DMA_ClearFlag_FE7(DMA2);
     LL_DMA_ClearFlag_TE7(DMA2);
-
-    LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_7);
   }
 }
 
