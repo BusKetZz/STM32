@@ -152,6 +152,7 @@ static const int temperatureTable[TEMPERATURE_COUNT] =
 static struct __attribute__((packed))
 {
   heaterState_t heaterState;
+  uint32_t adcReadValue;
   int temperature;
   time_t rtcTime;
 }feedbackMessage;
@@ -166,7 +167,8 @@ static struct __attribute__((packed))
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue);
 static int FindTemperature(uint32_t thermistorResistance);
 static heaterState_t CheckHeaterState(void);
-static void UpdateFeedbackMessage(int temperature, heaterState_t heaterState);
+static void UpdateFeedbackMessage(heaterState_t heaterState,
+                                  uint32_t adcReadValue, int temperature);
 
 
 /*****************************************************************************/
@@ -258,7 +260,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
       heaterState = Heater_Off;
     }
 
-    UpdateFeedbackMessage(temperature, heaterState);
+    UpdateFeedbackMessage(heaterState, adcReadValue, temperature);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
                                        sizeof(feedbackMessage));
 
@@ -316,9 +318,11 @@ static heaterState_t CheckHeaterState(void)
 
 
 
-static void UpdateFeedbackMessage(int temperature, heaterState_t heaterState)
+static void UpdateFeedbackMessage(heaterState_t heaterState,
+                                  uint32_t adcReadValue, int temperature)
 {
-  feedbackMessage.temperature = temperature;
-  feedbackMessage.heaterState = heaterState;
-  feedbackMessage.rtcTime     = RTC_GetTimeInSeconds();
+  feedbackMessage.heaterState  = heaterState;
+  feedbackMessage.adcReadValue = adcReadValue;
+  feedbackMessage.temperature  = temperature;
+  feedbackMessage.rtcTime      = RTC_GetTimeInSeconds();
 }
