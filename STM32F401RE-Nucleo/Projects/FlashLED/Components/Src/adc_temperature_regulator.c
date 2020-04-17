@@ -19,6 +19,9 @@
 #define RELAY_HEATER_GPIO_PIN   LL_GPIO_PIN_8
 #define RELAY_HEATER_GPIO_PORT  GPIOA
 
+#define ADC_READ_VALUE_MIN  201
+#define ADC_READ_VALUE_MAX  3975
+
 #define TEMPERATURE_SET_POINT 25
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
@@ -245,6 +248,11 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
       ;
     }
     adcReadValue = LL_ADC_REG_ReadConversionData12(ADC1);
+    if(adcReadValue < ADC_READ_VALUE_MIN || adcReadValue > ADC_READ_VALUE_MAX)
+    {
+      osDelay(1000);
+      continue;
+    }
 
     thermistorResistance = CalculateThermistorResistance(adcReadValue);
     temperature = FindTemperature(thermistorResistance);
