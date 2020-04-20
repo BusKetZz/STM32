@@ -11,6 +11,7 @@
 #include "stm32f4xx_ll_gpio.h"
 
 #include <stdio.h>
+#include <string.h>
 
 
 
@@ -156,11 +157,7 @@ static const int temperatureTable[TEMPERATURE_COUNT] =
 
 static struct __attribute__((packed))
 {
-  heaterState_t heaterState;
-  char adcReadValue[5];
-  char temperature[5];
-  char rtcTime[20];
-  char separateCharacter[2];
+  char dataString[40];
 }feedbackMessage;
 
 
@@ -332,13 +329,34 @@ static heaterState_t CheckHeaterState(void)
 static void UpdateFeedbackMessage(heaterState_t heaterState,
                                   uint32_t adcReadValue, int temperature)
 {
-  feedbackMessage.heaterState = heaterState;
-  sprintf(feedbackMessage.adcReadValue, "%u", adcReadValue);
-  sprintf(feedbackMessage.temperature, "%d", temperature);
+  memset(feedbackMessage.dataString, 0, sizeof(feedbackMessage.dataString));
+  size_t dataStringOffset = 0;
+
+  if(heaterState == Heater_On)
+  {
+    sprintf(feedbackMessage.dataString, "ON");
+    dataStringOffset += strlen("ON");
+  }
+  else
+  {
+    sprintf(feedbackMessage.dataString, "OFF");
+    dataStringOffset += strlen("OFF");
+  }
+  feedbackMessage.dataString[dataStringOffset] = ' ';
+  ++dataStringOffset;
+
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%u", adcReadValue);
+  dataStringOffset += strlen(feedbackMessage.dataString);
+  feedbackMessage.dataString[dataStringOffset] = ' ';
+  ++dataStringOffset;
+
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%d", temperature);
+  dataStringOffset += strlen(feedbackMessage.dataString);
+  feedbackMessage.dataString[dataStringOffset] = ' ';
+  ++dataStringOffset;
 
   time_t timeInSeconds = RTC_GetTimeInSeconds();
-  sprintf(feedbackMessage.rtcTime, "%ld", timeInSeconds);
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%ld", timeInSeconds);
 
-  feedbackMessage.separateCharacter[0] = '\n';
-  feedbackMessage.separateCharacter[1] = '\r';
+  feedbackMessage.dataString[sizeof(feedbackMessage.dataString) - 1] = '\n';
 }
