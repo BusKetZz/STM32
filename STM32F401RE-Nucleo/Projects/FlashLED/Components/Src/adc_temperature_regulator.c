@@ -10,6 +10,8 @@
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_gpio.h"
 
+#include <stdio.h>
+
 
 
 /*****************************************************************************/
@@ -155,9 +157,10 @@ static const int temperatureTable[TEMPERATURE_COUNT] =
 static struct __attribute__((packed))
 {
   heaterState_t heaterState;
-  uint32_t adcReadValue;
-  int temperature;
-  time_t rtcTime;
+  char adcReadValue[5];
+  char temperature[5];
+  char rtcTime[20];
+  char separateCharacter[2];
 }feedbackMessage;
 
 
@@ -329,8 +332,13 @@ static heaterState_t CheckHeaterState(void)
 static void UpdateFeedbackMessage(heaterState_t heaterState,
                                   uint32_t adcReadValue, int temperature)
 {
-  feedbackMessage.heaterState  = heaterState;
-  feedbackMessage.adcReadValue = adcReadValue;
-  feedbackMessage.temperature  = temperature;
-  feedbackMessage.rtcTime      = RTC_GetTimeInSeconds();
+  feedbackMessage.heaterState = heaterState;
+  sprintf(feedbackMessage.adcReadValue, "%u", adcReadValue);
+  sprintf(feedbackMessage.temperature, "%d", temperature);
+
+  time_t timeInSeconds = RTC_GetTimeInSeconds();
+  sprintf(feedbackMessage.rtcTime, "%ld", timeInSeconds);
+
+  feedbackMessage.separateCharacter[0] = '\n';
+  feedbackMessage.separateCharacter[1] = '\r';
 }
