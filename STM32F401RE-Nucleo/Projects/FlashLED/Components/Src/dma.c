@@ -244,7 +244,7 @@ void StartDma2Usart1RxTask(void *argument)
 
     isMagicFound = Magic_NotFound;
 
-    osDelay(1000);
+    osDelay(500);
   }
 }
 
