@@ -12,8 +12,8 @@
 /*                            PRIVATE DEFINES                                */
 /*****************************************************************************/
 
-#define RTC_SYNCH_PREDIV           ((uint32_t)127)
-#define RTC_ASYNCH_PREDIV          ((uint32_t)255)
+#define RTC_SYNCH_PREDIV           ((uint32_t)255)
+#define RTC_ASYNCH_PREDIV          ((uint32_t)127)
 
 #define RTC_BKP_DATE_TIME_UPDATED ((uint32_t)0x32F2)
 
