@@ -80,9 +80,9 @@ void RTC_InitialSettings_Config(void)
     LL_RTC_TimeTypeDef rtcTimeStruct =
     {
       .TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
-      .Hours      = 0x11,
-      .Minutes    = 0x45,
-      .Seconds    = 0x0
+      .Hours      = 0x18,
+      .Minutes    = 0x05,
+      .Seconds    = 0x00
     };
     LL_RTC_TIME_Config(RTC, rtcTimeStruct.TimeFormat, rtcTimeStruct.Hours,
                        rtcTimeStruct.Minutes, rtcTimeStruct.Seconds);
@@ -118,7 +118,7 @@ time_t RTC_GetTimeInSeconds(void)
 
   struct tm timeDataFromRTC =
   {
-    .tm_wday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.WeekDay),
+    .tm_wday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.WeekDay) - 1,
     .tm_mday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Day),
     .tm_mon  = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Month) - 1,
     .tm_year = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Year) + EPOCH_OFFSET,
