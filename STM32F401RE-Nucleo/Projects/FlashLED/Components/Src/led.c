@@ -20,8 +20,8 @@
 #define LONG_BLINKS_INDEX  0
 #define SHORT_BLINKS_INDEX 1
 
-#define LONG_DELAY_MS 1000
-#define SHORT_DELAY_MS 250
+#define SHORT_DELAY_MS 200
+#define LONG_DELAY_MS  (3 * SHORT_DELAY_MS)
 
 
 
@@ -75,7 +75,7 @@ void StartLed2Task(void *argument)
       osDelay(SHORT_DELAY_MS);
     }
 
-    osDelay(1000);
+    osDelay(500);
   }
 
   osThreadTerminate(NULL);
