@@ -25,7 +25,7 @@
 #define ADC_READ_VALUE_MIN  201
 #define ADC_READ_VALUE_MAX  3975
 
-#define TEMPERATURE_SET_POINT 50
+#define TEMPERATURE_SET_POINT 40
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
@@ -167,6 +167,7 @@ static struct __attribute__((packed))
 /*                     PRIVATE FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
+static uint32_t StartAndReadAdcConversion(void);
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue);
 static int FindTemperature(uint32_t thermistorResistance);
 static heaterState_t CheckHeaterState(void);
@@ -242,14 +243,10 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
   for(;;)
   {
-    LL_ADC_REG_StartConversionSWStart(ADC1);
-    while(ADC1_IS_CONVERSION_COMPLETE() == ADC1_Conversion_NotComplete)
-    {
-      ;
-    }
-    adcReadValue = LL_ADC_REG_ReadConversionData12(ADC1);
+    adcReadValue = StartAndReadAdcConversion();
     if(adcReadValue < ADC_READ_VALUE_MIN || adcReadValue > ADC_READ_VALUE_MAX)
     {
+      TURN_OFF_HEATER();
       osDelay(1000);
       continue;
     }
@@ -281,6 +278,19 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DEFINITIONS                         */
 /*****************************************************************************/
+
+static uint32_t StartAndReadAdcConversion(void)
+{
+  LL_ADC_REG_StartConversionSWStart(ADC1);
+  while(ADC1_IS_CONVERSION_COMPLETE() == ADC1_Conversion_NotComplete)
+  {
+    ;
+  }
+
+  return LL_ADC_REG_ReadConversionData12(ADC1);
+}
+
+
 
 static uint32_t CalculateThermistorResistance(uint32_t adcReadValue)
 {
