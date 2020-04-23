@@ -25,7 +25,7 @@
 #define ADC_READ_VALUE_MIN  201
 #define ADC_READ_VALUE_MAX  3975
 
-#define TEMPERATURE_SET_POINT 40
+#define TEMPERATURE_SET_POINT 35
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
@@ -259,7 +259,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
       TURN_ON_HEATER();
       heaterState = Heater_On;
     }
-    else if(temperature >= TEMPERATURE_SET_POINT && heaterState == Heater_On)
+    else if(temperature > TEMPERATURE_SET_POINT && heaterState == Heater_On)
     {
       TURN_OFF_HEATER();
       heaterState = Heater_Off;
