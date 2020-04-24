@@ -22,8 +22,8 @@
 #define RELAY_HEATER_GPIO_PIN   LL_GPIO_PIN_8
 #define RELAY_HEATER_GPIO_PORT  GPIOA
 
-#define ADC_READ_VALUE_MIN  201
-#define ADC_READ_VALUE_MAX  3975
+#define ADC_MEASUREMENT_MIN  201
+#define ADC_MEASUREMENT_MAX  3975
 
 #define TEMPERATURE_SET_POINT 35
 #define TEMPERATURE_COUNT 156
@@ -168,11 +168,11 @@ static struct __attribute__((packed))
 /*****************************************************************************/
 
 static uint32_t StartAndReadAdcConversion(void);
-static uint32_t CalculateThermistorResistance(uint32_t adcReadValue);
+static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement);
 static int FindTemperature(uint32_t thermistorResistance);
 static heaterState_t CheckHeaterState(void);
 static void UpdateFeedbackMessage(heaterState_t heaterState,
-                                  uint32_t adcReadValue, int temperature);
+                                  uint32_t adcMeasurement, int temperature);
 
 
 /*****************************************************************************/
@@ -234,7 +234,7 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
 
 void StartAdc1TemperatureRegulatorTask(void *argument)
 {
-  uint32_t adcReadValue = 0;
+  uint32_t adcMeasurement = 0;
   uint32_t thermistorResistance = 0;
   int temperature = 0;
 
@@ -243,15 +243,16 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
   for(;;)
   {
-    adcReadValue = StartAndReadAdcConversion();
-    if(adcReadValue < ADC_READ_VALUE_MIN || adcReadValue > ADC_READ_VALUE_MAX)
+    adcMeasurement = StartAndReadAdcConversion();
+    if(adcMeasurement < ADC_MEASUREMENT_MIN ||
+      adcMeasurement > ADC_MEASUREMENT_MAX)
     {
       TURN_OFF_HEATER();
       osDelay(1000);
       continue;
     }
 
-    thermistorResistance = CalculateThermistorResistance(adcReadValue);
+    thermistorResistance = CalculateThermistorResistance(adcMeasurement);
     temperature = FindTemperature(thermistorResistance);
     heaterState = CheckHeaterState();
     if(temperature < TEMPERATURE_SET_POINT && heaterState == Heater_Off)
@@ -259,13 +260,13 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
       TURN_ON_HEATER();
       heaterState = Heater_On;
     }
-    else if(temperature > TEMPERATURE_SET_POINT && heaterState == Heater_On)
+    else if(temperature >= TEMPERATURE_SET_POINT && heaterState == Heater_On)
     {
       TURN_OFF_HEATER();
       heaterState = Heater_Off;
     }
 
-    UpdateFeedbackMessage(heaterState, adcReadValue, temperature);
+    UpdateFeedbackMessage(heaterState, adcMeasurement, temperature);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
                                        sizeof(feedbackMessage));
 
@@ -292,13 +293,13 @@ static uint32_t StartAndReadAdcConversion(void)
 
 
 
-static uint32_t CalculateThermistorResistance(uint32_t adcReadValue)
+static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement)
 {
   const float adcResolution = 4095.0f;
   const float resistanceOfVoltageDividerResistor = 10000.0f;
 
   uint32_t thermistorResistance = resistanceOfVoltageDividerResistor *
-                                  (adcResolution/adcReadValue - 1.0f);
+                                  (adcResolution/adcMeasurement - 1.0f);
   return thermistorResistance;
 }
 
@@ -310,7 +311,9 @@ static int FindTemperature(uint32_t thermistorResistance)
 
   while(tableIndex < (TEMPERATURE_COUNT - 1))
   {
-    if(thermistorResistance >= thermistorResistanceTable[tableIndex])
+    uint32_t boundaryResistance = (thermistorResistanceTable[tableIndex] +
+      thermistorResistanceTable[tableIndex + 1]) / 2;
+    if(thermistorResistance >= boundaryResistance)
     {
       break;
     }
@@ -337,7 +340,7 @@ static heaterState_t CheckHeaterState(void)
 
 
 static void UpdateFeedbackMessage(heaterState_t heaterState,
-                                  uint32_t adcReadValue, int temperature)
+                                  uint32_t adcMeasurement, int temperature)
 {
   memset(feedbackMessage.dataString, 0, sizeof(feedbackMessage.dataString));
   size_t dataStringOffset = 0;
@@ -355,7 +358,7 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
 
-  sprintf(feedbackMessage.dataString + dataStringOffset, "%u", adcReadValue);
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%u", adcMeasurement);
   dataStringOffset += strlen(feedbackMessage.dataString);
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
