@@ -167,6 +167,9 @@ static struct __attribute__((packed))
 /*                     PRIVATE FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
+static void CalculateResistanceBoundaries(int temperatureSetPoint,
+  uint32_t *lowerBoundary, uint32_t *upperBoundary);
+static uint32_t FindTableIndex(int temperatureSetPoint);
 static uint32_t StartAndReadAdcConversion(void);
 static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement);
 static int FindTemperature(uint32_t thermistorResistance);
@@ -236,6 +239,8 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 {
   uint32_t adcMeasurement = 0;
   uint32_t thermistorResistance = 0;
+  uint32_t lowerBoundaryResistance = 0;
+  uint32_t upperBoundaryResistance = 0;
   int temperature = 0;
 
   TURN_OFF_HEATER();
@@ -254,13 +259,18 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
     thermistorResistance = CalculateThermistorResistance(adcMeasurement);
     temperature = FindTemperature(thermistorResistance);
+
+    CalculateResistanceBoundaries(TEMPERATURE_SET_POINT,
+      &lowerBoundaryResistance, &upperBoundaryResistance);
     heaterState = CheckHeaterState();
-    if(temperature < TEMPERATURE_SET_POINT && heaterState == Heater_Off)
+    if(thermistorResistance >= lowerBoundaryResistance &&
+      heaterState == Heater_Off)
     {
       TURN_ON_HEATER();
       heaterState = Heater_On;
     }
-    else if(temperature >= TEMPERATURE_SET_POINT && heaterState == Heater_On)
+    else if(thermistorResistance <= upperBoundaryResistance &&
+      heaterState == Heater_On)
     {
       TURN_OFF_HEATER();
       heaterState = Heater_Off;
@@ -268,7 +278,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
     UpdateFeedbackMessage(heaterState, adcMeasurement, temperature);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
-                                       sizeof(feedbackMessage));
+      sizeof(feedbackMessage));
 
     osDelay(1000);
   }
@@ -279,6 +289,35 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DEFINITIONS                         */
 /*****************************************************************************/
+
+static void CalculateResistanceBoundaries(int temperatureSetPoint,
+  uint32_t *lowerBoundary, uint32_t *upperBoundary)
+{
+  uint32_t tableIndex = FindTableIndex(temperatureSetPoint);
+
+  *lowerBoundary = (thermistorResistanceTable[tableIndex] +
+    thermistorResistanceTable[tableIndex - 1]) / 2;
+
+  *upperBoundary = thermistorResistanceTable[tableIndex];
+}
+
+
+
+static uint32_t FindTableIndex(int temperatureSetPoint)
+{
+  uint32_t tableIndex;
+  for(tableIndex = 0; tableIndex < TEMPERATURE_COUNT-1; ++tableIndex)
+  {
+    if(temperatureSetPoint == temperatureTable[tableIndex])
+    {
+      break;
+    }
+  }
+
+  return tableIndex;
+}
+
+
 
 static uint32_t StartAndReadAdcConversion(void)
 {
