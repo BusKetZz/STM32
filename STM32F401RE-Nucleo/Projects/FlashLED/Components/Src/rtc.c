@@ -71,7 +71,7 @@ void RTC_InitialSettings_Config(void)
     {
       .WeekDay = LL_RTC_WEEKDAY_TUESDAY,
       .Month   = LL_RTC_MONTH_APRIL,
-      .Day     = 0x24,
+      .Day     = 0x27,
       .Year    = 0x20
     };
     LL_RTC_DATE_Config(RTC, rtcDateStruct.WeekDay, rtcDateStruct.Day,
@@ -80,8 +80,8 @@ void RTC_InitialSettings_Config(void)
     LL_RTC_TimeTypeDef rtcTimeStruct =
     {
       .TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
-      .Hours      = 0x15,
-      .Minutes    = 0x51,
+      .Hours      = 0x13,
+      .Minutes    = 0x27,
       .Seconds    = 0x00
     };
     LL_RTC_TIME_Config(RTC, rtcTimeStruct.TimeFormat, rtcTimeStruct.Hours,
