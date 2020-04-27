@@ -25,7 +25,9 @@
 #define ADC_MEASUREMENT_MIN  201
 #define ADC_MEASUREMENT_MAX  3975
 
-#define TEMPERATURE_SET_POINT 35
+#define TEMPERATURE_SET_POINT 35.0f
+#define TEMPERATURE_ALLOWABLE_MARGIN 0.25f
+
 #define TEMPERATURE_COUNT 156
 #define THERMISTOR_RESISTANCE_COUNT TEMPERATURE_COUNT
 
@@ -167,15 +169,13 @@ static struct __attribute__((packed))
 /*                     PRIVATE FUNCTIONS PROTOTYPES                          */
 /*****************************************************************************/
 
-static void CalculateResistanceBoundaries(int temperatureSetPoint,
-  uint32_t *lowerBoundary, uint32_t *upperBoundary);
-static uint32_t FindTableIndex(int temperatureSetPoint);
 static uint32_t StartAndReadAdcConversion(void);
 static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement);
-static int FindTemperature(uint32_t thermistorResistance);
+static float FindTemperature(uint32_t thermistorResistance);
+static uint32_t FindTableIndex(uint32_t thermistorResistance);
 static heaterState_t CheckHeaterState(void);
 static void UpdateFeedbackMessage(heaterState_t heaterState,
-                                  uint32_t adcMeasurement, int temperature);
+  uint32_t adcMeasurement, float temperature);
 
 
 /*****************************************************************************/
@@ -239,12 +239,9 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 {
   uint32_t adcMeasurement = 0;
   uint32_t thermistorResistance = 0;
-  uint32_t lowerBoundaryResistance = 0;
-  uint32_t upperBoundaryResistance = 0;
-  int temperature = 0;
+  float temperature = 0;
 
   TURN_OFF_HEATER();
-  heaterState_t heaterState = CheckHeaterState();
 
   for(;;)
   {
@@ -259,24 +256,17 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 
     thermistorResistance = CalculateThermistorResistance(adcMeasurement);
     temperature = FindTemperature(thermistorResistance);
-
-    CalculateResistanceBoundaries(TEMPERATURE_SET_POINT,
-      &lowerBoundaryResistance, &upperBoundaryResistance);
-    heaterState = CheckHeaterState();
-    if(thermistorResistance >= lowerBoundaryResistance &&
-      heaterState == Heater_Off)
-    {
+    if(temperature <= TEMPERATURE_SET_POINT - TEMPERATURE_ALLOWABLE_MARGIN
+      && CheckHeaterState() == Heater_Off) {
       TURN_ON_HEATER();
-      heaterState = Heater_On;
     }
-    else if(thermistorResistance <= upperBoundaryResistance &&
-      heaterState == Heater_On)
-    {
+    else if(temperature >= TEMPERATURE_SET_POINT + TEMPERATURE_ALLOWABLE_MARGIN
+      && CheckHeaterState() == Heater_On) {
       TURN_OFF_HEATER();
-      heaterState = Heater_Off;
     }
+    
 
-    UpdateFeedbackMessage(heaterState, adcMeasurement, temperature);
+    UpdateFeedbackMessage(CheckHeaterState(), adcMeasurement, temperature);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
       sizeof(feedbackMessage));
 
@@ -289,35 +279,6 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 /*****************************************************************************/
 /*                     PRIVATE FUNCTIONS DEFINITIONS                         */
 /*****************************************************************************/
-
-static void CalculateResistanceBoundaries(int temperatureSetPoint,
-  uint32_t *lowerBoundary, uint32_t *upperBoundary)
-{
-  uint32_t tableIndex = FindTableIndex(temperatureSetPoint);
-
-  *lowerBoundary = (thermistorResistanceTable[tableIndex] +
-    thermistorResistanceTable[tableIndex - 1]) / 2;
-
-  *upperBoundary = thermistorResistanceTable[tableIndex];
-}
-
-
-
-static uint32_t FindTableIndex(int temperatureSetPoint)
-{
-  uint32_t tableIndex;
-  for(tableIndex = 0; tableIndex < TEMPERATURE_COUNT-1; ++tableIndex)
-  {
-    if(temperatureSetPoint == temperatureTable[tableIndex])
-    {
-      break;
-    }
-  }
-
-  return tableIndex;
-}
-
-
 
 static uint32_t StartAndReadAdcConversion(void)
 {
@@ -344,22 +305,39 @@ static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement)
 
 
 
-static int FindTemperature(uint32_t thermistorResistance)
+static float FindTemperature(uint32_t thermistorResistance)
 {
-  uint32_t tableIndex = 0;
+  uint32_t tableIndex = FindTableIndex(thermistorResistance);
+  uint32_t referenceResistance = thermistorResistanceTable[tableIndex];
+  int referenceTemperature = temperatureTable[tableIndex];
 
-  while(tableIndex < (TEMPERATURE_COUNT - 1))
-  {
-    uint32_t boundaryResistance = (thermistorResistanceTable[tableIndex] +
-      thermistorResistanceTable[tableIndex + 1]) / 2;
-    if(thermistorResistance >= boundaryResistance)
-    {
+  const uint32_t interpolationStepsCount = 10;
+  uint32_t interpolationStep = (thermistorResistanceTable[tableIndex] -
+    thermistorResistanceTable[tableIndex + 1]) / interpolationStepsCount;
+
+  uint32_t step;
+  for(step = 1; step <= interpolationStepsCount; ++step){
+    referenceResistance -= interpolationStep;
+    if(referenceResistance <= thermistorResistance){
       break;
     }
-    ++tableIndex;
-  }
+  } 
   
-  return temperatureTable[tableIndex];
+  return referenceTemperature + 0.1*step;
+}
+
+
+
+static uint32_t FindTableIndex(uint32_t thermistorResistance)
+{
+  uint32_t tableIndex;
+  for(tableIndex = 0; tableIndex < THERMISTOR_RESISTANCE_COUNT; ++tableIndex){
+    if(thermistorResistance >= thermistorResistanceTable[tableIndex + 1]){
+      break;
+    }
+  }
+
+  return tableIndex;
 }
 
 
@@ -379,7 +357,7 @@ static heaterState_t CheckHeaterState(void)
 
 
 static void UpdateFeedbackMessage(heaterState_t heaterState,
-                                  uint32_t adcMeasurement, int temperature)
+  uint32_t adcMeasurement, float temperature)
 {
   memset(feedbackMessage.dataString, 0, sizeof(feedbackMessage.dataString));
   size_t dataStringOffset = 0;
@@ -402,7 +380,11 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
 
-  sprintf(feedbackMessage.dataString + dataStringOffset, "%d", temperature);
+  int temperatureIntegerPart = temperature;
+  float temperatureFraction = temperature - temperatureIntegerPart;
+  int temperatureFractionalPart = temperatureFraction * 10;
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%d.%d",
+    temperatureIntegerPart, temperatureFractionalPart);
   dataStringOffset += strlen(feedbackMessage.dataString);
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
