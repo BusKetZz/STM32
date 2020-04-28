@@ -22,16 +22,14 @@
 /*****************************************************************************/
 
 osThreadId_t IdleTaskHandle;
-const osThreadAttr_t IdleTaskAttributes =
-{
+const osThreadAttr_t IdleTaskAttributes = {
   .name = "IdleTask",
   .priority = (osPriority_t) osPriorityIdle,
   .stack_size = 128 * 4
 };
 
 osThreadId_t Led2TaskHandle;
-const osThreadAttr_t Led2TaskAttributes =
-{
+const osThreadAttr_t Led2TaskAttributes = {
   .name = "Led2Task",
   .priority = (osPriority_t)osPriorityNormal1,
   .stack_size = 128 * 4
@@ -40,8 +38,7 @@ const osThreadAttr_t Led2TaskAttributes =
 
 
 osThreadId_t Dma2Usart1RxTaskHandle;
-const osThreadAttr_t Dma2Usart1RxAttributes =
-{
+const osThreadAttr_t Dma2Usart1RxAttributes = {
   .name = "Dma2Usart1RxTask",
   .priority = (osPriority_t)osPriorityNormal1,
   .stack_size = 256 * 4
@@ -50,8 +47,7 @@ const osThreadAttr_t Dma2Usart1RxAttributes =
 
 
 osThreadId_t Adc1TemperatureRegulatorTaskHandle;
-const osThreadAttr_t Adc1TemperatureRegulatorAttributes =
-{
+const osThreadAttr_t Adc1TemperatureRegulatorAttributes = {
   .name = "Adc1TemperatureRegulatorTask",
   .priority = (osPriority_t)osPriorityNormal2,
   .stack_size = 256 * 4
@@ -85,10 +81,10 @@ int main(void)
   IdleTaskHandle = osThreadNew(StartIdleTask, NULL, &IdleTaskAttributes);
   Led2TaskHandle = osThreadNew(StartLed2Task, NULL, &Led2TaskAttributes);
   Dma2Usart1RxTaskHandle = osThreadNew(StartDma2Usart1RxTask, NULL, 
-                                       &Dma2Usart1RxAttributes);
+    &Dma2Usart1RxAttributes);
   Adc1TemperatureRegulatorTaskHandle =
   osThreadNew(StartAdc1TemperatureRegulatorTask, NULL,
-              &Adc1TemperatureRegulatorAttributes);
+    &Adc1TemperatureRegulatorAttributes);
 
   osKernelStart();
  
@@ -124,17 +120,15 @@ static void SystemClock_Config(void)
 {
   LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
 
-  if(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_0)
-  {
-  Error_Handler();  
+  if(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_0) {
+    Error_Handler();  
   }
   LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE2);
   LL_RCC_HSI_SetCalibTrimming(16);
 
   LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-    
+  while(LL_RCC_HSI_IsReady() != 1) {
+    ;
   }
 
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
@@ -142,10 +136,10 @@ static void SystemClock_Config(void)
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
 
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI) {
+    ;
   }
+  
   LL_Init1msTick(16000000);
   LL_SetSystemCoreClock(16000000);
   LL_RCC_SetTIMPrescaler(LL_RCC_TIM_PRESCALER_TWICE);
@@ -157,8 +151,10 @@ static void NVIC_PendSV_SysTick_IRQn_Config(void)
 {
   NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
-  NVIC_SetPriority(PendSV_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
-  NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
+  NVIC_SetPriority(PendSV_IRQn,
+    NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
+  NVIC_SetPriority(SysTick_IRQn,
+    NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
 }
 
 
