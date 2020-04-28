@@ -51,24 +51,21 @@
 /*                             PRIVATE ENUMS                                 */
 /*****************************************************************************/
 
-enum isAdc1Enabled
-{
+enum isAdc1Enabled {
   ADC1_Disabled = 0,
   ADC1_Enabled  = 1
 };
 
 
 
-enum isAdc1ConversionComplete
-{
+enum isAdc1ConversionComplete {
   ADC1_Conversion_NotComplete = 0,
   ADC1_Conversion_Complete   = 1
 };
 
 
 
-typedef enum heaterState
-{
+typedef enum heaterState {
   Heater_On  = 0,
   Heater_Off = 1
 }heaterState_t;
@@ -79,8 +76,7 @@ typedef enum heaterState
 /*                           REFERENCE TABLES                                */
 /*****************************************************************************/
 
-static const uint32_t thermistorResistanceTable[THERMISTOR_RESISTANCE_COUNT] =
-{
+static const uint32_t thermistorResistanceTable[THERMISTOR_RESISTANCE_COUNT]= {
  193500, 181461, 170268, 159850, 150146,
  141100, 132659, 124779, 117418, 110537,
  104101,  98079,  92440,  87159,  82210,
@@ -115,8 +111,7 @@ static const uint32_t thermistorResistanceTable[THERMISTOR_RESISTANCE_COUNT] =
     300
 };
 
-static const int temperatureTable[TEMPERATURE_COUNT] =
-{
+static const int temperatureTable[TEMPERATURE_COUNT] = {
   -30, -29, -28, -27, -26,
   -25, -24, -23, -22, -21,
   -20, -19, -18, -17, -16,
@@ -157,11 +152,9 @@ static const int temperatureTable[TEMPERATURE_COUNT] =
 /*                           PRIVATE STRUCTURES                              */
 /*****************************************************************************/
 
-static struct __attribute__((packed))
-{
+static struct __attribute__((packed)) {
   char dataString[40];
 }feedbackMessage;
-
 
 
 
