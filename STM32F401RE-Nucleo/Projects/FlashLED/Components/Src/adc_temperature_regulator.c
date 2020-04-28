@@ -10,6 +10,7 @@
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_gpio.h"
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -354,7 +355,8 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
 
-  sprintf(feedbackMessage.dataString + dataStringOffset, "%u", adcMeasurement);
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%"PRIu32,
+    adcMeasurement);
   dataStringOffset += strlen(feedbackMessage.dataString);
   feedbackMessage.dataString[dataStringOffset] = ' ';
   ++dataStringOffset;
@@ -369,7 +371,8 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   ++dataStringOffset;
 
   time_t timeInSeconds = RTC_GetTimeInSeconds();
-  sprintf(feedbackMessage.dataString + dataStringOffset, "%ld", timeInSeconds);
+  sprintf(feedbackMessage.dataString + dataStringOffset, "%ld",
+    timeInSeconds);
 
   feedbackMessage.dataString[sizeof(feedbackMessage.dataString) - 1] = '\n';
 }
