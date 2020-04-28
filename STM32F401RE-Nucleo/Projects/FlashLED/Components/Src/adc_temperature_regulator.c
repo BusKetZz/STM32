@@ -247,12 +247,10 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
     if(temperature <= TEMPERATURE_SET_POINT - TEMPERATURE_ALLOWABLE_MARGIN
       && CheckHeaterState() == Heater_Off) {
       TURN_ON_HEATER();
-    }
-    else if(temperature >= TEMPERATURE_SET_POINT + TEMPERATURE_ALLOWABLE_MARGIN
-      && CheckHeaterState() == Heater_On) {
+    } else if(temperature >= TEMPERATURE_SET_POINT + 
+      TEMPERATURE_ALLOWABLE_MARGIN && CheckHeaterState() == Heater_On) {
       TURN_OFF_HEATER();
     }
-    
 
     UpdateFeedbackMessage(CheckHeaterState(), adcMeasurement, temperature);
     DMA2_USART1_TX_SendFeedbackMessage(&feedbackMessage,
@@ -333,8 +331,7 @@ static heaterState_t CheckHeaterState(void)
 {
   if(LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT, RELAY_HEATER_GPIO_PIN) == 0) {
     return Heater_On;
-  }
-  else {
+  } else {
     return Heater_Off;
   }
 }
@@ -350,8 +347,7 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   if(heaterState == Heater_On) {
     sprintf(feedbackMessage.dataString, "ON");
     dataStringOffset += strlen("ON");
-  }
-  else {
+  } else {
     sprintf(feedbackMessage.dataString, "OFF");
     dataStringOffset += strlen("OFF");
   }
