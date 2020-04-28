@@ -191,18 +191,16 @@ void ADC1_TEMPERATURE_REGULATOR_Clock_Config(void)
 
 void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
 {
-  LL_ADC_InitTypeDef ADC1_TEMPERATURE_REGULATOR_InitStruct =
-  {
+  LL_ADC_InitTypeDef ADC1_TEMPERATURE_REGULATOR_InitStruct = {
     .Resolution         = LL_ADC_RESOLUTION_12B,
     .DataAlignment      = LL_ADC_DATA_ALIGN_RIGHT,
     .SequencersScanMode = LL_ADC_SEQ_SCAN_DISABLE
   };
   LL_ADC_Init(ADC1, &ADC1_TEMPERATURE_REGULATOR_InitStruct);
   LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_0,
-                                LL_ADC_SAMPLINGTIME_480CYCLES);
+    LL_ADC_SAMPLINGTIME_480CYCLES);
 
-  LL_ADC_REG_InitTypeDef ADC1_TEMPERATURE_REGULATOR_REG_InitStruct =
-  {
+  LL_ADC_REG_InitTypeDef ADC1_TEMPERATURE_REGULATOR_REG_InitStruct = {
     .TriggerSource    = LL_ADC_REG_TRIG_SOFTWARE,
     .SequencerLength  = LL_ADC_REG_SEQ_SCAN_DISABLE,
     .SequencerDiscont = LL_ADC_REG_SEQ_DISCONT_DISABLE,
@@ -213,18 +211,16 @@ void ADC1_TEMPERATURE_REGULATOR_Settings_Config(void)
   LL_ADC_REG_SetFlagEndOfConversion(ADC1, LL_ADC_REG_FLAG_EOC_UNITARY_CONV);
   LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, LL_ADC_CHANNEL_0);
 
-  LL_ADC_CommonInitTypeDef ADC1_TEMPERATURE_REGULATOR_CommonInitStruct =
-  {
+  LL_ADC_CommonInitTypeDef ADC1_TEMPERATURE_REGULATOR_CommonInitStruct = {
     .CommonClock = LL_ADC_CLOCK_SYNC_PCLK_DIV8
   };
   LL_ADC_CommonInit(__LL_ADC_COMMON_INSTANCE(ADC1),
-                    &ADC1_TEMPERATURE_REGULATOR_CommonInitStruct);
+    &ADC1_TEMPERATURE_REGULATOR_CommonInitStruct);
 
   LL_ADC_DisableIT_EOCS(ADC1);
 
   LL_ADC_Enable(ADC1);
-  while(LL_ADC_IsEnabled(ADC1) != ADC1_Enabled)
-  {
+  while(LL_ADC_IsEnabled(ADC1) != ADC1_Enabled) {
     ;
   }
 }
@@ -247,8 +243,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
   {
     adcMeasurement = StartAndReadAdcConversion();
     if(adcMeasurement < ADC_MEASUREMENT_MIN ||
-      adcMeasurement > ADC_MEASUREMENT_MAX)
-    {
+      adcMeasurement > ADC_MEASUREMENT_MAX) {
       TURN_OFF_HEATER();
       osDelay(1000);
       continue;
@@ -283,8 +278,7 @@ void StartAdc1TemperatureRegulatorTask(void *argument)
 static uint32_t StartAndReadAdcConversion(void)
 {
   LL_ADC_REG_StartConversionSWStart(ADC1);
-  while(ADC1_IS_CONVERSION_COMPLETE() == ADC1_Conversion_NotComplete)
-  {
+  while(ADC1_IS_CONVERSION_COMPLETE() == ADC1_Conversion_NotComplete) {
     ;
   }
 
@@ -299,7 +293,7 @@ static uint32_t CalculateThermistorResistance(uint32_t adcMeasurement)
   const float resistanceOfVoltageDividerResistor = 10000.0f;
 
   uint32_t thermistorResistance = resistanceOfVoltageDividerResistor *
-                                  (adcResolution/adcMeasurement - 1.0f);
+    (adcResolution/adcMeasurement - 1.0f);
   return thermistorResistance;
 }
 
@@ -316,9 +310,9 @@ static float FindTemperature(uint32_t thermistorResistance)
     thermistorResistanceTable[tableIndex + 1]) / interpolationStepsCount;
 
   uint32_t step;
-  for(step = 1; step <= interpolationStepsCount; ++step){
+  for(step = 1; step <= interpolationStepsCount; ++step) {
     referenceResistance -= interpolationStep;
-    if(referenceResistance <= thermistorResistance){
+    if(referenceResistance <= thermistorResistance) {
       break;
     }
   } 
@@ -331,8 +325,8 @@ static float FindTemperature(uint32_t thermistorResistance)
 static uint32_t FindTableIndex(uint32_t thermistorResistance)
 {
   uint32_t tableIndex;
-  for(tableIndex = 0; tableIndex < THERMISTOR_RESISTANCE_COUNT; ++tableIndex){
-    if(thermistorResistance >= thermistorResistanceTable[tableIndex + 1]){
+  for(tableIndex = 0; tableIndex < THERMISTOR_RESISTANCE_COUNT; ++tableIndex) {
+    if(thermistorResistance >= thermistorResistanceTable[tableIndex + 1]) {
       break;
     }
   }
@@ -344,12 +338,10 @@ static uint32_t FindTableIndex(uint32_t thermistorResistance)
 
 static heaterState_t CheckHeaterState(void)
 {
-  if(LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT, RELAY_HEATER_GPIO_PIN) == 0)
-  {
+  if(LL_GPIO_IsInputPinSet(RELAY_HEATER_GPIO_PORT, RELAY_HEATER_GPIO_PIN) == 0) {
     return Heater_On;
   }
-  else
-  {
+  else {
     return Heater_Off;
   }
 }
@@ -362,13 +354,11 @@ static void UpdateFeedbackMessage(heaterState_t heaterState,
   memset(feedbackMessage.dataString, 0, sizeof(feedbackMessage.dataString));
   size_t dataStringOffset = 0;
 
-  if(heaterState == Heater_On)
-  {
+  if(heaterState == Heater_On) {
     sprintf(feedbackMessage.dataString, "ON");
     dataStringOffset += strlen("ON");
   }
-  else
-  {
+  else {
     sprintf(feedbackMessage.dataString, "OFF");
     dataStringOffset += strlen("OFF");
   }
