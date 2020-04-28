@@ -39,13 +39,11 @@ void RTC_Clock_Config(void)
   LL_PWR_EnableBkUpAccess();
 
   LL_RCC_LSE_Enable();
-  while(LL_RCC_LSE_IsReady() != 1)
-  {
-    
+  while(LL_RCC_LSE_IsReady() != 1) {
+    ;
   }
 
-  if(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSE)
-  {
+  if(LL_RCC_GetRTCClockSource() != LL_RCC_RTC_CLKSOURCE_LSE) {
     LL_RCC_ForceBackupDomainReset();
     LL_RCC_ReleaseBackupDomainReset();
     LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
@@ -58,8 +56,7 @@ void RTC_Clock_Config(void)
 
 void RTC_InitialSettings_Config(void)
 {
-  if(LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0) != RTC_BKP_DATE_TIME_UPDATED)
-  {
+  if(LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0) !=RTC_BKP_DATE_TIME_UPDATED) {
     LL_RTC_DisableWriteProtection(RTC);
 
     RTC_EnterInitMode();
@@ -67,25 +64,23 @@ void RTC_InitialSettings_Config(void)
     LL_RTC_SetSynchPrescaler(RTC, RTC_SYNCH_PREDIV);
     LL_RTC_SetAsynchPrescaler(RTC, RTC_ASYNCH_PREDIV);
 
-    LL_RTC_DateTypeDef rtcDateStruct =
-    {
+    LL_RTC_DateTypeDef rtcDateStruct = {
       .WeekDay = LL_RTC_WEEKDAY_TUESDAY,
       .Month   = LL_RTC_MONTH_APRIL,
       .Day     = 0x27,
       .Year    = 0x20
     };
     LL_RTC_DATE_Config(RTC, rtcDateStruct.WeekDay, rtcDateStruct.Day,
-                       rtcDateStruct.Month, rtcDateStruct.Year);
+      rtcDateStruct.Month, rtcDateStruct.Year);
 
-    LL_RTC_TimeTypeDef rtcTimeStruct =
-    {
+    LL_RTC_TimeTypeDef rtcTimeStruct = {
       .TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
       .Hours      = 0x13,
       .Minutes    = 0x27,
       .Seconds    = 0x00
     };
     LL_RTC_TIME_Config(RTC, rtcTimeStruct.TimeFormat, rtcTimeStruct.Hours,
-                       rtcTimeStruct.Minutes, rtcTimeStruct.Seconds);
+      rtcTimeStruct.Minutes, rtcTimeStruct.Seconds);
 
     LL_RTC_SetHourFormat(RTC, LL_RTC_HOURFORMAT_24HOUR);
 
@@ -101,23 +96,20 @@ void RTC_InitialSettings_Config(void)
 
 time_t RTC_GetTimeInSeconds(void)
 {
-  LL_RTC_TimeTypeDef rtcTimeStruct =
-  {
+  LL_RTC_TimeTypeDef rtcTimeStruct = {
     .Hours   = LL_RTC_TIME_GetHour(RTC),
     .Minutes = LL_RTC_TIME_GetMinute(RTC),
     .Seconds = LL_RTC_TIME_GetSecond(RTC) 
   };
 
-  LL_RTC_DateTypeDef rtcDateStruct =
-  {
+  LL_RTC_DateTypeDef rtcDateStruct = {
     .WeekDay = LL_RTC_DATE_GetWeekDay(RTC),
     .Month   = LL_RTC_DATE_GetMonth(RTC),
     .Day     = LL_RTC_DATE_GetDay(RTC),
     .Year    = LL_RTC_DATE_GetYear(RTC)
   };
 
-  struct tm timeDataFromRTC =
-  {
+  struct tm timeDataFromRTC = {
     .tm_wday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.WeekDay) - 1,
     .tm_mday = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Day),
     .tm_mon  = __LL_RTC_CONVERT_BCD2BIN(rtcDateStruct.Month) - 1,
@@ -140,9 +132,8 @@ static void RTC_EnterInitMode(void)
 {
   LL_RTC_EnableInitMode(RTC);
 
-  while(LL_RTC_IsActiveFlag_INIT(RTC) != 1)
-  {
-
+  while(LL_RTC_IsActiveFlag_INIT(RTC) != 1) {
+    ;
   }
 }
 
