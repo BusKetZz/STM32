@@ -3,3 +3,10 @@ arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb main.c -o main.o
 -c: disable linker (only compilation and assembly)
 -S: disable linker and assembly, generate assembly code
 
+
+main.o: main.c
+    $(CC) $(CFLAGS) $^ -o $@
+
+    $^ - denotes dependency (main.c)
+    $@ - denotes target (main.o)
+
