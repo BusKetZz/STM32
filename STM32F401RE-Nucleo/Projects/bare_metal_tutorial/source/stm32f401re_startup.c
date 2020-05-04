@@ -12,6 +12,18 @@
 
 
 
+extern uint32_t _etext;
+extern uint32_t _sdata;
+extern uint32_t _edata;
+extern uint32_t _sbss;
+extern uint32_t _ebss;
+
+
+
+int main(void);
+
+
+
 void reset_handler(void);
 
 void nmi_handler(void)               __attribute__((weak, alias("default_handler")));
@@ -161,7 +173,27 @@ uint32_t vector_table[] __attribute__((section(".isr_vectors"))) = {
 
 void reset_handler(void)
 {
-	
+	// Copy .data section to SRAM
+	uint32_t data_section_size = (uint32_t)&_edata - (uint32_t)&_sdata;
+	uint8_t *data_destination = (uint8_t *)&_sdata;	// SRAM
+	uint8_t *data_source = (uint8_t *)&_etext;		// FLASH
+	for(uint32_t address_shift = 0; address_shift < data_section_size;
+		++address_shift) {
+		*data_destination = *data_source;
+		++data_destination;
+		++data_source;
+	}
+
+	// Initialize the .bss section to zero in SRAM
+	uint32_t bss_section_size = (uint32_t)&_ebss - (uint32_t)&_sbss;
+	uint8_t *bss_destination = (uint8_t *)&_sbss;
+	for(uint32_t address_shift = 0; address_shift < bss_section_size;
+		++address_shift) {
+		*bss_destination = 0;
+		++bss_destination;
+	}
+
+	main();
 }
 
 
