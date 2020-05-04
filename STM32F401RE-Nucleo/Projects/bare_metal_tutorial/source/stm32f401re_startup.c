@@ -102,7 +102,7 @@ uint32_t vector_table[] __attribute__((section(".isr_vectors"))) = {
 	(uint32_t)&wwdg_irq_handler,
 	(uint32_t)&pvd_irq_handler,
 	(uint32_t)&tamp_stamp_irq_handler,
-	(uint32_t)&rtc_wkup_handler,
+	(uint32_t)&rtc_wkup_irq_handler,
 	(uint32_t)&flash_irq_handler,
 	(uint32_t)&rcc_irq_handler,
 	(uint32_t)&exti0_irq_handler,
