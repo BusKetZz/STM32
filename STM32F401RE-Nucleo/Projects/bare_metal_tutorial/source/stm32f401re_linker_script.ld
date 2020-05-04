@@ -13,25 +13,29 @@ __max_stack_size = 0x200;
 
 SECTIONS
 {
-	.text:
+	.text :
 	{
-		*(.isr_vector)
+		*(.isr_vectors)
 		*(.text)
 		*(.rodata)
+		. = ALIGN(4);
 		_etext = .;
 	}> FLASH
 
-	.data:
+	.data :
 	{
 		_sdata = .;
 		*(.data)
+		. = ALIGN(4);
 		_edata = .;
 	}> SRAM AT> FLASH
 
-	.bss:
+	.bss :
 	{
 		_sbss = .;
 		*(.bss)
+		*(COMMON)
+		. = ALIGN(4);
 		_ebss = .;
 	}> SRAM
 }
