@@ -10,7 +10,7 @@ OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
-LDFLAGS = -nostdlib -T $(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/final.map
+LDFLAGS = -nostdlib -T $(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
@@ -33,4 +33,7 @@ $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c
 
 clean:
 	rm -rf $(BUILD_DIR)
+
+load:
+	openocd -f board/st_nucleo_f4.cfg
 
