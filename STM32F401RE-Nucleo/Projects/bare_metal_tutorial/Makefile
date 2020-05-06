@@ -10,7 +10,7 @@ OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
-LDFLAGS = -nostdlib -T $(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/program.map
+LDFLAGS = --specs=nano.specs -T $(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
