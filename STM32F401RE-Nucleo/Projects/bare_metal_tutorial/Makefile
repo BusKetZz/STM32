@@ -4,17 +4,22 @@ BUILD_DIR = ./build
 INCLUDE_DIR = ./include
 SOURCE_DIR = ./source
 
-SOURCE_FILES = main.c led.c stm32f401re_startup.c
+STARTUP_FILE = startup_stm32f401xe.s
+SOURCE_FILES = main.c led.c syscalls.c
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 				$(basename $(SOURCE_FILES))))
+OBJECT_FILES += $(BUILD_DIR)/startup_stm32f401xe.o
 
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
-LDFLAGS = --specs=nano.specs -T $(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/program.map
+LDFLAGS = -mcpu=$(CORE) -mthumb --specs=nano.specs -T $(LDSCRIPT)
+LDFLAGS += -mfloat-abi=soft
+LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
 CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -I$(INCLUDE_DIR) -O0
+CFLAGS += -mfloat-abi=soft
 
 OBJCOPY = arm-none-eabi-objcopy
 
@@ -28,6 +33,10 @@ $(ELF): $(OBJECT_FILES)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECT_FILES)
 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -o $@ $<
+
+$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.s
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
 
