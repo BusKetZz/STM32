@@ -5,10 +5,11 @@ INCLUDE_DIR = ./include
 SOURCE_DIR = ./source
 
 STARTUP_FILE = startup_stm32f401xe.s
-SOURCE_FILES = main.c led.c syscalls.c
+SOURCE_FILES = main.c led.c syscalls.c system_stm32f4xx.c
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 				$(basename $(SOURCE_FILES))))
-OBJECT_FILES += $(BUILD_DIR)/startup_stm32f401xe.o
+OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
+				$(basename $(STARTUP_FILE))))
 
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
