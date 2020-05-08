@@ -57,6 +57,17 @@
 #include <sys/time.h>
 #include <sys/times.h>
 
+
+
+// Debug Exception and Monitor Control Register base address
+#define DEMCR	*( ( volatile uint32_t* ) 0xE000EDFCU )
+
+// ITM register addresses
+#define ITM_STIMULUS_PORT0	*( ( volatile uint32_t* ) 0xE0000000 )
+#define ITM_TRACE_EN		*( ( volatile uint32_t* ) 0xE0000E00 )
+
+
+
 /* Variables */
 //#undef errno
 extern int errno;
@@ -71,26 +82,24 @@ char **environ = __env;
 
 
 /* Functions */
-void initialise_monitor_handles()
+void itm_send_char(uint8_t output_character)
 {
+	// Enable TRCENA
+	DEMCR |= (1 << 24);
+
+	// Enable stimulus port 0
+	ITM_TRACE_EN |= (1 << 0);
+
+	// Read FIFO status in bit [0]
+	while( !( ITM_STIMULUS_PORT0 & 1 ) ){
+		;
+	}
+
+	// Write to ITM stimulus port 0
+	ITM_STIMULUS_PORT0 = output_character;
 }
 
-int _getpid(void)
-{
-	return 1;
-}
 
-int _kill(int pid, int sig)
-{
-	errno = EINVAL;
-	return -1;
-}
-
-void _exit (int status)
-{
-	_kill(status, -1);
-	while (1) {}		/* Make sure we hang here */
-}
 
 __attribute__((weak)) int _read(int file, char *ptr, int len)
 {
@@ -104,85 +113,27 @@ __attribute__((weak)) int _read(int file, char *ptr, int len)
 return len;
 }
 
+
+
 __attribute__((weak)) int _write(int file, char *ptr, int len)
 {
 	int DataIdx;
 
 	for (DataIdx = 0; DataIdx < len; DataIdx++)
 	{
-		__io_putchar(*ptr++);
-		//ITM_SendChar(*ptr++);
+		//__io_putchar(*ptr++);
+		itm_send_char(*ptr++);
 	}
 	return len;
 }
 
-int _close(int file)
-{
-	return -1;
-}
 
 
-int _fstat(int file, struct stat *st)
+void _exit(void)
 {
-	st->st_mode = S_IFCHR;
-	return 0;
-}
-
-int _isatty(int file)
-{
-	return 1;
-}
-
-int _lseek(int file, int ptr, int dir)
-{
-	return 0;
-}
-
-int _open(char *path, int flags, ...)
-{
-	/* Pretend like we always fail */
-	return -1;
-}
-
-int _wait(int *status)
-{
-	errno = ECHILD;
-	return -1;
-}
-
-int _unlink(char *name)
-{
-	errno = ENOENT;
-	return -1;
-}
-
-int _times(struct tms *buf)
-{
-	return -1;
-}
-
-int _stat(char *file, struct stat *st)
-{
-	st->st_mode = S_IFCHR;
-	return 0;
-}
-
-int _link(char *old, char *new)
-{
-	errno = EMLINK;
-	return -1;
-}
-
-int _fork(void)
-{
-	errno = EAGAIN;
-	return -1;
-}
-
-int _execve(char *name, char **argv, char **env)
-{
-	errno = ENOMEM;
-	return -1;
+	while(1) {
+		;
+	}
 }
 
 
