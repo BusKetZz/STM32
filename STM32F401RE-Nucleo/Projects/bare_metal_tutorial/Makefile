@@ -22,8 +22,8 @@ LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
-CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -I$(INCLUDE_DIR)
-CFLAGS += -I$(CMSIS_INCLUDE_DIR)
+CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -Wextra
+CFLAGS += -I$(CMSIS_INCLUDE_DIR) -I$(INCLUDE_DIR)
 CFLAGS += $(OPTIMIZATION_LEVEL)
 CFLAGS += -mfloat-abi=soft
 
