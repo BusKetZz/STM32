@@ -1,7 +1,10 @@
 CORE = cortex-m4
 
+OPTIMIZATION_LEVEL = -O0
+
 BUILD_DIR = ./build
 INCLUDE_DIR = ./include
+CMSIS_INCLUDE_DIR = ../../../Packages/STM32Cube_FW_F4_V1.25.0/Drivers/CMSIS/Include
 SOURCE_DIR = ./source
 
 STARTUP_FILE = startup_stm32f401xe.s
@@ -19,7 +22,9 @@ LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
-CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -I$(INCLUDE_DIR) -O0
+CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -I$(INCLUDE_DIR)
+CFLAGS += -I$(CMSIS_INCLUDE_DIR)
+CFLAGS += $(OPTIMIZATION_LEVEL)
 CFLAGS += -mfloat-abi=soft
 
 OBJCOPY = arm-none-eabi-objcopy
