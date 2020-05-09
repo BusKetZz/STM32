@@ -8,7 +8,7 @@ CMSIS_INCLUDE_DIR = ../../../Packages/STM32Cube_FW_F4_V1.25.0/Drivers/CMSIS/Incl
 SOURCE_DIR = ./source
 
 STARTUP_FILE = startup_stm32f401xe.s
-SOURCE_FILES = main.c led.c syscalls.c system_stm32f4xx.c
+SOURCE_FILES = main.c led.c system_stm32f4xx.c
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 				$(basename $(SOURCE_FILES))))
 OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
@@ -16,8 +16,8 @@ OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
-LDFLAGS = -mcpu=$(CORE) -mthumb --specs=nano.specs -T $(LDSCRIPT)
-LDFLAGS += -mfloat-abi=soft
+LDFLAGS = -mcpu=$(CORE) -mthumb -T $(LDSCRIPT)
+LDFLAGS += -mfloat-abi=soft -specs=rdimon.specs
 LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
