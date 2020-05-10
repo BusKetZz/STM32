@@ -192,3 +192,10 @@ int _lseek(int file, int ptr, int dir)
 	return 0;
 }
 
+
+
+void initialise_monitor_handles(void)
+{
+	
+}
+
