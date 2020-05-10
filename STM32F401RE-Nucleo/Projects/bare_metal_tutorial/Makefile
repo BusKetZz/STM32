@@ -17,7 +17,7 @@ OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
 LDFLAGS = -mcpu=$(CORE) -mthumb -T $(LDSCRIPT)
-LDFLAGS += -mfloat-abi=soft -specs=rdimon.specs
+LDFLAGS += -mfloat-abi=soft -specs=rdimon.specs -lc -lrdimon --specs=nano.specs
 LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
 
 CC = arm-none-eabi-gcc
