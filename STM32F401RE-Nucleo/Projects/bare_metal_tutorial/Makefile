@@ -5,6 +5,7 @@ OPTIMIZATION_LEVEL = -O0
 BUILD_DIR = ./build
 INCLUDE_DIR = ./include
 CMSIS_INCLUDE_DIR = ../../../Packages/STM32Cube_FW_F4_V1.25.0/Drivers/CMSIS/Include
+DEVICE_INCLUDE_DIR = ../../../Packages/STM32Cube_FW_F4_V1.25.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 SOURCE_DIR = ./source
 
 STARTUP_FILE = startup_stm32f401xe.s
@@ -17,15 +18,17 @@ OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 LD = arm-none-eabi-gcc
 LDSCRIPT = stm32f401re_linker_script.ld
 LDFLAGS = -mcpu=$(CORE) -mthumb -T $(LDSCRIPT)
-LDFLAGS += -mfloat-abi=soft -specs=rdimon.specs -lc -lrdimon --specs=nano.specs
+LDFLAGS += -mfloat-abi=soft -specs=rdimon.specs -lc -lrdimon
 LDFLAGS += -Wl,-Map=$(BUILD_DIR)/program.map
+LDFLAGS += -DSTM32F401xE
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
 CFLAGS = -c -mcpu=$(CORE) -mthumb -std=$(CSTANDARD) -Wall -Wextra
-CFLAGS += -I$(CMSIS_INCLUDE_DIR) -I$(INCLUDE_DIR)
+CFLAGS += -I$(CMSIS_INCLUDE_DIR) -I$(DEVICE_INCLUDE_DIR) -I$(INCLUDE_DIR)
 CFLAGS += $(OPTIMIZATION_LEVEL)
 CFLAGS += -mfloat-abi=soft
+CFLAGS += -DSTM32F401xE
 
 OBJCOPY = arm-none-eabi-objcopy
 
