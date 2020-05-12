@@ -9,7 +9,7 @@ DEVICE_INCLUDE_DIR = ../../../Packages/STM32Cube_FW_F4_V1.25.0/Drivers/CMSIS/Dev
 SOURCE_DIR = ./source
 
 STARTUP_FILE = startup_stm32f401xe.s
-SOURCE_FILES = main.c led.c system_stm32f4xx.c
+SOURCE_FILES = main.c system_stm32f4xx.c
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 				$(basename $(SOURCE_FILES))))
 OBJECT_FILES += $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
