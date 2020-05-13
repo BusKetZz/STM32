@@ -2,4 +2,10 @@
 * Core - ARM Cortex M4.
 * System bus width is 32 bits, which means that processor can provide 2^32
   (4GB) of different addresses from 0x0000 0000 to 0xFFFF FFFF.
- 
+
+## Base address of the FLASH memory
+* 0x0800 0000
+
+## Base address of the SRAM memory
+* 0x2000 0000
+
