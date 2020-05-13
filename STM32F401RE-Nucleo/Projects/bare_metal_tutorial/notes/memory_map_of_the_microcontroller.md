@@ -9,9 +9,12 @@
 ## Base address of the SRAM memory
 * 0x20000000
 
-## I-BUS (ICODE) memory interface
+## I-BUS (ICode) memory interface
 * If the instructions are present in between memory locations 0x00000000 to
-  0x1FFFFFFC then Cortex processor will fetch the instructions using ICODE
+  0x1FFFFFFF then Cortex processor will fetch the instructions using ICode
   interface.
 
+## D-BUS (DCode) memory interface
+* If the data is present in between memory locations 0x00000000 to 0x1FFFFFFF
+  then Cortex processor will fetch the data using DCode interface.
 
