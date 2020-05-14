@@ -9,3 +9,6 @@
 ## Exception handlers
 * Exception handlers must handle 15 system exceptions and 240 interrupts.
 
+## 0x00000000 address in vectors table
+* This address stores stack pointer value.
+
