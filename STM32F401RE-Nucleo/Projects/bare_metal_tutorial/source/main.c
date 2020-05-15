@@ -8,7 +8,7 @@ extern void initialise_monitor_handles(void);
 
 
 
-int main()
+int main(void)
 {
     initialise_monitor_handles();
 
@@ -17,5 +17,7 @@ int main()
     while(1) {
         printf("Hello World!\n");
 	}
+
+    return 0;
 }
 
