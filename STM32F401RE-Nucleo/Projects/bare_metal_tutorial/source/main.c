@@ -10,12 +10,12 @@ extern void initialise_monitor_handles(void);
 
 int main()
 {
-	initialise_monitor_handles();
+    initialise_monitor_handles();
 
-	printf("Hello World!\n");
+    printf("Hello World!\n");
 
-	while(1) {
-		printf("Hello World!\n");
+    while(1) {
+        printf("Hello World!\n");
 	}
 }
 
