@@ -18,5 +18,12 @@
 
 
 
+/* Base addresses of APB buses */
+
+#define APB1_BASE_ADDRESS   (uint32_t)0x40000000
+#define APB2_BASE_ADDRESS   (uint32_t)0x40010000
+
+
+
 #endif /* STM32F401XE_SYSTEM_H */
 
