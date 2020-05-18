@@ -3,6 +3,11 @@
 
 
 
+/* Base addresses of FLASH and SRAM */
+
+#define FLASH_BASE_ADDRESS          (uint32_t)0x08000000
+#define SRAM_BASE_ADDRESS           (uint32_t)0x20000000
+#define SYSTEM_MEMORY_BASE_ADDRESS  (uint32_t)0x1FFF0000
 
 
 
