@@ -11,5 +11,12 @@
 
 
 
+/* Base addresses of AHB buses */
+
+#define AHB1_BASE_ADDRESS   (uint32_t)0x40020000
+#define AHB2_BASE_ADDRESS   (uint32_t)0x50000000
+
+
+
 #endif /* STM32F401XE_SYSTEM_H */
 
