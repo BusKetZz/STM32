@@ -135,6 +135,12 @@
 
 
 
+/* Base address of Timer1 */
+
+#define TIM1_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x0)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
