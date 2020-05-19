@@ -167,6 +167,12 @@
 
 
 
+/* Base address of SYSCFG */
+
+#define SYSCFG_BASE_ADDRESS (uint32_t)(APB2_BASE_ADDRESS + 0x3800)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
