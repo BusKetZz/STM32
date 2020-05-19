@@ -84,5 +84,12 @@
 
 
 
+/* Base address of WWDG */
+
+#define WWDG_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x2C00)
+
+
+
+
 #endif /* STM32F401XE_SYSTEM_H */
 
