@@ -121,6 +121,14 @@
 
 
 
+/* Base addresses of I2C1 to I2C3 */
+
+#define I2C1_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x5400)
+#define I2C2_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x5800)
+#define I2C3_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x5C00)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
