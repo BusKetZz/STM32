@@ -77,5 +77,12 @@
 
 
 
+/* Base address of RTC & BKP Registers */
+
+#define RTC_AND_BKP_REGISTERS_BASE_ADDRESS  (uint32_t)(APB1_BASE_ADDRESS +\
+    0x2800)
+
+
+
 #endif /* STM32F401XE_SYSTEM_H */
 
