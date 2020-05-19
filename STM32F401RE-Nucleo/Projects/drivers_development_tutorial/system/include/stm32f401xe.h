@@ -62,6 +62,12 @@
 
 
 
+/* Base address of USB OTG FS */
+
+#define USB_OTG_FS_BASE_ADDRESS (uint32_t)(AHB2_BASE_ADDRESS + 0x0)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
