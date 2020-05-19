@@ -129,6 +129,12 @@
 
 
 
+/* Base address of PWR */
+
+#define PWR_BASE_ADDRESS    (uint32_t)(APB1_BASE_ADDRESS + 0x7000)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
