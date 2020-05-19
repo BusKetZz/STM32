@@ -55,6 +55,12 @@
 
 
 
+/* Base addresses of DMAs */
+
+#define DMA1_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6000)
+#define DMA2_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6400)
+
+
 
 
 #endif /* STM32F401XE_SYSTEM_H */
