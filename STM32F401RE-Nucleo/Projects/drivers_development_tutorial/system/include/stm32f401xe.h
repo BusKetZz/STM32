@@ -160,6 +160,13 @@
 
 
 
+/* Base addresses of SPI1 and SPI4 */
+
+#define SPI1_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x3000)
+#define SPI4_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x3400)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
