@@ -90,6 +90,12 @@
 
 
 
+/* Base address of IWDG */
+
+#define IWDG_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x3000)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
