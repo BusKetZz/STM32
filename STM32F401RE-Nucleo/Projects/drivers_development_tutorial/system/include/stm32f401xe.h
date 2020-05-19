@@ -48,6 +48,14 @@
 
 
 
+/* Base address of Flash interface register */
+
+#define FLASH_INTERFACE_REGISTER_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS +\
+    0x3C00)
+
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
