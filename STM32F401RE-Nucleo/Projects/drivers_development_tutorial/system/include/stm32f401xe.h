@@ -115,6 +115,12 @@
 
 
 
+/* Base address of USART2 */
+
+#define USART2_BASE_ADDRESS (uint32_t)(APB1_BASE_ADDRESS + 0x4400)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
