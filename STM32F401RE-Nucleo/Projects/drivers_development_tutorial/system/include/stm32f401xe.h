@@ -96,6 +96,12 @@
 
 
 
+/* Base address of I2S2ext */
+
+#define I2S2EXT_BASE_ADDRESS    (uint32_t)(APB1_BASE_ADDRESS + 0x3400)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
