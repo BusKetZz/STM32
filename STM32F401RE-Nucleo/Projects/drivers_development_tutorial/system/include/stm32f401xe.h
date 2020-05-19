@@ -102,6 +102,13 @@
 
 
 
+/* Base addresses of SPI2/I2S2 and SPI3/I2S3 */
+
+#define SPI2_I2S2_BASE_ADDRESS  (uint32_t)(APB1_BASE_ADDRESS + 0x3800)
+#define SPI3_I2S3_BASE_ADDRESS  (uint32_t)(APB1_BASE_ADDRESS + 0x3C00)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
