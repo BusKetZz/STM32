@@ -68,6 +68,14 @@
 
 
 
+/* Base addresses of Timer2 to Timer5 */
+
+#define TIM2_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x0)
+#define TIM3_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x0400)
+#define TIM4_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x0800)
+#define TIM5_BASE_ADDRESS   (uint32_t)(APB1_BASE_ADDRESS + 0x0C00)
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
