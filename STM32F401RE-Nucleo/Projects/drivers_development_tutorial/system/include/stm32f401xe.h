@@ -154,6 +154,12 @@
 
 
 
+/* Base address of SDIO */
+
+#define SDIO_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x2C00)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
