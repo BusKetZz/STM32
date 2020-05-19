@@ -179,6 +179,14 @@
 
 
 
+/* Base addresses of TIM9 to TIM11 */
+
+#define TIM9_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x4000)
+#define TIM10_BASE_ADDRESS  (uint32_t)(APB2_BASE_ADDRESS + 0x4400)
+#define TIM11_BASE_ADDRESS  (uint32_t)(APB2_BASE_ADDRESS + 0x4800)
+
+
+
 
 #endif /* STM32F401XE_SYSTEM_H */
 
