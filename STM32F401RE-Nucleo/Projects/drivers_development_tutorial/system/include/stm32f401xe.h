@@ -203,5 +203,26 @@
 
 
 
+/*****************************************************************************/
+/* Peripheral registers structures */
+/*****************************************************************************/
+
+/* GPIO registers structure */
+
+typedef struct {
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFRL;
+    volatile uint32_t AFRH;
+}gpio_registers_t;
+
+
+
 #endif /* STM32F401XE_H */
 
