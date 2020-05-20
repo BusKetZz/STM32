@@ -11,13 +11,6 @@
 
 
 
-/* Base addresses of AHB buses */
-
-#define AHB1_BASE_ADDRESS   (uint32_t)0x40020000
-#define AHB2_BASE_ADDRESS   (uint32_t)0x50000000
-
-
-
 /* Base addresses of APB buses */
 
 #define APB1_BASE_ADDRESS   (uint32_t)0x40000000
@@ -25,48 +18,16 @@
 
 
 
-/* Base addresses of GPIOs */
+/* Base addresses of AHB buses */
 
-#define GPIOA_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0)
-#define GPIOB_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0400)
-#define GPIOC_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0800)
-#define GPIOD_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0C00)
-#define GPIOE_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x1000)
-#define GPIOH_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x1C00)
+#define AHB1_BASE_ADDRESS   (uint32_t)0x40020000
+#define AHB2_BASE_ADDRESS   (uint32_t)0x50000000
 
 
 
-/* Base address of CRC */
-
-#define CRC_BASE_ADDRESS    (uint32_t)(AHB1_BASE_ADDRESS + 0x3000)
-
-
-
-/* Base address of RCC */
-
-#define RCC_BASE_ADDRESS    (uint32_t)(AHB1_BASE_ADDRESS + 0x3800)
-
-
-
-/* Base address of Flash interface register */
-
-#define FLASH_INTERFACE_REGISTER_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS +\
-    0x3C00)
-
-
-
-/* Base addresses of DMAs */
-
-#define DMA1_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6000)
-#define DMA2_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6400)
-
-
-
-/* Base address of USB OTG FS */
-
-#define USB_OTG_FS_BASE_ADDRESS (uint32_t)(AHB2_BASE_ADDRESS + 0x0)
-
-
+/*****************************************************************************/
+/* APB1 PERIPHERALS */
+/*****************************************************************************/
 
 /* Base addresses of Timer2 to Timer5 */
 
@@ -135,6 +96,10 @@
 
 
 
+/*****************************************************************************/
+/* APB2 PERIPHERALS */
+/*****************************************************************************/
+
 /* Base address of Timer1 */
 
 #define TIM1_BASE_ADDRESS   (uint32_t)(APB2_BASE_ADDRESS + 0x0)
@@ -185,6 +150,56 @@
 #define TIM10_BASE_ADDRESS  (uint32_t)(APB2_BASE_ADDRESS + 0x4400)
 #define TIM11_BASE_ADDRESS  (uint32_t)(APB2_BASE_ADDRESS + 0x4800)
 
+
+
+/*****************************************************************************/
+/* AHB1 PERIPHERALS */
+/*****************************************************************************/
+
+/* Base addresses of GPIOs */
+
+#define GPIOA_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0)
+#define GPIOB_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0400)
+#define GPIOC_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0800)
+#define GPIOD_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x0C00)
+#define GPIOE_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x1000)
+#define GPIOH_BASE_ADDRESS  (uint32_t)(AHB1_BASE_ADDRESS + 0x1C00)
+
+
+
+/* Base address of CRC */
+
+#define CRC_BASE_ADDRESS    (uint32_t)(AHB1_BASE_ADDRESS + 0x3000)
+
+
+
+/* Base address of RCC */
+
+#define RCC_BASE_ADDRESS    (uint32_t)(AHB1_BASE_ADDRESS + 0x3800)
+
+
+
+/* Base address of Flash interface register */
+
+#define FLASH_INTERFACE_REGISTER_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS +\
+    0x3C00)
+
+
+
+/* Base addresses of DMAs */
+
+#define DMA1_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6000)
+#define DMA2_BASE_ADDRESS   (uint32_t)(AHB1_BASE_ADDRESS + 0x6400)
+
+
+
+/*****************************************************************************/
+/* AHB2 PERIPHERALS */
+/*****************************************************************************/
+
+/* Base address of USB OTG FS */
+
+#define USB_OTG_FS_BASE_ADDRESS (uint32_t)(AHB2_BASE_ADDRESS + 0x0)
 
 
 
