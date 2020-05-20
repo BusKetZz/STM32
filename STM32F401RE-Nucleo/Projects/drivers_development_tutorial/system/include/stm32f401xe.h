@@ -204,7 +204,7 @@
 
 
 /*****************************************************************************/
-/* Peripheral registers structures */
+/* Peripheral registers structures and definitions */
 /*****************************************************************************/
 
 /* GPIO registers structure */
@@ -221,6 +221,13 @@ typedef struct {
     volatile uint32_t AFRL;
     volatile uint32_t AFRH;
 }gpio_registers_t;
+
+#define GPIOA   ( (gpio_registers_t *)GPIOA_BASE_ADDRESS )
+#define GPIOB   ( (gpio_registers_t *)GPIOB_BASE_ADDRESS )
+#define GPIOC   ( (gpio_registers_t *)GPIOC_BASE_ADDRESS )
+#define GPIOD   ( (gpio_registers_t *)GPIOD_BASE_ADDRESS )
+#define GPIOE   ( (gpio_registers_t *)GPIOE_BASE_ADDRESS )
+#define GPIOH   ( (gpio_registers_t *)GPIOH_BASE_ADDRESS )
 
 
 
