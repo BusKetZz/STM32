@@ -264,6 +264,8 @@ typedef struct {
     volatile uint32_t DCKCFGR;
 }rcc_registers_t;
 
+#define RCC ( (rcc_registers_t *)RCC_BASE_ADDRESS )
+
 
 
 
