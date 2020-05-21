@@ -38,6 +38,13 @@ typedef struct {
 
 
 
+/*****************************************************************************/
+/* GPIO API prototypes */
+/*****************************************************************************/
+
+void gpio_clock_enable(gpio_registers_t *gpio_port);
+void gpio_clock_disable(gpio_registers_t *gpio_port);
+
 
 
 
