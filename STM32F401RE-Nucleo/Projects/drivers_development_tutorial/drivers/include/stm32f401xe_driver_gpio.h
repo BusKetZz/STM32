@@ -29,6 +29,15 @@ typedef struct {
 
 
 
+/* GPIO handle structure */
+
+typedef struct {
+    gpio_registers_t *gpio_port;
+    gpio_pin_config_t gpio_pin_config;
+}gpio_handle_t;
+
+
+
 
 
 
