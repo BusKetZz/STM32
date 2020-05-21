@@ -34,3 +34,24 @@ void gpio_clock_enable(gpio_registers_t *gpio_port)
     }
 }
 
+
+
+void gpio_clock_disable(gpio_registers_t *gpio_port)
+{
+    if(gpio_port == GPIOA) {
+        GPIOA_CLOCK_DISABLE();
+    } else if(gpio_port == GPIOB) {
+        GPIOB_CLOCK_DISABLE();
+    } else if(gpio_port == GPIOC) {
+        GPIOC_CLOCK_DISABLE();
+    } else if(gpio_port == GPIOD) {
+        GPIOD_CLOCK_DISABLE();
+    } else if(gpio_port == GPIOE) {
+        GPIOE_CLOCK_DISABLE();
+    } else if(gpio_port == GPIOH) {
+        GPIOH_CLOCK_DISABLE();
+    } else {
+        /* TODO */
+    }
+}
+
