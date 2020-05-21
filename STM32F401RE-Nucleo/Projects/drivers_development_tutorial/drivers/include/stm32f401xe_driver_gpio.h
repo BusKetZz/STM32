@@ -12,6 +12,22 @@
 
 
 
+/*****************************************************************************/
+/* GPIO configuration structures */
+/*****************************************************************************/
+
+/* GPIO pin configuration structure */
+
+typedef struct {
+    uint8_t pin_number;
+    uint8_t pin_mode;
+    uint8_t pin_speed;
+    uint8_t pin_pullup_pulldown_control;
+    uint8_t pin_output_type;
+    uint8_t pin_alternate_function_mode;
+}gpio_pin_config_t;
+
+
 
 
 
