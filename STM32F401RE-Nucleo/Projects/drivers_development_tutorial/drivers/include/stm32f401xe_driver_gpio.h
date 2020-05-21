@@ -50,6 +50,10 @@ void gpio_pin_clear_config(gpio_handle_t *gpio_handle);
 
 void gpio_port_reset(gpio_registers_t *gpio_port);
 
+uint8_t gpio_pin_read(gpio_registers_t *gpio_port, uint8_t pin_number);
+uint16_t gpio_port_read(gpio_registers_t *gpio_port);
+
+
 
 
 
