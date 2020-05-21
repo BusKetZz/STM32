@@ -45,7 +45,8 @@ typedef struct {
 void gpio_clock_enable(gpio_registers_t *gpio_port);
 void gpio_clock_disable(gpio_registers_t *gpio_port);
 
-
+void gpio_pin_set_configuration(gpio_handle_t *gpio_handle);
+void gpio_pin_clear_configuration(gpio_handle_t *gpio_handle);
 
 
 
