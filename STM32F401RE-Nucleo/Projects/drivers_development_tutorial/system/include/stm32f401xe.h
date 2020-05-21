@@ -268,6 +268,22 @@ typedef struct {
 
 
 
+/*****************************************************************************/
+/* Clock enable and disable macros */
+/*****************************************************************************/
+
+/* GPIOs clock enable macros */
+
+#define GPIOA_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 0) )
+#define GPIOB_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 1) )
+#define GPIOC_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 2) )
+#define GPIOD_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 3) )
+#define GPIOE_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 4) )
+#define GPIOH_CLOCK_ENABLE  ( RCC->AHB1ENR |= (1 << 7) )
+
+
+
+
 
 #endif /* STM32F401XE_H */
 
