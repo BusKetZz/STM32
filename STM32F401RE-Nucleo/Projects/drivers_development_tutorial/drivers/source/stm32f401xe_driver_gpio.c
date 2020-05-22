@@ -55,3 +55,10 @@ void gpio_clock_disable(gpio_registers_t *gpio_port)
     }
 }
 
+
+
+void gpio_pin_init_config(gpio_handle_t *gpio_handle)
+{
+
+}
+
