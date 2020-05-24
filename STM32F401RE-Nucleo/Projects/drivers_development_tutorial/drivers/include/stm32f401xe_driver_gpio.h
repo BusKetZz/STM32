@@ -18,12 +18,12 @@
 /* GPIO register settings */
 /*****************************************************************************/
 
-enum gpio_mode {
+typedef enum gpio_mode {
     gpio_mode_input = 0,
     gpio_mode_output,
     gpio_mode_alternate_function,
     gpio_mode_analog
-};
+}gpio_mode_t;
 
 
 
