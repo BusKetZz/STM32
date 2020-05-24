@@ -61,7 +61,7 @@ enum gpio_pull {
 typedef struct {
     uint8_t pin_number;
     gpio_mode_t pin_mode;
-    uint8_t pin_speed;
+    gpio_output_speed_t pin_speed;
     uint8_t pin_pullup_pulldown_control;
     gpio_output_type_t pin_output_type;
     uint8_t pin_alternate_function_mode;
