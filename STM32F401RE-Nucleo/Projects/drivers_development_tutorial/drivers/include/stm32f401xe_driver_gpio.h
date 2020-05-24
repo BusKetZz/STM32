@@ -43,6 +43,14 @@ enum gpio_output_speed {
 
 
 
+enum gpio_pull {
+    gpio_no_pull = 0,
+    gpio_pull_up,
+    gpio_pull_down
+};
+
+
+
 
 /*****************************************************************************/
 /* GPIO configuration structures */
