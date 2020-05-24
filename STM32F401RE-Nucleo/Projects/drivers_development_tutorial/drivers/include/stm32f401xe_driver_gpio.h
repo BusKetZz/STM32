@@ -27,10 +27,10 @@ typedef enum gpio_mode {
 
 
 
-enum gpio_output_type {
+typedef enum gpio_output_type {
     gpio_output_type_pushpull = 0,
     gpio_output_type_opendrain
-};
+}gpio_output_type_t;
 
 
 
