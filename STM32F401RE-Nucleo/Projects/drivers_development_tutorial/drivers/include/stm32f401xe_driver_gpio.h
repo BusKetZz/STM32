@@ -43,11 +43,11 @@ typedef enum gpio_output_speed {
 
 
 
-enum gpio_pull {
+typedef enum gpio_pull {
     gpio_no_pull = 0,
     gpio_pull_up,
     gpio_pull_down
-};
+}gpio_pull_t;
 
 
 
