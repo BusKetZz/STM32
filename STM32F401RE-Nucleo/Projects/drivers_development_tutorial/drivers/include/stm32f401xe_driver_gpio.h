@@ -34,12 +34,12 @@ typedef enum gpio_output_type {
 
 
 
-enum gpio_output_speed {
+typedef enum gpio_output_speed {
     gpio_output_speed_low = 0,
     gpio_output_speed_medium,
     gpio_output_speed_high,
     gpio_output_speed_very_high
-};
+}gpio_output_speed_t;
 
 
 
