@@ -27,3 +27,7 @@ CFLAGS += $(ERRORS_LEVEL)
 LD = arm-none-eabi-gcc
 LDFLAGS = -mcpu=$(CORE) -D$(MCU) -mthumb
 
+
+ELF = $(BUILD_DIR)/program.elf
+
+
