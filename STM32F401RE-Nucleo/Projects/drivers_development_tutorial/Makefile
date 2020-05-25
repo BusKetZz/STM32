@@ -13,3 +13,6 @@ DRIVERS_SOURCE_DIR = ./drivers/source
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 	$(basename $(DRIVERS_SOURCE_DIR))))
 
+
+CC = arm-none-eabi-gcc
+
