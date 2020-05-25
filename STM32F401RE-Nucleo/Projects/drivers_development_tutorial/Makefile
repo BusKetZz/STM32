@@ -25,4 +25,5 @@ CFLAGS += $(ERRORS_LEVEL)
 
 
 LD = arm-none-eabi-gcc
+LDFLAGS = -mcpu=$(CORE) -D$(MCU) -mthumb
 
