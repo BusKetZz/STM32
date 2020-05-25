@@ -51,6 +51,27 @@ typedef enum gpio_pull {
 
 
 
+typedef enum gpio_alternate_function_mode {
+    gpio_alternate_function_mode_af0 = 0,
+    gpio_alternate_function_mode_af1,
+    gpio_alternate_function_mode_af2, 
+    gpio_alternate_function_mode_af3,
+    gpio_alternate_function_mode_af4,
+    gpio_alternate_function_mode_af5,
+    gpio_alternate_function_mode_af6,
+    gpio_alternate_function_mode_af7,
+    gpio_alternate_function_mode_af8,
+    gpio_alternate_function_mode_af9,
+    gpio_alternate_function_mode_af10,
+    gpio_alternate_function_mode_af11,
+    gpio_alternate_function_mode_af12,
+    gpio_alternate_function_mode_af13,
+    gpio_alternate_function_mode_af14,
+    gpio_alternate_function_mode_af15
+}gpio_alternate_function_mode_t;
+
+
+
 
 /*****************************************************************************/
 /* GPIO configuration structures */
