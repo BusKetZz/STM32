@@ -16,4 +16,7 @@ OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 
 CC = arm-none-eabi-gcc
 CSTANDARD = gnu11
+CFLAGS = -c -std=$(CSTANDARD) -mcpu=$(CORE) -D$(MCU) -mthumb
+CLFAGS += $(OPTIMIZATION_LEVEL)
+CFLAGS += -I$(SYSTEM_INCLUDE_DIR) -I$(DRIVERS_INCLUDE_DIR)
 
