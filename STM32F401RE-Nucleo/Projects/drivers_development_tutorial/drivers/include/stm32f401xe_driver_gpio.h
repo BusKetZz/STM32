@@ -18,6 +18,27 @@
 /* GPIO register settings */
 /*****************************************************************************/
 
+typedef enum gpio_pin_number {
+    gpio_pin_number_0 = 0,
+    gpio_pin_number_1,
+    gpio_pin_number_2,
+    gpio_pin_number_3,
+    gpio_pin_number_4,
+    gpio_pin_number_5,
+    gpio_pin_number_6,
+    gpio_pin_number_7,
+    gpio_pin_number_8,
+    gpio_pin_number_9,
+    gpio_pin_number_10,
+    gpio_pin_number_11,
+    gpio_pin_number_12,
+    gpio_pin_number_13,
+    gpio_pin_number_14,
+    gpio_pin_number_15
+}gpio_pin_number_t;
+
+
+
 typedef enum gpio_mode {
     gpio_mode_input = 0,
     gpio_mode_output,
