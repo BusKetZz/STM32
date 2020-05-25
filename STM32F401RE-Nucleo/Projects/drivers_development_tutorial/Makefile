@@ -4,5 +4,5 @@ CORE = cortex-m4
 OPTIMIZATION_LEVEL = -O0
 
 
-
+BUILD_DIR = ./build
 
