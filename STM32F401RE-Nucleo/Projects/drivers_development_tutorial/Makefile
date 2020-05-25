@@ -6,4 +6,5 @@ OPTIMIZATION_LEVEL = -O0
 
 BUILD_DIR = ./build
 SYSTEM_INCLUDE_DIR = ./system/include
+DRIVERS_INCLUDE_DIR = ./drivers/include
 
