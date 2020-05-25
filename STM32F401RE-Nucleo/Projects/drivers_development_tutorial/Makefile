@@ -32,3 +32,9 @@ ELF = $(BUILD_DIR)/program.elf
 HEX = $(BUILD_DIR)/program.hex
 BIN = $(BUILD_DIR)/program.bin
 
+
+all: $(ELF)
+
+$(ELF): $(OBJECT_FILES)
+	$(LD) $(LDFLAGS) -o $@ $(OBJECT_FILES)
+
