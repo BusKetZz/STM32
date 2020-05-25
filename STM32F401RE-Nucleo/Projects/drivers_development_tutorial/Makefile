@@ -1,3 +1,8 @@
 MCU = STM32F401xE
 CORE = cortex-m4
 
+OPTIMIZATION_LEVEL = -O0
+
+
+
+
