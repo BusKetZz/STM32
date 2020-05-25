@@ -1,7 +1,9 @@
 MCU = STM32F401xE
 CORE = cortex-m4
 
+
 OPTIMIZATION_LEVEL = -O0
+ERRORS_LEVEL = -Wall
 
 
 BUILD_DIR = ./build
