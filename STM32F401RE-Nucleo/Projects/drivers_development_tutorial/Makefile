@@ -15,4 +15,5 @@ OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 
 
 CC = arm-none-eabi-gcc
+CSTANDARD = gnu11
 
