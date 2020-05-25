@@ -29,5 +29,5 @@ LDFLAGS = -mcpu=$(CORE) -D$(MCU) -mthumb
 
 
 ELF = $(BUILD_DIR)/program.elf
-
+HEX = $(BUILD_DIR)/program.hex
 
