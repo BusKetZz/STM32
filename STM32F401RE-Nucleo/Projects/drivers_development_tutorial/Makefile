@@ -38,7 +38,7 @@ all: $(ELF)
 $(ELF): $(OBJECT_FILES)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECT_FILES)
 
-$(OBJECT_FILES): $(DRIVERS_SOURCE_DIR)/%.c
+$(BUILD_DIR)/%.o: $(DRIVERS_SOURCE_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
 
