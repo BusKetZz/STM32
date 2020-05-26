@@ -101,7 +101,7 @@ typedef enum gpio_alternate_function_mode {
 /* GPIO pin configuration structure */
 
 typedef struct {
-    uint8_t pin_number;
+    gpio_pin_number_t pin_number;
     gpio_mode_t pin_mode;
     gpio_output_speed_t pin_speed;
     gpio_pull_t pin_pullup_pulldown_control;
