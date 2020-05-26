@@ -97,3 +97,28 @@ void gpio_pin_init_config(gpio_handle_t *gpio_handle)
     }
 }
 
+
+
+void gpio_pin_clear_config(gpio_handle_t *gpio_handle)
+{
+    gpio_handle->gpio_port->MODER &= ~(0x3 <<
+        (2 * gpio_handle->gpio_pin_config.pin_number));
+
+    gpio_handle->gpio_port->OTYPER &= ~(0x1 <<
+        gpio_handle->gpio_pin_config.pin_number);
+
+    gpio_handle->gpio_port->OSPEEDR &= ~(0x3 <<
+        (2 * gpio_handle->gpio_pin_config.pin_number));
+
+    gpio_handle->gpio_port->PUPDR &= ~(0x3 <<
+        (2 * gpio_handle->gpio_pin_config.pin_number));
+
+    if(gpio_handle->gpio_pin_config.pin_number < gpio_pin_number_8) {
+        gpio_handle->gpio_port->AFRL &= ~(0xF << 
+            (4 * gpio_handle->gpio_pin_config.pin_number));
+    } else {
+        uint8_t pin_number = gpio_handle->gpio_pin_config.pin_number % 8;
+        gpio_handle->gpio_port->AFRH &= ~(0xF << (4 * pin_number));
+    }
+}
+
