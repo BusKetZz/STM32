@@ -12,7 +12,7 @@ DRIVERS_INCLUDE_DIR = ./drivers/include
 DRIVERS_SOURCE_DIR = ./drivers/source
 
 
-SOURCE_FILES = $(DRIVERS_SOURCE_DIR)/%.c
+SOURCE_FILES = stm32f401xe_driver_gpio.c
 
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 	$(basename $(SOURCE_FILES))))
