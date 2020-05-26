@@ -24,6 +24,7 @@ CFLAGS = -c -std=$(CSTANDARD) -mcpu=$(CORE) -D$(MCU) -mthumb
 CFLAGS += $(OPTIMIZATION_LEVEL)
 CFLAGS += -I$(SYSTEM_INCLUDE_DIR) -I$(DRIVERS_INCLUDE_DIR)
 CFLAGS += $(ERRORS_LEVEL)
+CFLAGS += -mfloat-abi=soft
 
 
 LD = arm-none-eabi-gcc
