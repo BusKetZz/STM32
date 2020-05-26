@@ -61,19 +61,26 @@ void gpio_pin_init_config(gpio_handle_t *gpio_handle)
 {
     uint32_t settings = 0;
 
-    settings |= gpio_handle->gpio_pin_config.pin_mode <<
+    settings = gpio_handle->gpio_pin_config.pin_mode <<
         (2 * gpio_handle->gpio_pin_config.pin_number);
+    gpio_handle->gpio_port->MODER |= settings;
 
-    settings |= gpio_handle->gpio_pin_config.pin_output_type <<
+    settings = 0;
+    settings = gpio_handle->gpio_pin_config.pin_output_type <<
         gpio_handle->gpio_pin_config.pin_number;
+    gpio_handle->gpio_port->OTYPER |= settings;
 
+    settings = 0;
     settings |= gpio_handle->gpio_pin_config.pin_speed <<
         (2* gpio_handle->gpio_pin_config.pin_number);
+    gpio_handle->gpio_port->OSPEEDR |= settings;
 
+    settings = 0;
     settings |= gpio_handle->gpio_pin_config.pin_pullup_pulldown_control <<
         (2 * gpio_handle->gpio_pin_config.pin_number);
+    gpio_handle->gpio_port->PUPDR |= settings;
 
-
+    settings = 0;
     if(gpio_handle->gpio_pin_config.pin_mode == gpio_mode_alternate_function) {
         if(gpio_handle->gpio_pin_config.pin_number < gpio_pin_number_7) {
             settings |=
