@@ -82,7 +82,7 @@ void gpio_pin_init_config(gpio_handle_t *gpio_handle)
 
     settings = 0;
     if(gpio_handle->gpio_pin_config.pin_mode == gpio_mode_alternate_function) {
-        if(gpio_handle->gpio_pin_config.pin_number < gpio_pin_number_7) {
+        if(gpio_handle->gpio_pin_config.pin_number < gpio_pin_number_8) {
             settings |=
                 gpio_handle->gpio_pin_config.pin_alternate_function_mode <<
                     (4 * gpio_handle->gpio_pin_config.pin_number);
