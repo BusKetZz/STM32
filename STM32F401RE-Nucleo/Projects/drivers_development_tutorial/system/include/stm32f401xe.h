@@ -10,6 +10,10 @@
 
 
 
+#include <stdint.h>
+
+
+
 /* Base addresses of FLASH and SRAM */
 
 #define FLASH_BASE_ADDRESS          (uint32_t)0x08000000
