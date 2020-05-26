@@ -59,6 +59,20 @@ void gpio_clock_disable(gpio_registers_t *gpio_port)
 
 void gpio_pin_init_config(gpio_handle_t *gpio_handle)
 {
+    uint32_t settings = 0;
 
+    settings |= gpio_handle->gpio_pin_config.pin_mode <<
+        (2 * gpio_handle->gpio_pin_config.pin_number);
+
+    settings |= gpio_handle->gpio_pin_config.pin_output_type <<
+        gpio_handle->gpio_pin_config.pin_number;
+
+    settings |= gpio_handle->gpio_pin_config.pin_speed <<
+        (2* gpio_handle->gpio_pin_config.pin_number);
+
+    settings |= gpio_handle->gpio_pin_config.pin_pullup_pulldown_control <<
+        (2 * gpio_handle->gpio_pin_config.pin_number);
+
+    gpio_handle->gpio_port |= settings;
 }
 
