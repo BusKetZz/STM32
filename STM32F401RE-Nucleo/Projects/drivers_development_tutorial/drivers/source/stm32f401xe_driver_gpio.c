@@ -12,6 +12,30 @@
 
 
 /*****************************************************************************/
+/* Clock enable and disable macros */
+/*****************************************************************************/
+
+/* GPIOs clock enable macros */
+
+#define GPIOA_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 0) )
+#define GPIOB_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 1) )
+#define GPIOC_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 2) )
+#define GPIOD_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 3) )
+#define GPIOE_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 4) )
+#define GPIOH_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 7) )
+
+/* GPIOs clock disable macros */
+
+#define GPIOA_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 0) )
+#define GPIOB_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 1) )
+#define GPIOC_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 2) )
+#define GPIOD_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 3) )
+#define GPIOE_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 4) )
+#define GPIOH_CLOCK_DISABLE() ( RCC->AHB1ENR &= ~(1 << 7) )
+        
+
+
+/*****************************************************************************/
 /* GPIO API definitions */
 /*****************************************************************************/
 
