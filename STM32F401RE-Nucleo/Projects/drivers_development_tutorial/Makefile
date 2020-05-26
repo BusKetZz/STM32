@@ -12,6 +12,8 @@ DRIVERS_INCLUDE_DIR = ./drivers/include
 DRIVERS_SOURCE_DIR = ./drivers/source
 
 
+SOURCE_FILES = $(DRIVERS_SOURCE_DIR)/%.c
+
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 	$(basename $(DRIVERS_SOURCE_DIR))))
 
