@@ -42,3 +42,6 @@ $(BUILD_DIR)/%.o: $(DRIVERS_SOURCE_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
 
+clean:
+	rm -rf $(BUILD_DIR)
+
