@@ -37,18 +37,18 @@
 /* GPIO port reset macros */
 /*****************************************************************************/
 
-#define GPIOA_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 0);\
-    (RCC->AHB1RSTR &= ~(1 << 0); }while(0)
-#define GPIOB_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 1);\
-    (RCC->AHB1RSTR &= ~(1 << 1); }while(0)
-#define GPIOC_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 2);\
-    (RCC->AHB1RSTR &= ~(1 << 2); }while(0)
-#define GPIOD_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 3);\
-    (RCC->AHB1RSTR &= ~(1 << 3); }while(0)
-#define GPIOE_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 4);\
-    (RCC->AHB1RSTR &= ~(1 << 4); }while(0)
-#define GPIOH_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 7);\
-    (RCC->AHB1RSTR &= ~(1 << 7); }while(0)
+#define GPIOA_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 0));\
+    (RCC->AHB1RSTR &= ~(1 << 0)); }while(0)
+#define GPIOB_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 1));\
+    (RCC->AHB1RSTR &= ~(1 << 1)); }while(0)
+#define GPIOC_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 2));\
+    (RCC->AHB1RSTR &= ~(1 << 2)); }while(0)
+#define GPIOD_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 3));\
+    (RCC->AHB1RSTR &= ~(1 << 3)); }while(0)
+#define GPIOE_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 4));\
+    (RCC->AHB1RSTR &= ~(1 << 4)); }while(0)
+#define GPIOH_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 7));\
+    (RCC->AHB1RSTR &= ~(1 << 7)); }while(0)
 
 
 
