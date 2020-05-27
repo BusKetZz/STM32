@@ -199,3 +199,10 @@ uint16_t gpio_port_read(gpio_registers_t *gpio_port)
     return (uint16_t)(gpio_port->IDR);
 }
 
+
+
+void gpio_pin_set(gpio_registers_t *gpio_port, gpio_pin_number_t pin_number)
+{
+   gpio_port->ODR |= (1 << pin_number); 
+}
+
