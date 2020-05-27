@@ -206,3 +206,10 @@ void gpio_pin_set(gpio_registers_t *gpio_port, gpio_pin_number_t pin_number)
    gpio_port->ODR |= (1 << pin_number); 
 }
 
+
+
+void gpio_pin_reset(gpio_registers_t *gpio_port, gpio_pin_number_t pin_number)
+{
+    gpio_port->ODR &= ~(1 << pin_number);
+}
+
