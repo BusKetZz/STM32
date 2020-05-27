@@ -163,3 +163,24 @@ void gpio_pin_clear_config(gpio_handle_t *gpio_handle)
     }
 }
 
+
+
+void gpio_port_reset(gpio_registers_t *gpio_port)
+{
+    if(gpio_port == GPIOA) {
+        GPIOA_PORT_RESET();
+    } else if(gpio_port == GPIOB) {
+        GPIOB_PORT_RESET();
+    } else if(gpio_port == GPIOC) {
+        GPIOC_PORT_RESET();
+    } else if(gpio_port == GPIOD) {
+        GPIOD_PORT_RESET();
+    } else if(gpio_port == GPIOE) {
+        GPIOE_PORT_RESET();
+    } else if(gpio_port == GPIOH) {
+        GPIOH_PORT_RESET();
+    } else {
+        /* TODO */
+    }
+}    
+
