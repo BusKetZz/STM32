@@ -192,3 +192,10 @@ uint8_t gpio_pin_read(gpio_registers_t *gpio_port,
    return (uint8_t)((gpio_port->IDR >> pin_number) & 0x1);
 }
 
+
+
+uint16_t gpio_port_read(gpio_registers_t *gpio_port)
+{
+    return (uint16_t)(gpio_port->IDR);
+}
+
