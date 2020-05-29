@@ -290,6 +290,8 @@ typedef struct {
     volatile uint32_t PR;
 }exti_registers_t;
 
+#define EXTI    ( (exti_registers_t *)EXTI_BASE_ADDRESS )
+
 
 
 #endif /* STM32F401XE_H */
