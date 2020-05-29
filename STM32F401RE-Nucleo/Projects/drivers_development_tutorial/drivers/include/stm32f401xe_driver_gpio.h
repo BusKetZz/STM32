@@ -155,8 +155,7 @@ void gpio_pin_reset(gpio_registers_t *gpio_port, gpio_pin_number_t pin_number);
 void gpio_pin_toggle(gpio_registers_t *gpio_port,
     gpio_pin_number_t pin_number);
 
-void gpio_pin_irq_config(gpio_handle_t *gpio_handle,
-    gpio_pin_number_t pin_number);
+void gpio_pin_irq_config(gpio_handle_t *gpio_handle);
 
 
 
