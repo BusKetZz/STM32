@@ -277,5 +277,20 @@ typedef struct {
 
 #define RCC ( (rcc_registers_t *)RCC_BASE_ADDRESS )
 
+
+
+/* EXTI registers structure */
+
+typedef struct {
+    volatile uint32_t IMR;
+    volatile uint32_t EMR;
+    volatile uint32_t RTSR;
+    volatile uint32_t FTSR;
+    volatile uint32_t SWIER;
+    volatile uint32_t PR;
+}exti_registers_t;
+
+
+
 #endif /* STM32F401XE_H */
 
