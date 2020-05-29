@@ -294,5 +294,19 @@ typedef struct {
 
 
 
+/* SYSCFG registers structure */
+
+typedef struct {
+    volatile uint32_t MEMRMP;
+    volatile uint32_t PMC;
+    volatile uint32_t EXTICR1;
+    volatile uint32_t EXTICR2;
+    volatile uint32_t EXTICR3;
+    volatile uint32_t EXTICR4;
+    volatile uint32_t CMPCR;
+}syscfg_registers_t;
+
+
+
 #endif /* STM32F401XE_H */
 
