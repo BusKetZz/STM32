@@ -236,6 +236,18 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
         EXTI->FTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
     }
 
+    uint8_t exti_cr_number = gpio_handle->gpio_pin_config.pin_number / 4;
+    uint8_t exti_number = gpio_handle->gpio_pin_config.pin_number % 4;
+    if(exti_cr_number == 0) {
+        SYSCFG->EXTICR1 |= /* port_code */ << (exti_number * 4);
+    } else if(exti_cr_number == 1) {
+        SYSCFG->EXTICR2 |= /* port_code */ << (exti_number * 4);
+    } else if(exti_cr_number == 2) {
+        SYSCFG->EXTICR3 |= /* port_code */ << (exti_number * 4);
+    } else {
+        SYSCFG->EXTICR4 |= /* port_code */ << (exti_number * 4);
+    }
+
     EXTI->IMR |= (1 << gpio_handle->gpio_pin_config.pin_number);
 }
 
