@@ -306,6 +306,8 @@ typedef struct {
     volatile uint32_t CMPCR;
 }syscfg_registers_t;
 
+#define SYSCFG  ( (syscfg_registers_t *)SYSCFG_BASE_ADDRESS )
+
 
 
 #endif /* STM32F401XE_H */
