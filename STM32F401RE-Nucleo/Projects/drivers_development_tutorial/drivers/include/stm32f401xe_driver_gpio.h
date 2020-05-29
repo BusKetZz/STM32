@@ -93,6 +93,14 @@ typedef enum gpio_alternate_function_mode {
 
 
 
+typedef enum gpio_trigger_selection {
+    gpio_trigger_rising = 0,
+    gpio_trigger_falling,
+    gpio_trigger_rising_falling
+}gpio_trigger_selection_t;
+
+
+
 /*****************************************************************************/
 /* GPIO configuration structures */
 /*****************************************************************************/
