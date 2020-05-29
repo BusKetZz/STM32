@@ -110,6 +110,12 @@ typedef struct {
 
 
 
+typedef struct {
+    uint8_t gpio_trigger_selection;
+}gpio_irq_config_t;
+
+
+
 /* GPIO handle structure */
 
 typedef struct {
