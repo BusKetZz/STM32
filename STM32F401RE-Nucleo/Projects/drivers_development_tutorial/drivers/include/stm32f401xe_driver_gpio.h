@@ -129,6 +129,7 @@ typedef struct {
 typedef struct {
     gpio_registers_t *gpio_port;
     gpio_pin_config_t gpio_pin_config;
+    gpio_irq_config_t gpio_irq_config;
 }gpio_handle_t;
 
 
