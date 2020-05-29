@@ -223,18 +223,17 @@ void gpio_pin_toggle(gpio_registers_t *gpio_port,
 
 
 
-void gpio_pin_irq_config(gpio_handle_t *gpio_handle,
-    gpio_pin_number_t pin_number)
+void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
 {
     if(gpio_handle->gpio_irq_config.trigger_selection == gpio_trigger_rising) {
-        EXTI->RTSR |= (1 << pin_number);
+        EXTI->RTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
     } else if(gpio_handle->gpio_irq_config.trigger_selection == 
         gpio_trigger_falling) {
-        EXTI->FTSR |= (1 << pin_number);
+        EXTI->FTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
     } else if(gpio_handle->gpio_irq_config.trigger_selection ==
         gpio_trigger_rising_falling) {
-        EXTI->RTSR |= (1 << pin_number);
-        EXTI->FTSR |= (1 << pin_number);
+        EXTI->RTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
+        EXTI->FTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
     }
 }
 
