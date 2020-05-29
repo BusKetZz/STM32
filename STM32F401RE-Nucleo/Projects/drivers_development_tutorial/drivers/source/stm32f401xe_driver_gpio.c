@@ -235,5 +235,7 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
         EXTI->RTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
         EXTI->FTSR |= (1 << gpio_handle->gpio_pin_config.pin_number);
     }
+
+    EXTI->IMR |= (1 << gpio_handle->gpio_pin_config.pin_number);
 }
 
