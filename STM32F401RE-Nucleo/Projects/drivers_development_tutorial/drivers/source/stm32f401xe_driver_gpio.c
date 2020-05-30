@@ -260,3 +260,27 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
     EXTI->IMR |= (1 << gpio_handle->gpio_pin_config.pin_number);
 }
 
+
+
+/*****************************************************************************/
+/* GPIO helper functions definitions */
+/*****************************************************************************/
+
+static syscfg_exti_port_code_t gpio_into_port_code_conversion(gpio_registers_t
+    *gpio_port)
+{
+    if(gpio_port == GPIOA) {
+        return syscfg_exti_port_code_gpio_a; 
+    } else if(gpio_port == GPIOB) {
+        return syscfg_exti_port_code_gpio_b;
+    } else if(gpio_port == GPIOC) {
+        return syscfg_exti_port_code_gpio_c;
+    } else if(gpio_port == GPIOD) {
+        return syscfg_exti_port_code_gpio_d;
+    } else if(gpio_port == GPIOE) {
+        return syscfg_exti_port_code_gpio_e;
+    } else {
+        return syscfg_exti_port_code_gpio_h;
+    }
+}
+
