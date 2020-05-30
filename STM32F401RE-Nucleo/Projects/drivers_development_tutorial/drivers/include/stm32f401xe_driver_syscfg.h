@@ -16,14 +16,14 @@
 /* SYSCFG register settings */
 /*****************************************************************************/
 
-typedef enum syscfg_exti_gpio {
-    syscfg_exti_gpio_a = 0,
-    syscfg_exti_gpio_b,
-    syscfg_exti_gpio_c,
-    syscfg_exti_gpio_d,
-    syscfg_exti_gpio_e,
-    syscfg_exti_gpio_h = 7
-}syscfg_exti_gpio_t;
+typedef enum syscfg_exti_port_code {
+    syscfg_exti_port_code_gpio_a = 0,
+    syscfg_exti_port_code_gpio_b,
+    syscfg_exti_port_code_gpio_c,
+    syscfg_exti_port_code_gpio_d,
+    syscfg_exti_port_code_gpio_e,
+    syscfg_exti_port_code_gpio_h = 7
+}syscfg_exti_port_code_t;
 
 
 
