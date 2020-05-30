@@ -56,7 +56,7 @@
 /* GPIO helper functions prototypes */
 /*****************************************************************************/
 
-static syscfg_exti_port_code_t gpio_port_into_port_code(gpio_registers_t
+static syscfg_exti_port_code_t gpio_into_port_code_conversion(gpio_registers_t
     *gpio_port);
 
 
