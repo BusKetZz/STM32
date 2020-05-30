@@ -79,9 +79,9 @@ typedef enum nvic_irq_number {
 
 
 
-
-
-/* Base addresses of FLASH and SRAM */
+/*****************************************************************************/
+/* FLASH AND SRAM BASE ADDRESSES */
+/*****************************************************************************/
 
 #define FLASH_BASE_ADDRESS          (uint32_t)0x08000000
 #define SRAM_BASE_ADDRESS           (uint32_t)0x20000000
@@ -89,14 +89,13 @@ typedef enum nvic_irq_number {
 
 
 
-/* Base addresses of APB buses */
+/*****************************************************************************/
+/* APB AND AHB BASE ADDRESSES */
+/*****************************************************************************/
 
 #define APB1_BASE_ADDRESS   (uint32_t)0x40000000
 #define APB2_BASE_ADDRESS   (uint32_t)0x40010000
 
-
-
-/* Base addresses of AHB buses */
 
 #define AHB1_BASE_ADDRESS   (uint32_t)0x40020000
 #define AHB2_BASE_ADDRESS   (uint32_t)0x50000000
