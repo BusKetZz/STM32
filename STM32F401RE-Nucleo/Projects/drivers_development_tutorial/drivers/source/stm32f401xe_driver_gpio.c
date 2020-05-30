@@ -6,6 +6,7 @@
  */
 
 #include "stm32f401xe_driver_gpio.h"
+#include "stm32f401xe_driver_syscfg.h"
 
 #include "stm32f401xe.h"
 
