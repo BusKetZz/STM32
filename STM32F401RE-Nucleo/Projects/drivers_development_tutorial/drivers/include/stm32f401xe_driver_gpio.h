@@ -156,7 +156,7 @@ void gpio_pin_toggle(gpio_registers_t *gpio_port,
     gpio_pin_number_t pin_number);
 
 void gpio_pin_irq_config(gpio_handle_t *gpio_handle);
-
+void gpio_pin_irq_enable(nvic_irq_number_t irq_number, uint8_t irq_priority);
 
 
 
