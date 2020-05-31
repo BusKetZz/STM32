@@ -155,7 +155,7 @@ typedef enum nvic_irq_priority {
 
 
 /*****************************************************************************/
-/* NVIC IRQ API prototypes */
+/* NVIC IRQ API PROTOTYPES */
 /*****************************************************************************/
 
 void nvic_irq_enable(nvic_irq_number_t);
