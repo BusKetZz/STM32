@@ -75,6 +75,67 @@ typedef enum nvic_irq_number {
 
 
 
+typedef enum nvic_irq_priority {
+    nvic_irq_priority_7 = 7,
+    nvic_irq_priority_8,
+    nvic_irq_priority_9,
+    nvic_irq_priority_10,
+    nvic_irq_priority_11,
+    nvic_irq_priority_12,
+    nvic_irq_priority_13,
+    nvic_irq_priority_14,
+    nvic_irq_priority_15,
+    nvic_irq_priority_16,
+    nvic_irq_priority_17,
+    nvic_irq_priority_18,
+    nvic_irq_priority_19,
+    nvic_irq_priority_20,
+    nvic_irq_priority_21,
+    nvic_irq_priority_22,
+    nvic_irq_priority_23,
+    nvic_irq_priority_24,
+    nvic_irq_priority_25,
+    nvic_irq_priority_30 = 30,
+    nvic_irq_priority_31,
+    nvic_irq_priority_32,
+    nvic_irq_priority_33,
+    nvic_irq_priority_34,
+    nvic_irq_priority_35,
+    nvic_irq_priority_36,
+    nvic_irq_priority_37,
+    nvic_irq_priority_38,
+    nvic_irq_priority_39,
+    nvic_irq_priority_40,
+    nvic_irq_priority_41,
+    nvic_irq_priority_42,
+    nvic_irq_priority_43,
+    nvic_irq_priority_44,
+    nvic_irq_priority_45,
+    nvic_irq_priority_47 = 47,
+    nvic_irq_priority_48,
+    nvic_irq_priority_49,
+    nvic_irq_priority_54 = 54,
+    nvic_irq_priority_56 = 56,
+    nvic_irq_priority_57,
+    nvic_irq_priority_58,
+    nvic_irq_priority_63 = 63,
+    nvic_irq_priority_64,
+    nvic_irq_priority_65,
+    nvic_irq_priority_66,
+    nvic_irq_priority_67,
+    nvic_irq_priority_74 = 74,
+    nvic_irq_priority_75,
+    nvic_irq_priority_76,
+    nvic_irq_priority_77,
+    nvic_irq_priority_78,
+    nvic_irq_priority_79,
+    nvic_irq_priority_80,
+    nvic_irq_priority_88 = 88,
+    nvic_irq_priority_91 = 91
+}nvic_irq_priority_t;
+
+
+
 /*****************************************************************************/
 /* NVIC REGISTERS BASE ADDRESSES */
 /*****************************************************************************/
