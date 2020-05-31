@@ -21,5 +21,12 @@
 
 
 
+#define NVIC_ICER0_BASE_ADDRESS (volatile uint32_t *)0xE000E180
+#define NVIC_ICER1_BASE_ADDRESS (volatile uint32_t *)0xE000E184
+#define NVIC_ICER2_BASE_ADDRESS (volatile uint32_t *)0xE000E188
+#define NVIC_ICER3_BASE_ADDRESS (volatile uint32_t *)0xE000E18C
+
+
+
 #endif /* CORTEX_M4_H */ 
 
