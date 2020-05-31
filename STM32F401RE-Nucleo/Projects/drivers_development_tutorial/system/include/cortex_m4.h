@@ -32,7 +32,7 @@
 /* NVIC IRQ API prototypes */
 /*****************************************************************************/
 
-void irq_enable(nvic_irq_numbet_t);
+void nvic_irq_enable(nvic_irq_numbet_t);
 void nvic_irq_disable(nvic_irq_number_t);
 
 
