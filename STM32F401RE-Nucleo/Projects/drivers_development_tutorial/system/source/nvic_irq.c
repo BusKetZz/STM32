@@ -15,6 +15,23 @@
 /* NVIC IRQ API DEFINITIONS */
 /*****************************************************************************/
 
+void nvic_irq_priority_config(nvic_irq_number_t irq_number,
+    nvic_irq_priority_t irq_priority)
+{
+    const uint8_t priority_bits_amount = 4;
+
+    uint8_t ipr_register_number = irq_number / 4;
+    uint8_t ipr_register_section = irq_number % 4;
+
+    uint8_t shift_in_register = (8 * ipr_register_section) + (8 -
+        priority_bits_amount);
+
+    *(NVIC_IPR0_BASE_ADDRESS + (ipr_register_number * 4)) |= (irq_priority <<
+        shift_in_register);
+}
+
+
+
 void nvic_irq_enable(nvic_irq_number_t irq_number)
 {
     if(irq_number <= 31) {
