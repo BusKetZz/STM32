@@ -33,6 +33,7 @@
 /*****************************************************************************/
 
 void irq_enable(nvic_irq_numbet_t);
+void nvic_irq_disable(nvic_irq_number_t);
 
 
 #endif /* CORTEX_M4_H */ 
