@@ -267,7 +267,7 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
 
 
 
-void gpio_pin_irq_enable(nvic_irq_number_t irq_number, uint8_t irq_priority)
+void gpio_pin_irq_enable(nvic_irq_number_t irq_number)
 {
     if(irq_number <= 31) {
         *NVIC_ISER0_BASE_ADDRESS |= (1 << irq_number);
