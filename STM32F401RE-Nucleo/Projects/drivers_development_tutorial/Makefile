@@ -46,6 +46,10 @@ all: $(ELF)
 $(ELF): $(OBJECT_FILES)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECT_FILES)
 
+$(BUILD_DIR)/%.o: $(SYSTEM_SOURCE_DIR)/%.c
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -o $@ $<
+
 $(BUILD_DIR)/%.o: $(DRIVERS_SOURCE_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
