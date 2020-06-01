@@ -15,7 +15,7 @@
 
 
 /*****************************************************************************/
-/* GPIO clock enable and disable macros */
+/* GPIO CLOCK ENABLE AND DISABLE MACROS */
 /*****************************************************************************/
 
 #define GPIOA_CLOCK_ENABLE()  ( RCC->AHB1ENR |= (1 << 0) )
@@ -37,7 +37,7 @@
 
 
 /*****************************************************************************/
-/* GPIO port reset macros */
+/* GPIO PORT RESET MACROS */
 /*****************************************************************************/
 
 #define GPIOA_PORT_RESET()  do{ (RCC->AHB1RSTR |= (1 << 0));\
@@ -56,7 +56,7 @@
 
 
 /*****************************************************************************/
-/* GPIO helper functions prototypes */
+/* GPIO HELPER FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
 static syscfg_exti_port_code_t gpio_into_port_code_conversion(gpio_registers_t
@@ -65,7 +65,7 @@ static syscfg_exti_port_code_t gpio_into_port_code_conversion(gpio_registers_t
 
 
 /*****************************************************************************/
-/* GPIO API definitions */
+/* GPIO API DEFINITIONS */
 /*****************************************************************************/
 
 void gpio_clock_enable(gpio_registers_t *gpio_port)
@@ -268,7 +268,7 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
 
 
 /*****************************************************************************/
-/* GPIO helper functions definitions */
+/* GPIO HELPER FUNCTIONS DEFINITIONS */
 /*****************************************************************************/
 
 static syscfg_exti_port_code_t gpio_into_port_code_conversion(gpio_registers_t
