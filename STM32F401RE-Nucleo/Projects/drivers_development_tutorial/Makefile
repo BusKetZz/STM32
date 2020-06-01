@@ -8,6 +8,7 @@ ERRORS_LEVEL = -Wall
 
 BUILD_DIR = ./build
 SYSTEM_INCLUDE_DIR = ./system/include
+SYSTEM_SOURCE_DIR = ./system/source
 DRIVERS_INCLUDE_DIR = ./drivers/include
 DRIVERS_SOURCE_DIR = ./drivers/source
 
