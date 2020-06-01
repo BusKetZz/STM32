@@ -28,7 +28,7 @@ void nvic_irq_priority_config(nvic_irq_number_t irq_number,
     uint8_t shift_in_register = (8 * ipr_register_section) + (8 -
         priority_bits_amount);
 
-    *(NVIC_IPR0_BASE_ADDRESS + (ipr_register_number * 4)) |= (irq_priority <<
+    *(NVIC_IPR0_BASE_ADDRESS + ipr_register_number) |= (irq_priority <<
         shift_in_register);
 }
 
