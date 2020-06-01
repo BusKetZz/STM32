@@ -267,6 +267,15 @@ void gpio_pin_irq_config(gpio_handle_t *gpio_handle)
 
 
 
+void gpio_pin_irq_handler(gpio_pin_number_t pin_number)
+{
+    if(EXTI->PR & (1 << pin_number)) {
+        EXTI->PR |= (1 << pin_number);
+    }
+}
+
+
+
 /*****************************************************************************/
 /* GPIO HELPER FUNCTIONS DEFINITIONS */
 /*****************************************************************************/
