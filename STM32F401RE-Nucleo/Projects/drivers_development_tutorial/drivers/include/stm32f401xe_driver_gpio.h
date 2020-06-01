@@ -15,7 +15,7 @@
 
 
 /*****************************************************************************/
-/* GPIO register settings */
+/* GPIO REGISTER SETTINGS */
 /*****************************************************************************/
 
 typedef enum gpio_pin_number {
@@ -102,10 +102,8 @@ typedef enum gpio_trigger_selection {
 
 
 /*****************************************************************************/
-/* GPIO configuration structures */
+/* GPIO CONFIGURATION STRUCTURES */
 /*****************************************************************************/
-
-/* GPIO pin configuration structure */
 
 typedef struct {
     gpio_pin_number_t pin_number;
@@ -124,8 +122,6 @@ typedef struct {
 
 
 
-/* GPIO handle structure */
-
 typedef struct {
     gpio_registers_t *gpio_port;
     gpio_pin_config_t gpio_pin_config;
@@ -135,7 +131,7 @@ typedef struct {
 
 
 /*****************************************************************************/
-/* GPIO API prototypes */
+/* GPIO API PROTOTYPES */
 /*****************************************************************************/
 
 void gpio_clock_enable(gpio_registers_t *gpio_port);
