@@ -59,6 +59,13 @@ typedef enum spi_clock_phase {
 
 
 
+typedef enum spi_data_frame_format {
+    spi_data_frame_format_8bits = 0,
+    spi_data_frame_format_16bits
+}spi_data_frame_format_t;
+
+
+
 /*****************************************************************************/
 /* SPI CONFIGURATION STRUCTURES */
 /*****************************************************************************/
