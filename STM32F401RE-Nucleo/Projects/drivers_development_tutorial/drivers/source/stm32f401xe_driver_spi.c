@@ -46,3 +46,18 @@ void spi_clock_enable(spi_registers_t *spi_port)
     }
 }
 
+
+
+void spi_clock_disable(spi_registers_t *spi_port)
+{
+    if(spi_port == SPI1) {
+        SPI1_CLOCK_DISABLE();
+    } else if(spi_port == SPI2) {
+        SPI2_CLOCK_DISABLE();
+    } else if(spi_port == SPI3) {
+        SPI3_CLOCK_DISABLE();
+    } else if(spi_port == SPI4) {
+        SPI4_CLOCK_DISABLE();
+    } 
+}
+
