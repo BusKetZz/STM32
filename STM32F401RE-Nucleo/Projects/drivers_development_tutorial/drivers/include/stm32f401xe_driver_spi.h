@@ -52,7 +52,7 @@ typedef enum spi_baudrate {
 typedef struct {
     spi_device_mode_t device_mode;
     spi_transfer_mode_t transfer_mode;
-    spi_clock_speed_t clock_speed;
+    spi_baudrate_t baudrate;
     spi_clock_polarity_t clock_polarity;
     spi_clock_phase_t clock_phase;
     spi_data_frame_format_t data_frame_format;
