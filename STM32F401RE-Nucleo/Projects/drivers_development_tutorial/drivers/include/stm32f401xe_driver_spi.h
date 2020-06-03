@@ -45,6 +45,13 @@ typedef enum spi_baudrate {
 
 
 
+typedef enum spi_clock_polarity {
+    spi_clock_polarity_low_idle_state = 0,
+    spi_clock_polarity_high_idle_state
+}spi_clock_polarity_t;
+
+
+
 /*****************************************************************************/
 /* SPI CONFIGURATION STRUCTURES */
 /*****************************************************************************/
