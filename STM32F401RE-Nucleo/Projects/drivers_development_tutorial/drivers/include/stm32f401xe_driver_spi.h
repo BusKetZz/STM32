@@ -52,6 +52,13 @@ typedef enum spi_clock_polarity {
 
 
 
+typedef enum spi_clock_phase {
+    spi_clock_phase_first = 0,
+    spi_clock_phase_second
+}spi_clock_phase_t;
+
+
+
 /*****************************************************************************/
 /* SPI CONFIGURATION STRUCTURES */
 /*****************************************************************************/
