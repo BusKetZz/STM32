@@ -28,6 +28,12 @@ typedef struct {
 
 
 
+typedef struct {
+    spi_registers_t *spi_port;
+    spi_config_t spi_config;
+}spi_handle_t;
+
+
 
 
 #endif /* STM32F401XE_DRIVER_SPI_H */
