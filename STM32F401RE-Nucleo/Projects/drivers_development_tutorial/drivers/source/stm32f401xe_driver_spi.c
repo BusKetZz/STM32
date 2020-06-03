@@ -27,3 +27,22 @@
 #define SPI3_CLOCK_DISABLE() ( RCC->APB1ENR &= ~(1 << 15) )
 #define SPI4_CLOCK_DISABLE() ( RCC->APB2ENR &= ~(1 << 13) )
 
+
+
+/*****************************************************************************/
+/* SPI API DEFINITIONS */
+/*****************************************************************************/
+
+void spi_clock_enable(spi_registers_t *spi_port)
+{
+    if(spi_port == SPI1) {
+        SPI1_CLOCK_ENABLE();
+    } else if(spi_port == SPI2) {
+        SPI2_CLOCK_ENABLE();
+    } else if(spi_port == SPI3) {
+        SPI3_CLOCK_ENABLE();
+    } else if(spi_port == SPI4) {
+        SPI4_CLOCK_ENABLE();
+    }
+}
+
