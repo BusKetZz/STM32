@@ -38,7 +38,7 @@ typedef enum spi_transfer_mode_t {
 
 typedef struct {
     spi_device_mode_t device_mode;
-    spi_bus_config_t bus_config;
+    spi_transfer_mode_t transfer_mode;
     spi_clock_speed_t clock_speed;
     spi_clock_polarity_t clock_polarity;
     spi_clock_phase_t clock_phase;
