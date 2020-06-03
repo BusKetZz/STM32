@@ -40,6 +40,7 @@ typedef struct {
 /*****************************************************************************/
 
 void spi_clock_enable(spi_registers_t *spi_port);
+void spi_clock_disable(spi_registers_t *spi_port);
 
 
 
