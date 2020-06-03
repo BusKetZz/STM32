@@ -32,6 +32,19 @@ typedef enum spi_transfer_mode_t {
 
 
 
+typedef enum spi_baudrate {
+    spi_baudrate_div2 = 0,
+    spi_baudrate_div4,
+    spi_baudrate_div8,
+    spi_baudrate_div16,
+    spi_baudrate_div32,
+    spi_baudrate_div64,
+    spi_baudrate_div128,
+    spi_baudrate_div256
+}spi_baudrate_t;
+
+
+
 /*****************************************************************************/
 /* SPI CONFIGURATION STRUCTURES */
 /*****************************************************************************/
