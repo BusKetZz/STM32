@@ -138,7 +138,7 @@ void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
             spi_port->DR = *tx_buffer;
             bytes_to_transmit -= 1;
             tx_buffer++;
-        } else if( (spi_port->CR1 & (1 << 11)) == 1) {
+        } else {
             spi_port->DR = *((uint16_t *)tx_buffer);
             bytes_to_transmit -= 2;
             (uint16_t *)tx_buffer++;
