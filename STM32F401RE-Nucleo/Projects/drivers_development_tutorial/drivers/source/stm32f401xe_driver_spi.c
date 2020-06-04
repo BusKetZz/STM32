@@ -82,36 +82,15 @@ void spi_init_config(spi_handle_t *spi_handle)
 
     register_settings |= (spi_handle->spi_config.baudrate << 3);
 
-    if(spi_handle->spi_config.clock_polarity ==
-        spi_clock_polarity_low_idle_state) {
-        register_settings &= ~(1 << 1);
-    } else if(spi_handle->spi_config.clock_polarity ==
-        spi_clock_polarity_high_idle_state) {
-        register_settings |= (1 << 1);
-    }
+    register_settings |= (spi_handle->spi_config.clock_polarity << 1);
 
-    if(spi_handle->spi_config.clock_phase == spi_clock_phase_first) {
-        register_settings &= ~(1 << 0);
-    } else if(spi_handle->spi_config.clock_phase == spi_clock_phase_second) {
-        register_settings |= (1 << 0);
-    }
+    register_settings |= (spi_handle->spi_config.clock_phase << 0);
 
-    if(spi_handle->spi_config.data_frame_format ==
-        spi_data_frame_format_8bits) {
-        register_settings &= ~(1 << 11);
-    } else if(spi_handle->spi_config.data_frame_format ==
-        spi_data_frame_format_16bits) {
-        register_settings |= (1 << 11);
-    }
+    register_settings |= (spi_handle->spi_config.data_frame_format << 11);
 
-    if(spi_handle->spi_config.software_slave_management ==
-        spi_software_slave_management_disabled) {
-        register_settings &= ~(1 << 9);
-    } else if(spi_handle->spi_config.software_slave_management ==
-        spi_software_slave_management_enabled) {
-        register_settings |= (1 << 9);
-    }
+    register_settings |= (spi_handle->spi_config.software_slave_management <<
+        9);
 
-    spi_handle->spi_port->CR1 = register_settings;
+    spi_handle->spi_port->CR1 |= register_settings;
 }
 
