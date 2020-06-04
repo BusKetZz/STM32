@@ -26,7 +26,6 @@ typedef enum spi_device_mode {
 typedef enum spi_transfer_mode_t {
     spi_transfer_mode_full_duplex = 0,
     spi_transfer_mode_half_duplex,
-    spi_transfer_mode_simplex_txonly,
     spi_transfer_mode_simplex_rxonly
 }spi_transfer_mode_t;
 
