@@ -106,6 +106,7 @@ void spi_init_config(spi_handle_t *spi_handle);
 void spi_clear_config(spi_registers_t *spi_port);
 
 void spi_enable(spi_registers_t *spi_port);
+void spi_disable(spi_registers_t *spi_port);
 
 void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
     uint32_t bytes_to_transmit);
