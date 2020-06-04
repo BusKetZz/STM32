@@ -103,6 +103,7 @@ void spi_clock_enable(spi_registers_t *spi_port);
 void spi_clock_disable(spi_registers_t *spi_port);
 
 void spi_init_config(spi_handle_t *spi_handle);
+void spi_clear_config(spi_registers_t *spi_port);
 
 
 
