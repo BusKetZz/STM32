@@ -124,3 +124,25 @@ void spi_clear_config(spi_registers_t *spi_port)
     }
 }
 
+
+
+void spi_send_data(spi_registers_t *spi_port, uint8_t tx_buffer,
+    uint32_t bytes_to_transmit)
+{
+    while(bytes_to_transmit > 0) {
+        while( (spi_port->SR & (1 << 1)) == 0 ) {
+            ;
+        }
+
+        if( (spi_port->CR1 & (1 << 11)) == 0 ) {
+            spi_port->DR = *tx_buffer;
+            bytes_to_transmit -= 1;
+            tx_buffer++;
+        } else if( (spi_port->CR1 & (1 << 11)) == 1) {
+            spi_port->DR = *((uint16_t *)tx_buffer);
+            bytes_to_transmit -= 2;
+            (uint16_t *)tx_buffer++;
+        }
+    }
+}
+
