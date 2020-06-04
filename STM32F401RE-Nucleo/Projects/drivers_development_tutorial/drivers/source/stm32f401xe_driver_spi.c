@@ -126,6 +126,13 @@ void spi_clear_config(spi_registers_t *spi_port)
 
 
 
+void spi_enable(spi_registers_t *spi_port)
+{
+    spi_port->CR1 |= (1 << 6);
+}
+
+
+
 void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
     uint32_t bytes_to_transmit)
 {
