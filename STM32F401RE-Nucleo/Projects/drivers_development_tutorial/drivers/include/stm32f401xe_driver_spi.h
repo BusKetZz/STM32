@@ -68,7 +68,7 @@ typedef enum spi_data_frame_format {
 typedef enum spi_software_slave_management {
     spi_software_slave_management_disabled = 0,
     spi_software_slave_management_enabled
-}spi_software_slave_management;
+}spi_software_slave_management_t;
 
 
 
