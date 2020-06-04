@@ -109,3 +109,18 @@ void spi_init_config(spi_handle_t *spi_handle)
     spi_handle->spi_port->CR1 |= register_settings;
 }
 
+
+
+void spi_clear_config(spi_registers_t *spi_port)
+{
+    if(spi_port == SPI1) {
+        SPI1_RESET();
+    } else if(spi_port == SPI2) {
+        SPI2_RESET();
+    } else if(spi_port == SPI3) {
+        SPI3_RESET();
+    } else if(spi_port == SPI4) {
+        SPI4_RESET();
+    }
+}
+
