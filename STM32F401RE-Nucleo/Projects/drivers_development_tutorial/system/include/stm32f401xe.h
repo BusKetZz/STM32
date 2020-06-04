@@ -328,7 +328,7 @@ typedef struct {
 
 #define SPI1    ( (spi_registers_t *)SPI1_BASE_ADDRESS )
 #define SPI2    ( (spi_registers_t *)SPI2_I2S2_BASE_ADDRESS )
-#define SPI3    ( (spi_registers_t *)SPI3_BASE_ADDRESS )
+#define SPI3    ( (spi_registers_t *)SPI3_I2S3_BASE_ADDRESS )
 #define SPI4    ( (spi_registers_t *)SPI4_BASE_ADDRESS )
 
 
