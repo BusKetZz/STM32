@@ -141,20 +141,20 @@ void spi_disable(spi_registers_t *spi_port)
 
 
 void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
-    uint32_t bytes_to_transmit)
+    uint32_t bytes_to_send)
 {
-    while(bytes_to_transmit > 0) {
+    while(bytes_to_send > 0) {
         while( (spi_port->SR & (1 << 1)) == 0 ) {
             ;
         }
 
         if( (spi_port->CR1 & (1 << 11)) == 0 ) {
             spi_port->DR = *tx_buffer;
-            bytes_to_transmit -= 1;
+            bytes_to_send -= 1;
             tx_buffer++;
         } else {
             spi_port->DR = *((uint16_t *)tx_buffer);
-            bytes_to_transmit -= 2;
+            bytes_to_send -= 2;
             (uint16_t *)tx_buffer++;
         }
     }
