@@ -160,3 +160,25 @@ void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
     }
 }
 
+
+
+void spi_read_data(spi_registers_t *spi_port, uint8_t *rx_buffer,
+    uint32_t bytes_to_read)
+{
+    while(bytes_to_read > 0) {
+        while( (spi_port->SR & (1 << 0)) == 0) {
+            ;
+        }
+
+        if( (spi_port->CR1 & (1 << 11)) == 0) {
+            *rx_buffer = spi_port->DR;
+            bytes_to_read -= 1;
+            rx_buffer++;
+        } else {
+            *((uint16_t *)rx_buffer) = spi_port->DR;
+            bytes_to_read -= 2;
+            (uint16_t *)rx_buffer++;
+        }
+    }
+}
+
