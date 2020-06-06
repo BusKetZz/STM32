@@ -119,6 +119,9 @@ void spi_tx_interrupt_disable(spi_registers_t *spi_port);
 void spi_rx_interrupt_enable(spi_registers_t *spi_port);
 void spi_rx_interrupt_disable(spi_registers_t *spi_port);
 
+void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
+    uint32_t *bytes_to_send);
+
 
 
 #endif /* STM32F401XE_DRIVER_SPI_H */
