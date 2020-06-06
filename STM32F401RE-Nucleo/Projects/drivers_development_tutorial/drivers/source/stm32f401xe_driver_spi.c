@@ -184,28 +184,28 @@ void spi_read_data(spi_registers_t *spi_port, uint8_t *rx_buffer,
 
 
 
-void spi_tx_interrupt_enable(spi_registers_t *spi_port)
+void spi_tx_irq_enable(spi_registers_t *spi_port)
 {
     spi_port->CR2 |= (1 << 7);
 }
 
 
 
-void spi_tx_interrupt_disable(spi_registers_t *spi_port)
+void spi_tx_irq_disable(spi_registers_t *spi_port)
 {
     spi_port->CR2 &= ~(1 << 7);
 }
 
 
 
-void spi_rx_interrupt_enable(spi_registers_t *spi_port)
+void spi_rx_irq_enable(spi_registers_t *spi_port)
 {
     spi_port->CR2 |= (1 << 6);
 }
 
 
 
-void spi_rx_interrupt_disable(spi_registers_t *spi_port)
+void spi_rx_irq_disable(spi_registers_t *spi_port)
 {
     spi_port->CR2 &= ~(1 << 6);
 }
@@ -226,7 +226,7 @@ void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
     }
     
     if(*bytes_to_send == 0) {
-        spi_tx_interrupt_disable(spi_port);
+        spi_tx_irq_disable(spi_port);
     }
 }
 
