@@ -189,3 +189,10 @@ void spi_tx_interrupt_enable(spi_registers_t *spi_port)
     spi_port->CR2 |= (1 << 7);
 }
 
+
+
+void spi_tx_interrupt_disable(spi_registers_t *spi_port)
+{
+    spi_port->CR2 &= ~(1 << 7);
+}
+
