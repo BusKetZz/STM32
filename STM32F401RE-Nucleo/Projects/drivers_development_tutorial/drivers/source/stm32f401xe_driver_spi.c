@@ -230,3 +230,23 @@ void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
     }
 }
 
+
+
+void spi_rx_irq_handler(spi_registers_t *spi_port, uint8_t *rx_buffer,
+    uint32_t *bytes_to_read)
+{
+    if( (spi_port->CR1 & (1 << 11)) == 0 ) {
+        *rx_buffer = spi_port->DR;
+        *bytes_to_read -= 1;
+        rx_buffer++;
+    } else {
+        *((uint16_t *)rx_buffer) = spi_port->DR;
+        *bytes_to_read -= 2;
+        (uint16_t *)rx_buffer++;
+    }
+
+    if(*bytes_to_read == 0) {
+        spi_rx_irq_disable(spi_port);
+    }
+}
+
