@@ -121,6 +121,8 @@ void spi_rx_irq_disable(spi_registers_t *spi_port);
 
 void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
     uint32_t *bytes_to_send);
+void spi_rx_irq_handler(spi_registers_t *spi_port, uint8_t *rx_buffer,
+    uint32_t *bytes_to_read);
 
 
 
