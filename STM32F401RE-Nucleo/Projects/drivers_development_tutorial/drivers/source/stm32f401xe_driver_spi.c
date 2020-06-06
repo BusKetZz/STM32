@@ -203,3 +203,10 @@ void spi_rx_interrupt_enable(spi_registers_t *spi_port)
     spi_port->CR2 |= (1 << 6);
 }
 
+
+
+void spi_rx_interrupt_disable(spi_registers_t *spi_port)
+{
+    spi_port->CR2 &= ~(1 << 6);
+}
+
