@@ -113,6 +113,9 @@ void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
 void spi_read_data(spi_registers_t *spi_port, uint8_t *rx_buffer,
     uint32_t bytes_to_read);
 
+void spi_send_data_interrupt_mode(spi_registers_t *spi_port uint8_t *tx_buffer,
+    uint32_t bytes_to_send);
+
 
 
 #endif /* STM32F401XE_DRIVER_SPI_H */
