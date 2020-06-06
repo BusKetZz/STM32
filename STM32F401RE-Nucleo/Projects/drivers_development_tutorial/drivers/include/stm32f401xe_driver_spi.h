@@ -113,11 +113,11 @@ void spi_send_data(spi_registers_t *spi_port, uint8_t *tx_buffer,
 void spi_read_data(spi_registers_t *spi_port, uint8_t *rx_buffer,
     uint32_t bytes_to_read);
 
-void spi_tx_interrupt_enable(spi_registers_t *spi_port);
-void spi_tx_interrupt_disable(spi_registers_t *spi_port);
+void spi_tx_irq_enable(spi_registers_t *spi_port);
+void spi_tx_irq_disable(spi_registers_t *spi_port);
 
-void spi_rx_interrupt_enable(spi_registers_t *spi_port);
-void spi_rx_interrupt_disable(spi_registers_t *spi_port);
+void spi_rx_irq_enable(spi_registers_t *spi_port);
+void spi_rx_irq_disable(spi_registers_t *spi_port);
 
 void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
     uint32_t *bytes_to_send);
