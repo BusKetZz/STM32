@@ -114,6 +114,7 @@ void spi_read_data(spi_registers_t *spi_port, uint8_t *rx_buffer,
     uint32_t bytes_to_read);
 
 void spi_tx_interrupt_enable(spi_registers_t *spi_port);
+void spi_tx_interrupt_disable(spi_registers_t *spi_port);
 
 
 
