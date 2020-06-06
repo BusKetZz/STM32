@@ -210,3 +210,23 @@ void spi_rx_interrupt_disable(spi_registers_t *spi_port)
     spi_port->CR2 &= ~(1 << 6);
 }
 
+
+
+void spi_tx_irq_handler(spi_registers_t *spi_port, uint8_t *tx_buffer,
+    uint32_t *bytes_to_send)
+{
+    if( (spi_port->CR1 & ( 1 << 11)) == 0 ) {
+        spi_port->DR = *tx_buffer;
+        *bytes_to_send -= 1;
+        tx_buffer++;
+    } else {
+        spi_port->DR = *((uint16_t*)tx_buffer);
+        *bytes_to_send -= 2;
+        (uint16_t *)tx_buffer++;
+    }
+    
+    if(*bytes_to_send == 0) {
+        spi_tx_interrupt_disable(spi_port);
+    }
+}
+
