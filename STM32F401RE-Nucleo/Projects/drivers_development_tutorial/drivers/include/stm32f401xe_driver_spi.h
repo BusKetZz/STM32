@@ -117,6 +117,7 @@ void spi_tx_interrupt_enable(spi_registers_t *spi_port);
 void spi_tx_interrupt_disable(spi_registers_t *spi_port);
 
 void spi_rx_interrupt_enable(spi_registers_t *spi_port);
+void spi_rx_interrupt_disable(spi_registers_t *spi_port);
 
 
 
