@@ -348,6 +348,10 @@ typedef struct {
     volatile uint32_t FLTR;
 }i2c_registers_t;
 
+#define I2C1    ( (i2c_registers_t *)I2C1_BASE_ADDRESS )
+#define I2C2    ( (i2c_registers_t *)I2C2_BASE_ADDRESS )
+#define I2C3    ( (i2c_registers_t *)I2C3_BASE_ADDRESS )
+
 
 
 #endif /* STM32F401XE_H */
