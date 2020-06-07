@@ -333,6 +333,22 @@ typedef struct {
 
 
 
+/* I2C REGISTER MAP */
+
+typedef struct {
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t OAR1;
+    volatile uint32_t OAR2;
+    volatile uint32_t DR;
+    volatile uint32_t SR1;
+    volatile uint32_t SR2;
+    volatile uint32_t CCR;
+    volatile uint32_t TRISE;
+    volatile uint32_t FLTR;
+}i2c_registers_t;
+
+
 
 #endif /* STM32F401XE_H */
 
