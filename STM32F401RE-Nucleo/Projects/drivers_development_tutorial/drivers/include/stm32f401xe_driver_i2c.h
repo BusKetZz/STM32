@@ -45,7 +45,7 @@ typedef struct {
     uint32_t clock_speed;
     uint8_t device_address;
     uint8_t ack_control;
-    uint16_t fast_mode_duty_cycle;
+    uint8_t fast_mode_duty_cycle;
 }i2c_config_t;
 
 
