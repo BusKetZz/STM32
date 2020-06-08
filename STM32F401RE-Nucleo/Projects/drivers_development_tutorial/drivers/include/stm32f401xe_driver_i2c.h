@@ -17,6 +17,7 @@
 /*****************************************************************************/
 
 void i2c_clock_enable(i2c_registers_t *i2c_port);
+void i2c_clock_disable(i2c_registers_t *i2c_port);
 
 
 
