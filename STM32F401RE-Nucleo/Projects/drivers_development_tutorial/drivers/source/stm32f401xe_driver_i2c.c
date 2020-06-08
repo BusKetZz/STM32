@@ -9,3 +9,13 @@
 
 #include "stm32f401xe.h"
 
+
+
+/*****************************************************************************/
+/* I2C CLOCK ENABLE AND DISABLE MACROS */
+/*****************************************************************************/
+
+#define I2C1_CLOCK_ENABLE() ( RCC->APB1ENR |= (1 << 21) )
+#define I2C2_CLOCK_ENABLE() ( RCC->APB1ENR |= (1 << 22) )
+#define I2C3_CLOCK_ENABLE() ( RCC->APB1ENR |= (1 << 23) )
+
