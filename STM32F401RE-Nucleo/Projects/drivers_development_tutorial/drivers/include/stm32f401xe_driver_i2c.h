@@ -30,6 +30,13 @@ typedef enum i2c_ack_control_t {
 
 
 
+typedef enum i2c_fast_mode_duty_cycle {
+    i2c_fast_mode_duty_cycle_2 = 0,
+    i2c_fast_mode_duty_cycle_16_9
+}i2c_fast_mode_duty_cycle_t;
+
+
+
 /*****************************************************************************/
 /* I2C CONFIGURATION STRUCTURES */
 /*****************************************************************************/
