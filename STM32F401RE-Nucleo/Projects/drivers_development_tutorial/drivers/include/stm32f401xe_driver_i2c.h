@@ -64,6 +64,8 @@ typedef struct {
 void i2c_clock_enable(i2c_registers_t *i2c_port);
 void i2c_clock_disable(i2c_registers_t *i2c_port);
 
+void i2c_config_init(i2c_handle_t *i2c_handle);
+
 
 
 #endif /* STM32F401XE_DRIVER_I2C_H */
