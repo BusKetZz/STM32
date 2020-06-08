@@ -55,3 +55,16 @@ void i2c_clock_enable(i2c_registers_t *i2c_port)
     }
 }
 
+
+
+void i2c_clock_disable(i2c_registers_t *i2c_port)
+{
+    if(i2c_port == I2C1) {
+        I2C1_CLOCK_DISABLE();
+    } else if(i2c_port == I2C2) {
+        I2C2_CLOCK_DISABLE();
+    } else if(i2c_port == I2C3) {
+        I2C3_CLOCK_DISABLE();
+    }
+}
+
