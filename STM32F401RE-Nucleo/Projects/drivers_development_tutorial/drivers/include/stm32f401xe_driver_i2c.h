@@ -23,6 +23,13 @@ typedef enum i2c_clock_speed {
 
 
 
+typedef enum i2c_ack_control_t {
+    i2c_ack_control_disable = 0,
+    i2c_ack_control_enable
+}i2c_ack_control_t;
+
+
+
 /*****************************************************************************/
 /* I2C CONFIGURATION STRUCTURES */
 /*****************************************************************************/
