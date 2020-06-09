@@ -36,6 +36,9 @@ typedef enum rcc_system_clock_source_speed {
 /*****************************************************************************/
 
 rcc_system_clock_source_t rcc_get_system_clock_source(void);
+rcc_system_clock_source_speed_t rcc_get_system_clock_source_speed(
+    rcc_system_clock_source_t clock_source);
+
 
 
 
