@@ -31,6 +31,20 @@ typedef enum rcc_system_clock_source_speed {
 
 
 
+typedef enum rcc_ahb_prescaler {
+    rcc_ahb_prescaler_1 = 1,
+    rcc_ahb_prescaler_2 = 2,
+    rcc_ahb_prescaler_4 = 4,
+    rcc_ahb_prescaler_8 = 8,
+    rcc_ahb_prescaler_16 = 16,
+    rcc_ahb_prescaler_64 = 64,
+    rcc_ahb_prescaler_128 = 128,
+    rcc_ahb_prescaler_256 = 256,
+    rcc_ahb_prescaler_512 = 512
+}rcc_ahb_prescaler_t;
+
+
+
 /*****************************************************************************/
 /* RCC API PROTOTYPES */
 /*****************************************************************************/
