@@ -24,6 +24,13 @@ typedef enum rcc_system_clock_source {
 
 
 
+typedef enum rcc_system_clock_source_speed {
+    rcc_system_clock_source_speed_hsi = 16000000,
+    rcc_system_clock_source_speed_hse = 8000000
+}rcc_system_clock_source_speed_t;
+
+
+
 /*****************************************************************************/
 /* RCC API PROTOTYPES */
 /*****************************************************************************/
