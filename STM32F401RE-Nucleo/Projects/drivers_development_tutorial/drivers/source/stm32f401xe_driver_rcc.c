@@ -32,3 +32,30 @@ rcc_system_clock_source_speed_t rcc_get_system_clock_source_speed(
     }
 }
 
+
+
+rcc_ahb_prescaler_t rcc_get_ahb_prescaler(void)
+{
+    uint8_t hpre_register_value = ( (RCC->CFGR >> 4) & 0xF );
+
+    if(hpre_register_value < 8) {
+        return rcc_ahb_prescaler_1;
+    } else if(hpre_register_value == 8) {
+        return rcc_ahb_prescaler_2;
+    } else if(hpre_register_value == 9) {
+        return rcc_ahb_prescaler_4;
+    } else if(hpre_register_value == 10) {
+        return rcc_ahb_prescaler_8; 
+    } else if(hpre_register_value == 11) {
+        return rcc_ahb_prescaler_16;
+    } else if(hpre_register_value == 12) {
+        return rcc_ahb_prescaler_64;
+    } else if(hpre_register_value == 13) {
+        return rcc_ahb_prescaler_128;
+    } else if(hpre_register_value == 14) {
+        return rcc_ahb_prescaler_256;
+    } else if(hpre_register_value == 15) {
+        return rcc_ahb_prescaler_512;
+    }
+}
+
