@@ -67,9 +67,7 @@ rcc_apb1_prescaler_t rcc_get_apb1_prescaler(void)
 {
     uint8_t ppre1_register_value = ( (RCC->CFGR >> 10) & 0x7 );
 
-    if(ppre1_register_value < 4) {
-        return rcc_apb1_prescaler_1;
-    } else if(ppre1_register_value == 4) {
+    if(ppre1_register_value == 4) {
         return rcc_apb1_prescaler_2;
     } else if(ppre1_register_value == 5) {
         return rcc_apb1_prescaler_4;
@@ -77,6 +75,8 @@ rcc_apb1_prescaler_t rcc_get_apb1_prescaler(void)
         return rcc_apb1_prescaler_8;
     } else if(ppre1_register_value == 7) {
         return rcc_apb1_prescaler_16;
+    } else {
+        return rcc_apb1_prescaler_1;
     }
 }
 
