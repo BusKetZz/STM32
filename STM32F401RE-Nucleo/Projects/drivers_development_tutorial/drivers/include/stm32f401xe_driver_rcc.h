@@ -35,7 +35,7 @@ typedef enum rcc_system_clock_source_speed {
 /* RCC API PROTOTYPES */
 /*****************************************************************************/
 
-uint32_t rcc_get_system_clock_source(void);
+rcc_system_clock_source_t rcc_get_system_clock_source(void);
 
 
 
