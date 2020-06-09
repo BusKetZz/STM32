@@ -29,6 +29,8 @@ rcc_system_clock_source_speed_t rcc_get_system_clock_source_speed(
         return rcc_system_clock_source_speed_hsi;
     } else if(clock_source == rcc_system_clock_source_hse) {
         return rcc_system_clock_source_speed_hse;
+    } else {
+        /* TODO */
     }
 }
 
