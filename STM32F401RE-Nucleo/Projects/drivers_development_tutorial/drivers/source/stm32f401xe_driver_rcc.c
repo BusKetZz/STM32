@@ -40,9 +40,7 @@ rcc_ahb_prescaler_t rcc_get_ahb_prescaler(void)
 {
     uint8_t hpre_register_value = ( (RCC->CFGR >> 4) & 0xF );
 
-    if(hpre_register_value < 8) {
-        return rcc_ahb_prescaler_1;
-    } else if(hpre_register_value == 8) {
+    if(hpre_register_value == 8) {
         return rcc_ahb_prescaler_2;
     } else if(hpre_register_value == 9) {
         return rcc_ahb_prescaler_4;
@@ -58,6 +56,8 @@ rcc_ahb_prescaler_t rcc_get_ahb_prescaler(void)
         return rcc_ahb_prescaler_256;
     } else if(hpre_register_value == 15) {
         return rcc_ahb_prescaler_512;
+    } else {
+        return rcc_ahb_prescaler_1;
     }
 }
 
