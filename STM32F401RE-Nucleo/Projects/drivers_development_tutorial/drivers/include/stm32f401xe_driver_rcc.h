@@ -64,6 +64,7 @@ rcc_system_clock_source_speed_t rcc_get_system_clock_source_speed(
     rcc_system_clock_source_t clock_source);
 
 rcc_ahb_prescaler_t rcc_get_ahb_prescaler(void);
+rcc_apb1_prescaler_t rcc_get_apb1_prescaler(void);
 
 
 
