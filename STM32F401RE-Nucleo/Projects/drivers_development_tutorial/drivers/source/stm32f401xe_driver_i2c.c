@@ -88,5 +88,10 @@ void i2c_config_init(i2c_handle_t *i2c_handle)
     uint32_t cr2_register_settings = 0;
     cr2_register_settings |= ( (apb1_clock_speed / 1000000) & 0x3F);
     i2c_handle->i2c_port->CR2 |= cr2_register_settings;
+
+    uint32_t oar1_register_settings = 0;
+    oar1_register_settings |= (i2c_handle->i2c_config.device_address << 1);
+    oar1_register_settings |= (1 << 14);
+    i2c_handle->i2c_port->OAR1 |= oar1_register_settings;
 }
 
