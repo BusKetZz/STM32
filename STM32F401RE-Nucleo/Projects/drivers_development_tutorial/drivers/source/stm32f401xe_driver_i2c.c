@@ -86,7 +86,7 @@ void i2c_config_init(i2c_handle_t *i2c_handle)
     uint32_t apb1_clock_speed = rcc_get_apb1_clock_speed(
         system_clock_source_speed, ahb_prescaler, apb1_prescaler);
     uint32_t cr2_register_settings = 0;
-    cr2_register_settings |= (apb1_clock_speed & 0x3F);
+    cr2_register_settings |= ( (apb1_clock_speed / 1000000) & 0x3F);
     i2c_handle->i2c_port->CR2 |= cr2_register_settings;
 }
 
