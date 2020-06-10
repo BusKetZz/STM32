@@ -68,3 +68,23 @@ void i2c_clock_disable(i2c_registers_t *i2c_port)
     }
 }
 
+
+
+void i2c_config_init(i2c_handle_t *i2c_handle)
+{
+    uint32_t cr1_register_settings = 0;
+    cr1_register_settings |= (i2c_handle->i2c_config.ack_control << 10);
+    i2c_handle->i2c_port->CR1 |= cr1_register_settings;
+    
+    rcc_system_clock_source_t system_clock_source =
+        rcc_get_system_clock_source(); 
+    rcc_system_clock_source_speed_t system_source_clock_speed =
+        rcc_get_system_clock_source_speed(system_clock_source);
+    rcc_ahb_prescaler_t ahb_prescaler = rcc_get_ahb_prescaler();
+    rcc_apb1_prescaler_t apb1_prescaler = rcc_get_apb1_prescaler();
+    uint32_t apb1_clock_speed = rcc_get_apb1_clock_speed(
+        system_clock_source_speed, ahb_prescaler, apb1_prescaler);
+    uint32_t cr2_register_settings |= (apb1_clock_speed & 0x3F);
+    i2c_handle->i2c_port->CR2 |= cr2_register_settings;
+}
+
