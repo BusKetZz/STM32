@@ -93,5 +93,26 @@ void i2c_config_init(i2c_handle_t *i2c_handle)
     oar1_register_settings |= (i2c_handle->i2c_config.device_address << 1);
     oar1_register_settings |= (1 << 14);
     i2c_handle->i2c_port->OAR1 |= oar1_register_settings;
+
+    uint32_t ccr_register_settings = 0;
+    uint16_t ccr_value = 0;
+    if(i2c_handle->i2c_config.clock_speed == i2c_clock_speed_standard_mode) {
+        ccr_value = ( apb1_clock_speed / (2 * i2c_clock_speed_standard_mode) );
+    } else if(i2c_handle->i2c_config.clock_speed ==
+        i2c_clock_speed_fast_mode) {
+        ccr_register_settings |= (1 << 15);
+        
+        if(i2c_handle->i2c_config.fast_mode_duty_cycle ==
+            i2c_fast_mode_duty_cycle_2) {
+            ccr_register_settings &= ~(1 << 14);
+            ccr_value = (apb1_clock_speed / (3 * i2c_clock_speed_fast_mode));
+        } else if(i2c_handle->i2c_config.fast_mode_duty_cycle ==
+            i2c_fast_mode_duty_cycle_16_9) {
+            ccr_register_settings |= (1 << 14);
+            ccr_value = (apb1_clock_speed / (25 * i2c_clock_speed_fast_mode));
+        }
+    }
+    ccr_register_settings |= (ccr_value & 0xFFF);
+    i2c_handle->i2c_port->CCR |= ccr_register_settings;
 }
 
