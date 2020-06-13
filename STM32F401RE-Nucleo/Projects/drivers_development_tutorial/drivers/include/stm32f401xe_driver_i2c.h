@@ -66,6 +66,9 @@ void i2c_clock_disable(i2c_registers_t *i2c_port);
 
 void i2c_config_init(i2c_handle_t *i2c_handle);
 
+void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
+    uint32_t bytes_to_send, uint8_t slave_address);
+
 
 
 #endif /* STM32F401XE_DRIVER_I2C_H */
