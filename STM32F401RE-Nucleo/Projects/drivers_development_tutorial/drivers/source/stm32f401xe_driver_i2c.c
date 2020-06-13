@@ -46,6 +46,8 @@
 /*****************************************************************************/
 
 static void i2c_generate_start_condition(i2c_registers_t *i2c_port);
+static void i2c_check_status_register_1(i2c_registers_t *i2c_port,
+    uint16_t flag_name);
 
 
 
