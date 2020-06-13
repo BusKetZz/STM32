@@ -16,7 +16,8 @@ DRIVERS_SOURCE_DIR = ./drivers/source
 SYSTEM_SOURCE_FILES = nvic_irq.c
 
 DRIVERS_SOURCE_FILES = stm32f401xe_driver_gpio.c stm32f401xe_driver_syscfg.c
-DRIVERS_SOURCE_FILES += stm32f401xe_driver_spi.c stm32f401xe_driver_rcc.c
+DRIVERS_SOURCE_FILES += stm32f401xe_driver_spi.c stm32f401xe_driver_i2c.c
+DRIVERS_SOURCE_FILES += stm32f401xe_driver_rcc.c
 
 OBJECT_FILES = $(addprefix $(BUILD_DIR)/, $(addsuffix .o, \
 	$(basename $(SYSTEM_SOURCE_FILES))))
