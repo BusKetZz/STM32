@@ -132,3 +132,14 @@ void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
     
 }
 
+
+
+/*****************************************************************************/
+/* I2C HELPER FUNCTIONS DEFINITIONS */
+/*****************************************************************************/
+
+static void i2c_generate_start_condition(i2c_registers_t *i2c_port)
+{
+    i2c_port->CR1 |= (1 << 8);
+}
+
