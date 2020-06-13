@@ -156,7 +156,20 @@ void i2c_config_init(i2c_handle_t *i2c_handle)
 void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
     uint32_t bytes_to_send, uint8_t slave_address)
 {
+    i2c_generate_start_condition(i2c_handle->i2c_port);
+
+    while(i2c_check_status_register_1(i2c_handle->i2c_port,
+            i2c_flag_sr1_sb) != 1) {
+        ;
+    }
+
+    i2c_send_slave_address_and_write_bit(i2c_handle->i2c_port, slave_address);
     
+    while(i2c_check_status_register_1(i2c_handle->i2c_port,
+        i2c_flag_sr1_addr) != 1) {
+        ;
+    }
+
 }
 
 
