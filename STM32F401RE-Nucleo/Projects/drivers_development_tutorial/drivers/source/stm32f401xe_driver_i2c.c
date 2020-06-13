@@ -13,6 +13,29 @@
 
 
 /*****************************************************************************/
+/* I2C FLAG NAMES */
+/*****************************************************************************/
+
+typedef enum i2c_flag_sr1 {
+    i2c_flag_sr1_sb = 0,
+    i2c_flag_sr1_addr,
+    i2c_flag_sr1_btf,
+    i2c_flag_sr1_add10,
+    i2c_flag_sr1_stopf,
+    i2c_flag_sr1_rxne = 6,
+    i2c_flag_sr1_txe,
+    i2c_flag_sr1_berr,
+    i2c_flag_sr1_arlo,
+    i2c_flag_sr1_af,
+    i2c_flag_sr1_ovr,
+    i2c_flag_sr1_pecerr,
+    i2c_flag_sr1_timeout = 14,
+    i2c_flag_sr1_smbalert,
+}i2c_flag_sr1_t;
+
+
+
+/*****************************************************************************/
 /* I2C CLOCK ENABLE AND DISABLE MACROS */
 /*****************************************************************************/
 
@@ -143,5 +166,13 @@ void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
 static void i2c_generate_start_condition(i2c_registers_t *i2c_port)
 {
     i2c_port->CR1 |= (1 << 8);
+}
+
+
+
+static void i2c_check_status_register_1(i2c_registers_t *i2c_port,
+    uint16_t flag_name)
+{
+    return (i2c_port->SR1 &= (1 << flag_name)) ? 1 : 0;
 }
 
