@@ -196,6 +196,16 @@ static void i2c_send_slave_address_and_write_bit(i2c_registers_t *i2c_port,
 
 
 
+static void i2c_clear_addr_flag(i2c_registers_t *i2c_port)
+{
+    uint32_t status_register_read;
+    status_register_read = i2c_port->SR1;
+    status_register_read = i2c_port->SR2;
+    (void)status_register_read;
+}
+
+
+
 static void i2c_check_status_register_1(i2c_registers_t *i2c_port,
     i2c_flag_sr1_t flag_name)
 {
