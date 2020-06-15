@@ -170,7 +170,7 @@ void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
         i2c_flag_sr1_addr) != 1) {
         ;
     }
-
+    i2c_clear_addr_flag(i2c_handle->i2c_port);
 }
 
 
