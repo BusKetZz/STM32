@@ -74,7 +74,7 @@ static void i2c_generate_start_condition(i2c_registers_t *i2c_port);
 static void i2c_send_slave_address_and_write_bit(i2c_registers_t *i2c_port,
     uint8_t slave_address);
 static void i2c_clear_addr_flag(i2c_registers_t *i2c_port);
-static void i2c_check_status_register_1(i2c_registers_t *i2c_port,
+static flag_status_t i2c_check_status_register_1(i2c_registers_t *i2c_port,
     i2c_flag_sr1_t flag_name);
 
 
@@ -208,7 +208,7 @@ static void i2c_clear_addr_flag(i2c_registers_t *i2c_port)
 
 
 
-static void i2c_check_status_register_1(i2c_registers_t *i2c_port,
+static flag_status_t i2c_check_status_register_1(i2c_registers_t *i2c_port,
     i2c_flag_sr1_t flag_name)
 {
     return (i2c_port->SR1 & (1 << flag_name)) ? 1 : 0;
