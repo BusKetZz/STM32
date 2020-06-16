@@ -153,6 +153,17 @@ void i2c_config_init(i2c_handle_t *i2c_handle)
     }
     ccr_register_settings |= (ccr_value & 0xFFF);
     i2c_handle->i2c_port->CCR |= ccr_register_settings;
+
+    uint32_t trise_register_settings = 0;
+    uint8_t rise_time = 0;
+    if(i2c_handle->i2c_config.clock_speed == i2c_clock_speed_standard_mode) {
+        rise_time = (apb1_clock_speed / 1000000) + 1;
+    } else if(i2c_handle->i2c_config.clock_speed ==
+        i2c_clock_speed_fast_mode) {
+        rise_time = ( (apb1_clock_speed * 300) / 1000000000 ) + 1;
+    }
+    trise_register_settings |= (rise_time & 0x3F);
+    i2c_handle->i2c_port->TRISE |= trise_register_settings;
 }
 
 
