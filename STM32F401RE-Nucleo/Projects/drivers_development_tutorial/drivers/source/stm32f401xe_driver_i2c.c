@@ -173,6 +173,28 @@ void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
         ;
     }
     i2c_clear_addr_flag(i2c_handle->i2c_port);
+
+    while(bytes_to_send > 0) {
+        while(i2c_check_status_register_1(i2c_handle->i2c_port,
+            i2c_flag_sr1_txe) != flag_status_set) { 
+            ;
+        }
+        i2c_handle->i2c_port->DR = *tx_buffer;
+        tx_buffer++;
+        bytes_to_send--;
+    }
+
+    while(i2c_check_status_register_1(i2c_handle->i2c_port,
+        i2c_flag_sr1_txe) != flag_status_set) {
+        ;
+    }
+
+    while(i2c_check_status_register_1(i2c_handle->i2c_port,
+        i2c_flag_sr1_btf) != flag_status_set) {
+        ;
+    }
+
+
 }
 
 
