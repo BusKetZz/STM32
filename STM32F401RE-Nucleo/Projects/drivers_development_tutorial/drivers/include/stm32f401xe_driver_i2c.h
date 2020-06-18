@@ -68,6 +68,8 @@ void i2c_config_init(i2c_handle_t *i2c_handle);
 
 void i2c_master_send_data(i2c_handle_t *i2c_handle, uint8_t *tx_buffer,
     uint32_t bytes_to_send, uint8_t slave_address);
+uint8_t i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
+    uint32_t bytes_to_read, uint8_t slave_address);
 
 
 
