@@ -291,3 +291,10 @@ static flag_status_t i2c_check_status_register_1(i2c_registers_t *i2c_port,
     }
 }
 
+
+
+static void i2c_disable_ack(i2c_registers_t *i2c_port)
+{
+    i2c_port->CR1 &= ~(1 << 10);
+}
+
