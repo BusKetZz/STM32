@@ -334,3 +334,10 @@ static void i2c_disable_ack(i2c_registers_t *i2c_port)
     i2c_port->CR1 &= ~(1 << 10);
 }
 
+
+
+static void i2c_enable_ack(i2c_registers_t *i2c_port)
+{
+    i2c_port->CR1 |= (1 << 10);
+}
+
