@@ -234,14 +234,14 @@ void i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
     if(bytes_to_read == 1) {
         i2c_disable_ack(i2c_handle->i2c_port);
 
-        i2c_generate_stop_condition(i2c_handle->i2c_port);
-
         i2c_clear_addr_flag(i2c_handle->i2c_port);
 
         while(i2c_check_status_register_1(i2c_handle->i2c_port,
             i2c_flag_sr1_rxne) != flag_status_set) { 
             ;
         }
+
+        i2c_generate_stop_condition(i2c_handle->i2c_port);
 
         *rx_buffer = i2c_handle->i2c_port->DR;
     }
