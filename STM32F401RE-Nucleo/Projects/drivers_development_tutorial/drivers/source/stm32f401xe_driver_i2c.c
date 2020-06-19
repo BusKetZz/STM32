@@ -79,6 +79,7 @@ static void i2c_clear_addr_flag(i2c_registers_t *i2c_port);
 static void i2c_generate_stop_condition(i2c_registers_t *i2c_port);
 static flag_status_t i2c_check_status_register_1(i2c_registers_t *i2c_port,
     i2c_flag_sr1_t flag_name);
+static void i2c_disable_ack(i2c_registers_t *i2c_port);
 
 
 
