@@ -265,6 +265,10 @@ uint8_t i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
             rx_buffer++;
         }
     }
+
+    if(i2c_handle->i2c_config.ack_control == i2c_ack_control_enable) {
+        i2c_enable_ack(i2c_handle->i2c_port);
+    }
 }
 
 
