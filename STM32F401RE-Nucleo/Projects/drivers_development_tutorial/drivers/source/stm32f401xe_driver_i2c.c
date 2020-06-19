@@ -222,6 +222,12 @@ uint8_t i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
             i2c_flag_sr1_sb) != flag_status_set) {
         ;
     }
+
+    i2c_send_slave_address_and_read_bit(i2c_handle->i2c_port, slave_address);
+    while(i2c_check_status_register_1(i2c_handle->i2c_port,
+        i2c_flag_sr1_addr) != flag_status_set) {
+        ;
+    }
 }
 
 
