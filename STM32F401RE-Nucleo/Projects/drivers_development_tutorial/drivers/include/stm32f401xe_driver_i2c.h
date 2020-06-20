@@ -42,7 +42,7 @@ typedef enum i2c_fast_mode_duty_cycle {
 /*****************************************************************************/
 
 typedef struct {
-    uint32_t clock_speed;
+    i2c_clock_speed_t clock_speed;
     uint8_t device_address;
     uint8_t ack_control;
     uint8_t fast_mode_duty_cycle;
