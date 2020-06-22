@@ -72,6 +72,7 @@ void i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
     uint32_t bytes_to_read, uint8_t slave_address);
 
 void i2c_event_irq_enable(i2c_registers_t *i2c_port);
+void i2c_error_irq_enable(i2c_registers_t *i2c_port);
 
 
 
