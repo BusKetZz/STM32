@@ -273,6 +273,14 @@ void i2c_master_read_data(i2c_handle_t *i2c_handle, uint8_t *rx_buffer,
 
 
 
+void i2c_event_irq_enable(i2c_registers_t *i2c_port)
+{
+    i2c_port->CR2 |= (1 << 9);
+}
+
+
+
+
 /*****************************************************************************/
 /* I2C HELPER FUNCTIONS DEFINITIONS */
 /*****************************************************************************/
