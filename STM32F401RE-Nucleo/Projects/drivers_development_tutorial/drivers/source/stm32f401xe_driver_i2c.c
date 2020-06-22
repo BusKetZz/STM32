@@ -280,6 +280,12 @@ void i2c_event_irq_enable(i2c_registers_t *i2c_port)
 
 
 
+void i2c_error_irq_enable(i2c_registers_t *i2c_port)
+{
+    i2c_port->CR2 |= (1 << 8);
+}
+
+
 
 /*****************************************************************************/
 /* I2C HELPER FUNCTIONS DEFINITIONS */
