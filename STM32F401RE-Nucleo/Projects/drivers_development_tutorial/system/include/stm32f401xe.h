@@ -354,5 +354,23 @@ typedef struct {
 
 
 
+/* USART REGISTER MAP */
+
+typedef struct {
+    volatile uint32_t SR;
+    volatile uint32_t DR;
+    volatile uint32_t BRR;
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t GTPR;
+}usart_registers_t;
+
+#define USART1  ( (usart_registers_t *)USART1_BASE_ADDRESS )
+#define USART2  ( (usart_registers_t *)USART2_BASE_ADDRESS )
+#define USART6  ( (usart_registers_t *)USART6_BASE_ADDRESS )
+
+
+
 #endif /* STM32F401XE_H */
 
