@@ -5,7 +5,7 @@
  *
  */
 
-#include "stm32f401xe_driver_uart.h"
+#include "stm32f401xe_driver_usart.h"
 
 #include "stm32f401xe.h"
 
