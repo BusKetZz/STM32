@@ -21,6 +21,12 @@
 
 
 
+#define USART1_CLOCK_DISABLE()  ( RCC->APB2RSTR |= (1 << 4) )
+#define USART2_CLOCK_DISABLE()  ( RCC->APB1RSTR |= (1 << 17) )
+#define USART6_CLOCK_DISABLE()  ( RCC->APB2RSTR |= (1 << 5) )
+
+
+
 /*****************************************************************************/
 /* USART API DEFINITIONS */
 /*****************************************************************************/
