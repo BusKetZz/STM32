@@ -38,6 +38,7 @@ typedef struct {
 /*****************************************************************************/
 
 void usart_clock_enable(usart_registers_t *usart_port);
+void usart_clock_disable(usart_registers_t *usart_port);
 
 
 
