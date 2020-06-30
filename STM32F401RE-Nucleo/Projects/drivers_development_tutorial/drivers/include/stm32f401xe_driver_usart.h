@@ -37,6 +37,7 @@ typedef struct {
 /* USART API PROTOTYPES */
 /*****************************************************************************/
 
+void usart_clock_enable(usart_registers_t *usart_port);
 
 
 
