@@ -44,3 +44,14 @@ void usart_clock_enable(usart_registers_t *usart_port)
 
 
 
+void usart_clock_disable(usart_registers_t *usart_port)
+{
+    if(usart_port == USART1) {
+        USART1_CLOCK_DISABLE();
+    } else if(usart_port == USART2) {
+        USART2_CLOCK_DISABLE();
+    } else if(usart_port == USART6) {
+        USART6_CLOCK_DISABLE();
+    }
+}
+
