@@ -45,6 +45,13 @@ typedef enum usart_stop_bits_count {
 
 
 
+typedef enum usart_word_length_t {
+    usart_word_length_8bits = 0,
+    usart_word_length_9bits
+}usart_word_length_t;
+
+
+
 /*****************************************************************************/
 /* USART CONFIGURATION STRUCTURES */
 /*****************************************************************************/
