@@ -24,6 +24,19 @@ typedef enum usart_mode {
 
 
 
+typedef enum usart_baudrate {
+    usart_baudrate_1200 = 1200,
+    usart_baudrate_2400 = 2400,
+    usart_baudrate_4800 = 4800,
+    usart_baudrate_9600 = 9600,
+    usart_baudrate_19200 = 19200,
+    usart_baudrate_38400 = 38400,
+    usart_baudrate_57600 = 57600,
+    usart_baudrate_115200 = 115200
+}usart_baudrate_t;
+
+
+
 /*****************************************************************************/
 /* USART CONFIGURATION STRUCTURES */
 /*****************************************************************************/
