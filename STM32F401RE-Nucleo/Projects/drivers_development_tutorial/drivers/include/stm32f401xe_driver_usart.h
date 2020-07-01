@@ -29,7 +29,7 @@ typedef enum usart_mode {
 /*****************************************************************************/
 
 typedef struct {
-    uint8_t mode;
+    usart_mode_t mode;
     uint32_t baudrate;
     uint8_t stop_bits_count;
     uint8_t word_length;
