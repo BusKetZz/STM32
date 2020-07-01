@@ -52,6 +52,14 @@ typedef enum usart_word_length_t {
 
 
 
+typedef enum usart_parity_control {
+    usart_parity_control_disable = 0,
+    usart_parity_control_even,
+    usart_parity_control_odd
+}usart_parity_control_t;
+
+
+
 /*****************************************************************************/
 /* USART CONFIGURATION STRUCTURES */
 /*****************************************************************************/
