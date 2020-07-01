@@ -36,6 +36,15 @@ typedef enum usart_baudrate {
 
 
 
+typedef enum usart_stop_bits_count {
+    usart_stop_bits_count_0_5 = 1,
+    usart_stop_bits_count_1 = 0,
+    usart_stop_bits_count_1_5 = 3,
+    usart_stop_bits_count_2 = 2
+}usart_stop_bits_count_t;
+
+
+
 /*****************************************************************************/
 /* USART CONFIGURATION STRUCTURES */
 /*****************************************************************************/
