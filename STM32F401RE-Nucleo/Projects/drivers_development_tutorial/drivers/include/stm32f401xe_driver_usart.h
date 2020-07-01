@@ -43,7 +43,7 @@ typedef enum usart_baudrate {
 
 typedef struct {
     usart_mode_t mode;
-    uint32_t baudrate;
+    usart_baudrate_t baudrate;
     uint8_t stop_bits_count;
     uint8_t word_length;
     uint8_t parity_control;
