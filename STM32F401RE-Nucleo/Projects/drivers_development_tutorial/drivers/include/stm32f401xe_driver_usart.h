@@ -60,7 +60,7 @@ typedef struct {
     usart_mode_t mode;
     usart_baudrate_t baudrate;
     usart_stop_bits_count_t stop_bits_count;
-    uint8_t word_length;
+    usart_word_length_t word_length;
     uint8_t parity_control;
     uint8_t hardware_flow_control;
 }usart_config_t;
