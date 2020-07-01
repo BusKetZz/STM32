@@ -16,6 +16,12 @@
 /* USART CONFIGURATION SETTINGS */
 /*****************************************************************************/
 
+typedef enum usart_mode {
+    usart_mode_only_tx = 0,
+    usart_mode_only_rx,
+    usart_mode_tx_rx
+}usart_mode_t;
+
 
 
 /*****************************************************************************/
