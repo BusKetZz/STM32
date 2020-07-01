@@ -79,7 +79,7 @@ typedef struct {
     usart_stop_bits_count_t stop_bits_count;
     usart_word_length_t word_length;
     usart_parity_control_t parity_control;
-    uint8_t hardware_flow_control;
+    usart_hardware_flow_control_t hardware_flow_control;
 }usart_config_t;
 
 
