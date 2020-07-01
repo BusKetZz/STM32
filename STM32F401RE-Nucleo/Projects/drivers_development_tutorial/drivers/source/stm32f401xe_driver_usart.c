@@ -55,3 +55,19 @@ void usart_clock_disable(usart_registers_t *usart_port)
     }
 }
 
+
+
+void usart_config_init(usart_registers_t *usart_port,
+    usart_config_t *usart_config)
+{
+    uint32_t cr1_register_settings = 0;
+    if(usart_config->mode == usart_mode_tx_rx) {
+        cr1_register_settings |= (1 << 2);
+        cr1_register_settings |= (1 << 3);
+    } else if(usart_config->mode == usart_mode_tx_only) {
+        cr1_register_settings |= (1 << 3);
+    } else if(usart_config->mode == usart_mode_rx_only) {
+        cr1_register_settings |= (1 << 2);
+    }
+}
+
