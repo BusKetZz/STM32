@@ -91,6 +91,9 @@ typedef struct {
 void usart_clock_enable(usart_registers_t *usart_port);
 void usart_clock_disable(usart_registers_t *usart_port);
 
+void usart_config_init(usart_registers_t *usart_port,
+    usart_config_t *usart_config);
+
 
 
 #endif /* STM32F401XE_DRIVER_USART_H */
