@@ -60,6 +60,15 @@ typedef enum usart_parity_control {
 
 
 
+typedef enum usart_hardware_flow_control {
+    usart_hardware_flow_control_disable = 0,
+    usart_hardware_flow_control_cts,
+    usart_hardware_flow_control_rts,
+    usart_hardware_flow_control_cts_rts
+}usart_hardware_flow_control_t;
+
+
+
 /*****************************************************************************/
 /* USART CONFIGURATION STRUCTURES */
 /*****************************************************************************/
