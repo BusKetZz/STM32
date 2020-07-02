@@ -96,6 +96,20 @@ void usart_config_init(usart_registers_t *usart_port,
     usart_port->CR2 = cr2_register_settings;
 
 
+    uint32_t cr3_register_settings = 0;
+    if(usart_config->hardware_flow_control == usart_hardware_flow_control_cts){
+        cr3_register_settings |= (1 << 9);
+    } else if(usart_config->hardware_flow_control ==
+        usart_hardware_flow_control_rts) {
+        cr3_register_settings |= (1 << 8);
+    } else if(usart_config->hardware_flow_control ==
+        usart_hardware_flow_control_cts_rts) {
+        cr3_register_settings |= (1 << 9);
+        cr3_register_settings |= (1 << 8);
+    }
+
+    usart_port->CR3 = cr3_register_settings;
+
 
 }
 
