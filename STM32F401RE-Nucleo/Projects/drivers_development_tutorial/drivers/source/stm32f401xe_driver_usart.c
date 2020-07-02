@@ -69,5 +69,21 @@ void usart_config_init(usart_registers_t *usart_port,
     } else if(usart_config->mode == usart_mode_rx_only) {
         cr1_register_settings |= (1 << 2);
     }
+    
+    if(usart_config->word_length == usart_word_length_9bits) {
+        cr1_register_settings |= (1 << 12);
+    }
+
+    if(usart_config->parity_control == usart_parity_control_even) {
+        cr1_register_settings |= (1 << 10);
+    } else if(usart_config->parity_control == usart_parity_control_odd) {
+        cr1_register_settings |= (1 << 9);
+        cr1_register_settings |= (1 << 10);
+    }
+    
+    usart_port->CR1 = cr1_register_settings;
+
+
+
 }
 
