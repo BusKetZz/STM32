@@ -84,6 +84,18 @@ void usart_config_init(usart_registers_t *usart_port,
     usart_port->CR1 = cr1_register_settings;
 
 
+    uint32_t cr2_register_settings = 0;
+    if(usart_config->stop_bits_count == usart_stop_bits_countr_0_5) {
+        cr2_register_settings |= (1 << 12);
+    } else if(usart_config->stop_bits_count == usart_stop_bits_count_1_5) {
+        cr2_register_settings |= (3 << 12);
+    } else if(usart_config->stop_bits_count == usart_stop_bits_count_2) {
+        cr2_register_settings |= (1 << 13);
+    }
+
+    usart_port->CR2 = cr2_register_settings;
+
+
 
 }
 
