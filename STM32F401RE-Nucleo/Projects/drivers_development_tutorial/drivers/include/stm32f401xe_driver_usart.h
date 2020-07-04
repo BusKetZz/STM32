@@ -95,6 +95,9 @@ void usart_config_init(usart_registers_t *usart_port,
     usart_config_t *usart_config);
 void usart_config_reset(usart_registers_t *usart_port);
 
+void usart_baudrate_set(usart_registers_t *usart_port,
+    usart_baudrate_t baudrate);
+
 
 
 #endif /* STM32F401XE_DRIVER_USART_H */
