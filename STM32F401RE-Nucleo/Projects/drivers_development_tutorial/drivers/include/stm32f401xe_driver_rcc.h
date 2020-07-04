@@ -55,6 +55,16 @@ typedef enum rcc_apb1_prescaler {
 
 
 
+typedef enum rcc_apb2_prescaler {
+    rcc_apb2_prescaler_1 = 1,
+    rcc_apb2_prescaler_2 = 2,
+    rcc_apb2_prescaler_4 = 4,
+    rcc_apb2_prescaler_8 = 8,
+    rcc_apb2_prescaler_16 = 16
+}rcc_apb2_prescaler_t;
+
+
+
 /*****************************************************************************/
 /* RCC API PROTOTYPES */
 /*****************************************************************************/
