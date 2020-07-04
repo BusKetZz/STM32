@@ -113,3 +113,19 @@ void usart_config_init(usart_registers_t *usart_port,
 
 }
 
+
+
+void usart_config_reset(usart_registers_t *usart_port)
+{
+    if(usart_port == USART1) {
+        RCC->APB2RSTR |= (1 << 4);
+        RCC->APB2RSTR &= ~(1 << 4);
+    } else if(usart_port == USART2) {
+        RCC->APB1RSTR |= (1 << 17);
+        RCC->APB1RSTR &= ~(1 << 17);
+    } else if(usart_port == USART6) {
+        RCC->APB2RSTR |= (1 << 5);
+        RCC->APB2RSTR &= ~(1 << 5);
+    }
+}
+
