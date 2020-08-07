@@ -58,6 +58,9 @@ CC_OPTIMIZATION_LEVEL = -O0
 CC_STATE = -mthumb
 CC_ENDIANNESS = -mlittle-endian
 
+CC_FLAGS = $(CC_ERROR_LEVEL) $(CC_OPTIMIZATION_LEVEL)
+CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS)
+
 
 
 #-----------------------------------------------------------------------------#
