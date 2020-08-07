@@ -53,12 +53,13 @@ CMSIS_CORE_INCLUDE_DIR = ../../../../cmsis/core/include/
 #-----------------------------------------------------------------------------#
 
 CC = /usr/local/gcc-arm-none-eabi/9-2020-q2-update/bin/arm-none-eabi-gcc
+CC_STANDARD = -std=gnu11
 CC_ERROR_LEVEL = -Wall -Werror -Wextra
 CC_OPTIMIZATION_LEVEL = -O0
 CC_STATE = -mthumb
 CC_ENDIANNESS = -mlittle-endian
 
-CC_FLAGS = $(CC_ERROR_LEVEL) $(CC_OPTIMIZATION_LEVEL)
+CC_FLAGS = $(CC_STANDARD) $(CC_ERROR_LEVEL) $(CC_OPTIMIZATION_LEVEL)
 CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS)
 
 
