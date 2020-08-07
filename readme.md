@@ -1,4 +1,4 @@
-# STM32 - Tutorials, Projects, Knowledge
+# STM32: Tutorials | Projects | Knowledge
 
 - [Overview](#overview)
     - [Goal](#goal)
