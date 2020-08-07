@@ -52,6 +52,12 @@ CMSIS_CORE_INCLUDE_DIR = ../../../../cmsis/core/include/
 # COMPILER SETTINGS #
 #-----------------------------------------------------------------------------#
 
+CC = /usr/local/gcc-arm-none-eabi/9-2020-q2-update/bin/arm-none-eabi-gcc
+CC_ERROR_LEVEL = -Wall -Werror -Wextra
+CC_OPTIMIZATION_LEVEL = -O0
+CC_STATE = -mthumb
+CC_ENDIANNESS = -mlittle-endian
+
 
 
 #-----------------------------------------------------------------------------#
