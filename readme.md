@@ -26,5 +26,5 @@ low-layer API and HAL, Arm Cortex M4.
 
 * **OS**: Ubuntu 20.04
 * **Toolchain**: GNU Arm Embedded Toolchain 9-2020-q2-update 9.3.1
-* **Third party packages**: STM32CubeF4
+* **Third party packages**: [STM32CubeF4](https://github.com/STMicroelectronics/STM32CubeF4)
 
