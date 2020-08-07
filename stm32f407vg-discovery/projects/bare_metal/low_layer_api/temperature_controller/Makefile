@@ -67,8 +67,10 @@ CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS)
 # LINKER SETTINGS #
 #-----------------------------------------------------------------------------#
 
-LD_SCRIPT =
+LD_SCRIPT = ../../../../linker_scripts/stm32f407vgtx_flash.ld
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
+
+LD_FLAGS = $(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
 
 
 
