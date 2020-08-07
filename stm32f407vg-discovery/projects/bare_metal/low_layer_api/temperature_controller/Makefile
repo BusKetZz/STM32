@@ -14,7 +14,7 @@ TOOLCHAIN_PATH = /usr/local/gcc-arm-none-eabi/$(TOOLCHAIN_VERSION)/bin/
 #-----------------------------------------------------------------------------#
 
 CPU = cortex-m4
-MCU = STM32F407VG
+MCU = STM32F407xx
 
 
 
@@ -69,9 +69,11 @@ CC_ERROR_LEVEL = -Wall -Werror -Wextra
 CC_OPTIMIZATION_LEVEL = -O0
 CC_STATE = -mthumb
 CC_ENDIANNESS = -mlittle-endian
+CC_CPU = -mcpu=$(CPU)
+CC_MCU = -D$(MCU)
 
 CC_FLAGS = $(CC_STANDARD) $(CC_ERROR_LEVEL) $(CC_OPTIMIZATION_LEVEL)
-CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS)
+CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS) $(CC_CPU) $(CC_MCU)
 CC_FLAGS += -I$(APP_INCLUDE_DIR)
 CC_FLAGS += -I$(LL_DRIVERS_INCLUDE_DIR)
 CC_FLAGS += -I$(CMSIS_SYSTEM_INCLUDE_DIR)
@@ -83,7 +85,7 @@ CC_FLAGS += -I$(CMSIS_CORE_INCLUDE_DIR)
 # LINKER SETTINGS #
 #-----------------------------------------------------------------------------#
 
-LD_SCRIPT = ../../../../linker_scripts/stm32f407vgtx_flash.ld
+LD_SCRIPT = -T../../../../linker_scripts/stm32f407vgtx_flash.ld
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
 
 LD_FLAGS = $(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
@@ -123,7 +125,7 @@ $(HEX_FILE): $(ELF_FILE)
 
 $(ELF_FILE): $(SOURCE_FILES)
 	mkdir -p $(BUILD_DIR)
-	$(CC) $(CC_FLAGS) $(LD_FLAGS) $< $@
+	$(CC) $(CC_FLAGS) $(LD_FLAGS) $^ --output $@
 
 clean:
 	rm -rf $(BUILD_DIR)
