@@ -116,6 +116,19 @@ SOURCE_FILES += $(addprefix $(CMSIS_STARTUP_SOURCE_DIR), \
 
 
 
+all: $(HEX_FILE)
+
+$(HEX_FILE): $(ELF_FILE)
+	$(OBJCOPY) -Oihex $< $@
+
+$(ELF_FILE): $(SOURCE_FILES)
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) $(LD_FLAGS) $< $@
+
+clean:
+	rm -rf $(BUILD_DIR)
+
+
 
 #-----------------------------------------------------------------------------#
 # FLASH PROCEDURE #
