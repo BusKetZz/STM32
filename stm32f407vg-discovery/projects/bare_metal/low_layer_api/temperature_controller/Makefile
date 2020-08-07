@@ -1,8 +1,11 @@
 #-----------------------------------------------------------------------------#
-# PROJECT INFORMATION #
+# PROJECT & TOOLCHAIN INFORMATION #
 #-----------------------------------------------------------------------------#
 
 PROJECT_NAME = temperature_regulator
+
+TOOLCHAIN_VERSION = 9-2020-q2-update
+TOOLCHAIN_PATH = /usr/local/gcc-arm-none-eabi/$(TOOLCHAIN_VERSION)/bin/
 
 
 
@@ -60,7 +63,7 @@ CMSIS_CORE_INCLUDE_DIR = ../../../../cmsis/core/include/
 # COMPILER SETTINGS #
 #-----------------------------------------------------------------------------#
 
-CC = /usr/local/gcc-arm-none-eabi/9-2020-q2-update/bin/arm-none-eabi-gcc
+CC = $(TOOLCHAIN_PATH)arm-none-eabi-gcc
 CC_STANDARD = -std=gnu11
 CC_ERROR_LEVEL = -Wall -Werror -Wextra
 CC_OPTIMIZATION_LEVEL = -O0
@@ -84,6 +87,14 @@ LD_SCRIPT = ../../../../linker_scripts/stm32f407vgtx_flash.ld
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
 
 LD_FLAGS = $(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
+
+
+
+#-----------------------------------------------------------------------------#
+# OBJCOPY SETTINGS #
+#-----------------------------------------------------------------------------#
+
+OBJCOPY = $(TOOLCHAIN_PATH)arm-none-eabi-objcopy
 
 
 
