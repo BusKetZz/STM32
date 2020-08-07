@@ -91,6 +91,18 @@ LD_FLAGS = $(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
 # BUILD PROCEDURE #
 #-----------------------------------------------------------------------------#
 
+BUILD_DIR = ./build/
+ELF_FILE = $(addprefix $(BUILD_DIR), $(PROJECT_NAME).elf)
+HEX_FILE = $(addprefix $(BUILD_DIR), $(PROJECT_NAME).hex)
+
+SOURCE_FILES = $(addprefix $(APP_SOURCE_DIR), $(APP_SOURCE_FILES))
+SOURCE_FILES += $(addprefix $(LL_DRIVERS_SOURCE_DIR), \
+	$(LL_DRIVERS_SOURCE_FILES))
+SOURCE_FILES += $(addprefix $(CMSIS_SYSTEM_SOURCE_DIR), \
+	$(CMSIS_SYSTEM_SOURCE_FILES))
+SOURCE_FILES += $(addprefix $(CMSIS_STARTUP_SOURCE_DIR), \
+	$(CMSIS_STARTUP_SOURCE_FILES))
+
 
 
 
