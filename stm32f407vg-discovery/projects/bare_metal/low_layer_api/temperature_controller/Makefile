@@ -139,5 +139,13 @@ clean:
 # FLASH PROCEDURE #
 #-----------------------------------------------------------------------------#
 
+FLASH_START_ADDRESS = 0x8000000
 
+
+
+flash:
+	st-flash write $(HEX_FILE) $(FLASH_START_ADDRESS)
+
+erase:
+	st-flash erase
 
