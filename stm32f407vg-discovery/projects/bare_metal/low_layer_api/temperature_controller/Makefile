@@ -3,6 +3,9 @@
 #-----------------------------------------------------------------------------#
 
 PROJECT_NAME = temperature_regulator
+REPOSITORY_PATH = /media/hdd/busketzz/workspace/embedded/stm32/
+BOARD_NAME = stm32f407vg-discovery
+DEPENDENCIES_PATH = $(REPOSITORY_PATH)$(BOARD_NAME)
 
 TOOLCHAIN_VERSION = 9-2020-q2-update
 TOOLCHAIN_PATH = /usr/local/gcc-arm-none-eabi/$(TOOLCHAIN_VERSION)/bin/
@@ -33,8 +36,8 @@ APP_SOURCE_FILES = main.c
 # LOW-LAYER DRIVERS SOURCE & HEADER FILES #
 #-----------------------------------------------------------------------------#
 
-LL_DRIVERS_SOURCE_DIR = ../../../../drivers/low_layer_api/source/
-LL_DRIVERS_INCLUDE_DIR = ../../../../drivers/low_layer_api/include/
+LL_DRIVERS_SOURCE_DIR = $(DEPENDENCIES_PATH)/drivers/low_layer_api/source/
+LL_DRIVERS_INCLUDE_DIR = $(DEPENDENCIES_PATH)/drivers/low_layer_api/include/
 
 LL_DRIVERS_SOURCE_FILES =
 
@@ -44,18 +47,18 @@ LL_DRIVERS_SOURCE_FILES =
 # CMSIS SOURCE & HEADER FILES #
 #-----------------------------------------------------------------------------#
 
-CMSIS_SYSTEM_SOURCE_DIR = ../../../../cmsis/system/source/
-CMSIS_SYSTEM_INCLUDE_DIR = ../../../../cmsis/system/include/
+CMSIS_SYSTEM_SOURCE_DIR = $(DEPENDENCIES_PATH)/cmsis/system/source/
+CMSIS_SYSTEM_INCLUDE_DIR = $(DEPENDENCIES_PATH)/cmsis/system/include/
 
 CMSIS_SYSTEM_SOURCE_FILES = system_stm32f4xx.c
 
 
-CMSIS_STARTUP_SOURCE_DIR = ../../../../cmsis/startup/source/
+CMSIS_STARTUP_SOURCE_DIR = $(DEPENDENCIES_PATH)/cmsis/startup/source/
 
 CMSIS_STARTUP_SOURCE_FILES = startup_stm32f407xx.s
 
 
-CMSIS_CORE_INCLUDE_DIR = ../../../../cmsis/core/include/
+CMSIS_CORE_INCLUDE_DIR = $(DEPENDENCIES_PATH)/cmsis/core/include/
 
 
 
@@ -85,7 +88,7 @@ CC_FLAGS += -I$(CMSIS_CORE_INCLUDE_DIR)
 # LINKER SETTINGS #
 #-----------------------------------------------------------------------------#
 
-LD_SCRIPT = -T../../../../linker_scripts/stm32f407vgtx_flash.ld
+LD_SCRIPT = -T$(DEPENDENCIES_PATH)/linker_scripts/stm32f407vgtx_flash.ld
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
 
 LD_FLAGS = $(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
