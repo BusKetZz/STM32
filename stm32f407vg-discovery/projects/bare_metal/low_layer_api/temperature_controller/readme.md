@@ -1,27 +1,55 @@
 # Temperature Controller
 
+- [Overview](#overview)
+    - [Goal](#goal)
+    - [Peripherals](#peripherals)
+- [Build & Flash](#build-&-flash)
+    - [Build](#build)
+    - [Flash](#flash)
+
 
 
 ## Overview
 
-* **Goal**: implementation of simple temperature controller.
-* **Peripherals used**: adc, gpio, timer.
+### Goal
+
+Implementation of simple temperature controller.
+
+
+### Peripherals
+
+* ADC
+* GPIO
+* Timer
 
 
 
-## Schematic
+## Build & Flash
 
-**TODO**
+### Build
+
+To build a project You need to run one simple command:
+
+```sh
+$ make all
+```
+
+If You want to delete `./build/` directory, run:
+
+```sh
+$ make clean
+```
 
 
+### Flash
 
-## Compilation
+To flash your board perform following steps:
 
-**TODO**
+1. Connect board via miniUSB-USB cable to the computer.
 
+2. Run the command:
 
-
-## Flash
-
-**TODO**
+```sh
+$ make flash
+```
 
