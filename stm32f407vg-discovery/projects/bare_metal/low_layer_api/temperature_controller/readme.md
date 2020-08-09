@@ -3,7 +3,7 @@
 - [Overview](#overview)
     - [Goal](#goal)
     - [Peripherals](#peripherals)
-- [Build & Flash](#build-&-flash)
+- [Build and flash](#build-and-flash)
     - [Build](#build)
     - [Flash](#flash)
 
@@ -24,7 +24,7 @@ Implementation of simple temperature controller.
 
 
 
-## Build & Flash
+## Build and flash
 
 ### Build
 
