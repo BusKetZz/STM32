@@ -140,13 +140,14 @@ clean:
 # FLASH PROCEDURE #
 #-----------------------------------------------------------------------------#
 
-FLASH_START_ADDRESS = 0x8000000
+OPENOCD = /opt/openocd/0.10.0-14/bin/openocd
+OPENOCD_SCRIPT = /opt/openocd/0.10.0-14/scripts/board/stm32f4discovery.cfg
+OPENOCD_CMD = "init;halt;flash write_image erase $(HEX_FILE);reset run;exit"
 
 
 
 flash:
-	st-flash write $(HEX_FILE) $(FLASH_START_ADDRESS)
+	$(OPENOCD) -f $(OPENOCD_SCRIPT) -c $(OPENOCD_CMD)
 
 erase:
-	st-flash erase
 
