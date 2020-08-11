@@ -28,6 +28,16 @@ void rcc_set_ahb_prescaler(void)
     LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
 }
 
+
+
+void rcc_set_apb1_prescaler(void)
+{
+    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+}
+
+
+
+
 void rcc_system_clock_init(void)
 {
     LL_RCC_HSI_SetCalibTrimming(16);
