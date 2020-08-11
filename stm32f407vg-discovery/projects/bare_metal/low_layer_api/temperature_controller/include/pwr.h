@@ -14,7 +14,7 @@
 /*****************************************************************************/
 
 void pwr_clock_enable(void);
-void pwr_set_regulator_voltage_scalling(void);
+void pwr_set_regulator_voltage_scaling(void);
 
 #endif /* PWR_H */
 
