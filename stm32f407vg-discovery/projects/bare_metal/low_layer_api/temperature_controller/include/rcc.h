@@ -16,5 +16,5 @@
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
-void system_clock_init(void);
+void rcc_system_clock_init(void);
 
