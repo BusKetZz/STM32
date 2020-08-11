@@ -29,6 +29,7 @@ APP_SOURCE_DIR = ./source/
 APP_INCLUDE_DIR = ./include/
 
 APP_SOURCE_FILES = main.c
+APP_SOURCE_FILES += flash.c pwr.c rcc.c syscfg.c
 
 
 
