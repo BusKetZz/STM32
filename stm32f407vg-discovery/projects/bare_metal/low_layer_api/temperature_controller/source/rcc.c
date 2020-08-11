@@ -49,7 +49,7 @@ void rcc_system_clock_init(void)
     LL_RCC_HSI_SetCalibTrimming(16);
 
     LL_RCC_HSI_Enable();
-    while (LL_RCC_HSI_IsReady != 1) {
+    while (LL_RCC_HSI_IsReady() != 1) {
         ;
     }
 
