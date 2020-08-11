@@ -40,7 +40,7 @@ APP_SOURCE_FILES += flash.c pwr.c rcc.c syscfg.c
 LL_DRIVERS_SOURCE_DIR = $(DEPENDENCIES_PATH)/drivers/low_layer_api/source/
 LL_DRIVERS_INCLUDE_DIR = $(DEPENDENCIES_PATH)/drivers/low_layer_api/include/
 
-LL_DRIVERS_SOURCE_FILES = stm32f4xx_ll_pwr.c stm32f4xx_ll_rcc.c
+LL_DRIVERS_SOURCE_FILES = 
 
 
 
