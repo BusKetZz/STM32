@@ -27,3 +27,10 @@ void pwr_clock_enable(void)
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 }
 
+
+
+void pwr_set_regulator_voltage_scalling(void)
+{
+    LL_PWR_SetRegulVoltageScalling(LL_PWR_REGU_VOLTAGE_SCALE2);
+}
+
