@@ -13,6 +13,9 @@
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
+void rcc_set_ahb_prescaler(void);
+void rcc_set_apb1_prescaler(void);
+void rcc_set_apb2_prescaler(void);
 void rcc_system_clock_init(void);
 
 #endif /* RCC_H */
