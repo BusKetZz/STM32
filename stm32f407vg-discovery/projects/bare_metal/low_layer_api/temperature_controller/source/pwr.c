@@ -16,3 +16,14 @@
 
 #include "stm32f4xx_ll_pwr.h"
 
+
+
+/*****************************************************************************/
+/* PUBLIC FUNCTIONS DEFINITIONS */
+/*****************************************************************************/
+
+void pwr_clock_enable(void)
+{
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+}
+
