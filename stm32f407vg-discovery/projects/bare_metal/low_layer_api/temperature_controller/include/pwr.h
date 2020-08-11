@@ -10,6 +10,6 @@
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
-void set_regulator_voltage_scalling(void);
+void pwr_set_regulator_voltage_scalling(void);
 void pwr_clock_enable(void);
 
