@@ -32,6 +32,6 @@ void pwr_clock_enable(void)
 
 void pwr_set_regulator_voltage_scalling(void)
 {
-    LL_PWR_SetRegulVoltageScalling(LL_PWR_REGU_VOLTAGE_SCALE2);
+    LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE2);
 }
 
