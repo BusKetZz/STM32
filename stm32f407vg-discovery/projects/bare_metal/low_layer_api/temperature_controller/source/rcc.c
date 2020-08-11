@@ -37,6 +37,12 @@ void rcc_set_apb1_prescaler(void)
 
 
 
+void rcc_set_apb2_prescaler(void)
+{
+    LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+}
+
+
 
 void rcc_system_clock_init(void)
 {
