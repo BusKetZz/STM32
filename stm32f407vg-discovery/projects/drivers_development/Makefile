@@ -101,3 +101,20 @@ BUILD_DIR = ./build/
 ELF_FILE = $(addprefix $(BUILD_DIR), $(PROJECT_NAME).elf)
 HEX_FILE = $(addprefix $(BUILD_DIR), $(PROJECT_NAME).hex)
 
+SOURCE_FILES = $(addprefix $(SYSTEM_SOURCE_DIR), $(SYSTEM_SOURCE_FILES))
+SOURCE_FILES += $(addprefix $(DRIVERS_SOURCE_DIR), $(DRIVERS_SOURCE_FILES)) 
+
+
+
+all: $(HEX_FILE)
+
+$(HEX_FILE): $(ELF_FILE)
+	$(OBJCOPY) -Oihex $< $@
+
+$(ELF_FILE): $(SOURCE_FILES)
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CC_FLAGS) $(LD_FLAGS) $^ --output $@
+
+clean:
+	rm -rf $(BUILD_DIR)
+
