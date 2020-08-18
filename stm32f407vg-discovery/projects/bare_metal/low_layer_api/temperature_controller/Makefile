@@ -2,7 +2,7 @@
 # PROJECT INFORMATION #
 #-----------------------------------------------------------------------------#
 
-PROJECT_NAME = temperature_regulator
+PROJECT_NAME = temperature_controller
 BOARD_NAME = stm32f407vg-discovery
 
 DEPENDENCIES_PATH = ../../../../dependencies/
