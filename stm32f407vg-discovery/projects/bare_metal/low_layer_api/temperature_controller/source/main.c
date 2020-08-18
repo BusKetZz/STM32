@@ -18,22 +18,20 @@
 
 
 /*****************************************************************************/
+/* PRIVATE FUNCTIONS PROTOTYPES */
+/*****************************************************************************/
+
+static void system_init(void);
+
+
+
+/*****************************************************************************/
 /* MAIN */
 /*****************************************************************************/
 
 int main(void)
 {
-    rcc_system_clock_init();
-    rcc_set_ahb_prescaler();
-    rcc_set_apb1_prescaler();
-    rcc_set_apb2_prescaler();
-
-    pwr_clock_enable();
-    pwr_set_regulator_voltage_scaling();
-
-    syscfg_clock_enable();
-
-    flash_set_latency();
+    system_init();
 
 
     while (1) {
@@ -41,5 +39,26 @@ int main(void)
     }
 
     return 0;
+}
+
+
+
+/*****************************************************************************/
+/* PRIVATE FUNCTIONS DEFINITION */
+/*****************************************************************************/
+
+static void system_init(void)
+{
+    syscfg_clock_enable();
+
+    pwr_clock_enable();
+    pwr_set_regulator_voltage_scaling();
+
+    flash_set_latency();
+
+    rcc_set_ahb_prescaler();
+    rcc_set_apb1_prescaler();
+    rcc_set_apb2_prescaler();
+    rcc_system_clock_init();
 }
 
