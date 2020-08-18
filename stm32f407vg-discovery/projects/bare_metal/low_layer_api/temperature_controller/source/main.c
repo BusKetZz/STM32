@@ -15,6 +15,16 @@
 #include "rcc.h"
 #include "syscfg.h"
 
+#include <stdio.h>
+
+
+
+/*****************************************************************************/
+/* EXTERN FUNCTIONS PROTOTYPES */
+/*****************************************************************************/
+
+extern void initialise_monitor_handles(void);
+
 
 
 /*****************************************************************************/
@@ -32,6 +42,9 @@ static void system_init(void);
 int main(void)
 {
     system_init();
+
+    initialise_monitor_handles();
+    printf("Hello from STM32F407xx!\n");
 
 
     while (1) {
