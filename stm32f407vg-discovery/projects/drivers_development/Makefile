@@ -79,9 +79,10 @@ CC_FLAGS += -I$(SYSTEM_INCLUDE_DIR) -I$(DRIVERS_INCLUDE_DIR)
 #-----------------------------------------------------------------------------#
 
 LD_SCRIPT =
+LD_MEMORY_MAP = -Wl,-Map=$(BUILD_DIR)$(PROJECT_NAME).map
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
 
-LD_FLAGS = -T$(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
+LD_FLAGS = -T$(LD_SCRIPT) $(LD_MEMORY_MAP) $(LD_GARBAGE_COLLECTION)
 
 
 
