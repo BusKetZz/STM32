@@ -75,16 +75,18 @@ CMSIS_CORE_INCLUDE_DIR = $(DEPENDENCIES_PATH)cmsis/core/include/
 
 CC = $(TOOLCHAIN_PATH)arm-none-eabi-gcc
 CC_STANDARD = -std=gnu11
-CC_ERROR_LEVEL = -Wall -Werror -Wextra
+CC_ERROR_LEVEL = -Wall -Werror
 CC_OPTIMIZATION_LEVEL = -O0
 CC_STATE = -mthumb
 CC_ENDIANNESS = -mlittle-endian
+CC_FLOAT_UNIT = -mfloat-abi=soft
 CC_CPU = -mcpu=$(CPU)
 CC_MCU = -D$(MCU)
 CC_DRIVER = -DUSE_FULL_LL_DRIVER
 
 CC_FLAGS = $(CC_STANDARD) $(CC_ERROR_LEVEL) $(CC_OPTIMIZATION_LEVEL)
-CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS) $(CC_CPU) $(CC_MCU) $(CC_DRIVER)
+CC_FLAGS += $(CC_STATE) $(CC_ENDIANNESS) $(CC_FLOAT_UNIT)
+CC_FLAGS += $(CC_CPU) $(CC_MCU) $(CC_DRIVER)
 CC_FLAGS += -I$(APP_INCLUDE_DIR)
 CC_FLAGS += -I$(LL_DRIVERS_INCLUDE_DIR)
 CC_FLAGS += -I$(CMSIS_SYSTEM_INCLUDE_DIR)
@@ -97,9 +99,10 @@ CC_FLAGS += -I$(CMSIS_CORE_INCLUDE_DIR)
 #-----------------------------------------------------------------------------#
 
 LD_SCRIPT = $(DEPENDENCIES_PATH)linker_scripts/stm32f407vgtx_flash.ld
+LD_SPECS = --specs=rdimon.specs
 LD_GARBAGE_COLLECTION = -Wl,--gc-sections
 
-LD_FLAGS = -T$(LD_SCRIPT) $(LD_GARBAGE_COLLECTION)
+LD_FLAGS = -T$(LD_SCRIPT) $(LD_SPECS) $(LD_GARBAGE_COLLECTION)
 
 
 
