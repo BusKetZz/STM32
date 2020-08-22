@@ -119,3 +119,18 @@ $(ELF_FILE): $(SOURCE_FILES)
 clean:
 	rm -rf $(BUILD_DIR)
 
+
+
+#-----------------------------------------------------------------------------#
+# FLASH PROCEDURE #
+#-----------------------------------------------------------------------------#
+
+OPENOCD = /opt/openocd/0.10.0-14/bin/openocd
+OPENOCD_SCRIPT = /opt/openocd/0.10.0-14/scripts/board/stm32f4discovery.cfg
+OPENOCD_CMD = "init;halt;flash write_image erase $(HEX_FILE);reset run;exit"
+
+
+
+flash:
+	$(OPENOCD) -f $(OPENOCD_SCRIPT) -c $(OPENOCD_CMD)
+
