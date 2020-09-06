@@ -17,9 +17,29 @@ Introduction into embedded systems based on STM32 microcontrollers family.
 
 ### Topics
 
-STM32F407VG microcontroller, peripheral drivers (e.g. clocks, timers, GPIO,
-I2C, SPI, UART, RTC), linker scripts, cross-compilation, Makefiles, 
-low-layer API and HAL, Arm Cortex M4.
+**Microcontrolles (boards)**:
+    * STM32F407xx (STM32F407G-DISC1)
+    * STM32F413xx (STM32 NUCLEO-F413ZH)
+    * STM32F401xx (STM32 NUCLEO-F401RE) [DEPRECATED]
+
+**Peripherals**:
+    * Clocks (HSI, HSE, PLL)
+    * Timers
+    * RTC
+    * GPIOs
+    * ADC
+    * I2C
+    * SPI
+    * USART/UART
+    * DMA
+
+**Programming**:
+    * Makefile
+    * Cross-compilation
+    * Linker script
+    * Startup code
+    * Low-layer API
+    * HAL
 
 
 ### System requirements
