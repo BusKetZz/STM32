@@ -2,8 +2,6 @@
 
 ![nucleo_f413zh_board](images/nucleo_f413zh_board.jpg)
 
-- [Pinout](#pinout)
-
 
 
 ## Pinout
