@@ -1,9 +1,5 @@
 # CMSIS
 
-
-
-## What inside
-
 **Cortex Microcontroller Software Interface Standard (CMSIS)** is a hardware
 abstraction layer for microcontrollers based on Arm Cortex processors.
 
