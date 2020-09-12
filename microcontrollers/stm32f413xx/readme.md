@@ -16,26 +16,26 @@
 
 ### Core
 
-* 32-bit Arm Cortex-M4 CPU with FPU.
+* 32-bit Arm Cortex-M4 CPU with FPU
 
 
 ### Memories
 
-* Flash: 1.5 MB.
-* SRAM: 320 KB.
+* Flash: 1.5 MB
+* SRAM: 320 KB
 
 
 ### Clocks
 
-* 4-26 MHz crystal oscillator (HSE).
-* 16 MHz internal factory-trimmed RC (HSI).
-* 32 kHz internal RC with calibration (LSI).
-* 32 kHz oscillator for RTC with calibration.
+* 4-26 MHz crystal oscillator (HSE)
+* 16 MHz internal factory-trimmed RC (HSI)
+* 32 kHz internal RC with calibration (LSI)
+* 32 kHz oscillator for RTC with calibration
 
 
 ### Power supply
 
-* 1.7 - 3.6 V application supply.
+* 1.7 - 3.6 V application supply
 
 
 ### ADC and DAC
