@@ -59,7 +59,7 @@ convention.
 
 ### Variables names
 
-`AUTOMATIC VARIABLES`
+#### AUTOMATIC VARIABLES
 
 If the variable is automatic (i.e. local for given function) the name must be
 as much descriptive as possible, but it doesn't have to be preceded by module
@@ -76,7 +76,7 @@ void function(void)
 ```
 
 
-`PRIVATE GLOBAL VARIABLES`
+#### PRIVATE GLOBAL VARIABLES
 
 If the variable is "private global" (i.e. it is accessible by all the functions
 but only in the scope of given file) the name must be preceded by module name.
@@ -91,7 +91,7 @@ static float temperature_sensor_current_temperature = 0.0f;
 ```
 
 
-`PUBLIC GLOBAL VARIABLES`
+#### PUBLIC GLOBAL VARIABLES
 
 If the variable is "public global"... NO! THERE IS NO PLACE FOR SUCH BULLSHIT! 
 
@@ -100,7 +100,7 @@ If the variable is "public global"... NO! THERE IS NO PLACE FOR SUCH BULLSHIT!
 
 Convention for functions names is very similar to the variables names.
 
-`PRIVATE FUNCTIONS`
+#### PRIVATE FUNCTIONS
 
 "Private" function means, that the function is accessible only in the given
 file. Such a function is mostly the helper function, which improves code
@@ -121,7 +121,7 @@ static float calculate_current_temperature(uin32_t adc_reading)
 ```
 
 
-`PUBLIC FUNCTIONS`
+#### PUBLIC FUNCTIONS
 
 "Public" function means, that the function is accessible from the other
 modules. In other words function is global and can be used from anywhere.
@@ -140,7 +140,7 @@ float temperature_sensor_get_current_temperature(void);
 Convention for the structures is again very similar to variables and functions
 names, but there is one small difference.
 
-`PRIVATE STRUCTURES`
+#### PRIVATE STRUCTURES
 
 "Private" structure means, that the structure is declared inside given module
 source file and you cannot define structure object outside this module.
@@ -178,7 +178,7 @@ typedef struct time_data {
 ```
 
 
-`PUBLIC STRUCTURES`
+#### PUBLIC STRUCTURES
 
 "Public" structure means, that the structure is declared inside given module
 header file and you can define structure object outside this module.
@@ -199,7 +199,7 @@ typedef struct temperature_sensor_settings {
 Convention for enums is almost the same as for structures. The difference is
 only in members names. In case of enums, members are written using uppercase.
 
-`PRIVATE ENUMS`
+#### PRIVATE ENUMS
 
 "Private" enum means, that the enum is declared inside given module source
 file and cannot be used outside this module.
@@ -216,7 +216,7 @@ typedef enum new_data_packet_ready {
 ```
 
 
-`PUBLIC ENUMS`
+#### PUBLIC ENUMS
 
 "Public" enum means, that the enum is declared inside given module header file
 and can be used outside this module.
