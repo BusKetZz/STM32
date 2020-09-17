@@ -30,7 +30,7 @@ In other words it describes:
 ## Why to use that
 
 The answer is simple. Code is read by people, so write the code, which you want
-to read. Research says, that if developers follows the rules (i.e. style)
+to read. Research says, that if developers follow the rules (i.e. style)
 throughout the whole project, code quality increases and amount of bugs
 decreases. *SO... FOLLOW THE RULES... I mean STYLE!*.
 
@@ -50,23 +50,23 @@ As mentioned above, `snake_case` is used throughout the whole project.
 It means that source and header files (directories too) follow the same
 convention.
 
-**Example**: you want to write a module of temperature sensor.
+**Example**: create a module of temperature sensor.
 
 * **Directories names**: sensors/source, sensors/include
 * **Source file name**: temperature_sensor.c
 * **Header file name**: temperature_sensor.h
 
 
+
 ### Variables names
 
-#### AUTOMATIC VARIABLES
+#### Automatic variables
 
 If the variable is automatic (i.e. local for given function) the name must be
 as much descriptive as possible, but it doesn't have to be preceded by module
 name.
 
-**Example**: you want to define an automatic variable inside a public or
-private function.
+**Example**: define an automatic variable inside a public or private function.
 
 ```c
 void function(void)
@@ -76,31 +76,32 @@ void function(void)
 ```
 
 
-#### PRIVATE GLOBAL VARIABLES
+#### Private global variables
 
 If the variable is "private global" (i.e. it is accessible by all the functions
 but only in the scope of given file) the name must be preceded by module name.
 The reason for this choice is mostly the fact, that such variables stores
 important information from the view point of given module.
 
-**Example**: you want to define a private global variable inside a 
-temperature_sensor.c file, which stores current temperature value.
+**Example**: define a private global variable inside a temperature_sensor.c
+file, which stores current temperature value.
 
 ```c
 static float temperature_sensor_current_temperature = 0.0f;
 ```
 
 
-#### PUBLIC GLOBAL VARIABLES
+#### Public global variables
 
 If the variable is "public global"... NO! THERE IS NO PLACE FOR SUCH BULLSHIT! 
+
 
 
 ### Functions names
 
 Convention for functions names is very similar to the variables names.
 
-#### PRIVATE FUNCTIONS
+#### Private functions
 
 "Private" function means, that the function is accessible only in the given
 file. Such a function is mostly the helper function, which improves code
@@ -108,8 +109,8 @@ organization.
 Name of the private function must be as much descriptive as possible, but it
 doesn't have to be preceded by module name.
 
-**Example**: you want to define a private function inside temperature_sensor.h
-file, which calculates current temperature.
+**Example**: define a private function inside temperature_sensor.h file, which
+calculates current temperature.
 
 ```c
 static float calculate_current_temperature(uin32_t adc_reading)
@@ -121,18 +122,19 @@ static float calculate_current_temperature(uin32_t adc_reading)
 ```
 
 
-#### PUBLIC FUNCTIONS
+#### Public functions
 
 "Public" function means, that the function is accessible from the other
 modules. In other words function is global and can be used from anywhere.
 Name of the public function must be preceded by the module name.
 
-**Example**: you want to declare a public function prototype inside
-temperature_sensor.h file, which returns current temperature.
+**Example**: declare a public function prototype inside temperature_sensor.h
+file, which returns current temperature.
 
 ```c
 float temperature_sensor_get_current_temperature(void);
 ```
+
 
 
 ### Structures names
@@ -140,7 +142,7 @@ float temperature_sensor_get_current_temperature(void);
 Convention for the structures is again very similar to variables and functions
 names, but there is one small difference.
 
-#### PRIVATE STRUCTURES
+#### Private structures
 
 "Private" structure means, that the structure is declared inside given module
 source file and you cannot define structure object outside this module.
@@ -148,15 +150,16 @@ source file and you cannot define structure object outside this module.
 Nevertheless most of the structures, whether private or public, store
 important information from the view point of given module. Due to this fact,
 most of the structures names should be preceded by module name.
-If the structure is "really" the private one, it is not necessary.
+If the structure is "really" the private one and used only to organize the code
+it is not necessary.
 
 What is more, each structure is declared using `typedef` keyword. There is no
 specific reason of this choice, but it makes that formal arguments or structure
-declarations are shorter. You don't need to use `typedef`, it is your choice.
+declarations and definitions are shorter. You don't need to use `typedef`, it
+is your choice.
 
-**Example**: you want to declare a private structure inside
-temperature_sensor.c file, which stores important data from the view point of
-this module.
+**Example**: declare a private structure inside temperature_sensor.c file,
+which stores important data from the view point of this module.
 
 ```c
 typedef struct temperature_sensor_data {
@@ -166,8 +169,8 @@ typedef struct temperature_sensor_data {
 }temperature_sensor_data_t;
 ```
 
-**Example**: you want to declare a private structure inside
-temperature_sensor.c file, which is used only internally.
+**Example**: declare a private structure inside temperature_sensor.c file,
+which is used only for internal purposes of this module.
 
 ```c
 typedef struct time_data {
@@ -178,13 +181,13 @@ typedef struct time_data {
 ```
 
 
-#### PUBLIC STRUCTURES
+#### Public structures
 
 "Public" structure means, that the structure is declared inside given module
-header file and you can define structure object outside this module.
+header file and you can define structure object of this type in any other
+module.
 
-**Example**: you want to declare a public structure inside
-temperature_sensor.h file.
+**Example**: declare a public structure inside temperature_sensor.h file.
 
 ```c
 typedef struct temperature_sensor_settings {
@@ -194,19 +197,19 @@ typedef struct temperature_sensor_settings {
 ```
 
 
+
 ### Enums names
 
 Convention for enums is almost the same as for structures. The difference is
 only in members names. In case of enums, members are written using uppercase.
 
-#### PRIVATE ENUMS
+#### Private enums
 
 "Private" enum means, that the enum is declared inside given module source
 file and cannot be used outside this module.
 
-**Example**: you want to declare private enum inside temperature_sensor.c file,
-which is not related with important information regarding temperature sensor
-module.
+**Example**: declare private enum inside temperature_sensor.c file, which
+improves code quality and readability.
 
 ```c
 typedef enum new_data_packet_ready {
@@ -216,14 +219,13 @@ typedef enum new_data_packet_ready {
 ```
 
 
-#### PUBLIC ENUMS
+#### Public enums
 
 "Public" enum means, that the enum is declared inside given module header file
 and can be used outside this module.
 
-**Example**: you want to declare public enum inside temperature_sensor.h file,
-which is related with important information regarding temperature sensor
-module.
+**Example**: declare public enum inside temperature_sensor.h file, which is
+related with important information regarding temperature sensor module.
 
 ```c
 typedef enum temperature_sensor_state {
