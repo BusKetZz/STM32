@@ -9,6 +9,7 @@
     - [Functions names](#functions-names)
     - [Structures names](#structures-names)
     - [Enums names](#enums-names)
+    - [Defines names](#defines-names)
 
 
 
@@ -233,5 +234,44 @@ typedef enum temperature_sensor_state {
     TEMPERATURE_SENSOR_STATE_CALIBRATION,
     TEMPERATURE_SENSOR_STATE_FATAL_FAILURE
 }temperature_sensor_state_t;
+```
+
+
+
+### Defines names
+
+Convention for defines is (as usual) very similar to enums or structures.
+Anyway, if it is possible, I recommend to use enums, which are much better
+choice regarding debugging process or type checking during compilation.
+What is more, each define must be written in uppercase.
+
+#### Private defines
+
+"Private" define means, that the define is declared inside given module source
+file. Mostly such define is only used for internal purposes to make the code
+cleaner and more readable. If the define strongly corresponds with the given
+module, it is a good reason to precede define name with the module name.
+In another case just remember to name the define as much descriptive as it is
+possible.
+
+**Example**: declare private define inside temperature_sensor.c file, which
+improves code quality and readability.
+
+```c
+#define RAW_DATA_SIZE (uint32_t)32
+```
+
+
+#### Public defines
+
+"Public" define means, that the define is declared inside given module header
+file and it can be used outside this module. Due to this fact, define name must
+be preceded by a module name.
+
+**Example**: declare public define inside temperature_sensor.h file, which is
+related with important information regarding temperature sensor module.
+
+```c
+#define TEMPERATURE_SENSOR_COUNT (uint32_t)2
 ```
 
