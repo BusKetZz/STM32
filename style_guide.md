@@ -10,6 +10,11 @@
     - [Structures names](#structures-names)
     - [Enums names](#enums-names)
     - [Defines names](#defines-names)
+- [Indentation](#indentation)
+- [Text width](#text-width)
+- [Curly braces](#curly-braces)
+- [Functions formal parameters](#functions-formal-parameters)
+- [Source and header files organisation](#source-and-header-files-organisation)
 
 
 
@@ -273,5 +278,228 @@ related with important information regarding temperature sensor module.
 
 ```c
 #define TEMPERATURE_SENSOR_COUNT (uint32_t)2
+```
+
+
+
+### Indentation
+
+* **Type**: spaces
+* **Size**: 4
+
+
+
+### Text width
+
+80 columns is a maximum width of the text. If it exceeds 80 columns then you
+need to move text one line below and indent it by 4 spaces.
+
+```c
+int main(void)
+{
+    if (is_new_data_packet_ready(&temperature_sensor_handle) ==
+        NEW_DATA_PACKET_READY_YES) {
+            process_new_data(&temperature_sensor_handle);
+    }
+}
+```
+
+
+
+### Curly braces
+
+#### Functions
+
+```c
+void temperature_sensor_config_init(&temperature_sensor_handle)
+{
+    /* ... */
+}
+```
+
+
+#### Structures and enums
+
+```c
+typedef struct temperature_sensor_settings {
+    /* ... */
+}temperature_sensor_settings_t;
+```
+
+```c
+typedef enum temperature_sensor_device_mode {
+    /* ... */
+}temperature_sensor_device_mode_t;
+```
+
+
+#### if-else
+
+```c
+if (is_new_data_packet_ready() == NEW_DATA_PACKET_READY_YES) {
+    /* ... */
+} else if (is_new_data_packet_ready() == NEW_DATA_PACKET_READY_NO) {
+    /* ... */
+} else {
+    /* ... */
+}
+```
+
+
+#### switch-case
+
+```c
+switch (command_code) {
+    case COMMAND_CODE_READ:
+        /* ... */
+        break;
+
+    case COMMAND_CODE_WRITE:
+        /* ... */
+        break;
+
+    default:
+        /* ... */
+        break;
+}
+```
+
+
+
+### Functions formal parameters
+
+* First way:
+
+```c
+static uint32_t calculate_temperature(uint32_t adc_reading,
+    uint32_t error_offset);
+```
+
+* Second way:
+
+```c
+static uint32_t calculate_temperature(
+    uint32_t adc_reading,
+    uint32_t error_offset
+);
+```
+
+
+
+### Source and header files organisation
+
+* Source file:
+
+```c
+/*
+ * Author: <name>
+ * Email: <email address>
+ *
+ * Date: <date of creation>
+ *
+ */
+
+/*****************************************************************************/
+/* HEADERS */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE ENUMS */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE DEFINES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE STRUCTURES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE VARIABLES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE HELPER FUNCTIONS PROTOTYPES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC FUNCTIONS DEFINITIONS */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PRIVATE HELPER FUNCTIONS DEFINITIONS */
+/*****************************************************************************/
+
+
+
+```
+
+
+* Header file:
+
+```c
+/*
+ * Author: <name>
+ * Email: <email address>
+ *
+ * Date: <date of creation>
+ *
+ */
+
+#ifndef <MODULE_NAME_H>
+    #define <MODULE_NAME_H>
+
+/*****************************************************************************/
+/* HEADERS */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC ENUMS */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC DEFINES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC STRUCTURES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC VARIABLES */
+/*****************************************************************************/
+
+
+
+/*****************************************************************************/
+/* PUBLIC FUNCTIONS PROTOTYPES */
+/*****************************************************************************/
+
+
+
+#endif /* <MODULE_NAME_H> */
 ```
 
