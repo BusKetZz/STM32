@@ -1,4 +1,4 @@
-# STM32: Tutorials | Projects | Knowledge
+# STM32F4xx: Tutorials | Projects | Knowledge
 
 - [Overview](#overview)
     - [Goal](#goal)
@@ -12,7 +12,7 @@
 
 ### Goal
 
-Introduction into embedded systems based on STM32 microcontrollers family.
+Introduction into embedded systems based on STM32F4xx microcontrollers.
 
 
 ### Topics
