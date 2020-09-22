@@ -4,6 +4,7 @@
     - [Goal](#goal)
 - [Hardware specification](#hardware-specification)
 - [Software specification](#software-specification)
+- [Directories hierarchy](#directories-hierarchy)
 
 
 
@@ -49,4 +50,12 @@ Software needed for this project:
 * **Embedded programming type**: bare metal
 
 * **Peripherals drivers type**: low layer API
+
+
+
+## Directories hierarchy
+
+* `application` - main directory for application source and header files
+    * `source` - source files
+    * `include` - header files
 
