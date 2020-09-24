@@ -117,7 +117,6 @@ LINKER_FLAGS += -Wl,--gc-sections -Wl,--print-gc-sections
 #-----------------------------------------------------------------------------#
 
 OBJCOPY_BIN = $(TOOLCHAIN_PATH)/bin/arm-none-eabi-objcopy
-OBJCOPY_FLAGS = -Oihex
 
 
 
@@ -127,9 +126,10 @@ OBJCOPY_FLAGS = -Oihex
 
 BUILD_DIR = ./build
 
-HEX_FILE = $(addprefix $(BUILD_DIR)/, $(PROJECT_NAME).hex)
 ELF_FILE = $(addprefix $(BUILD_DIR)/, $(PROJECT_NAME).elf)
-.PHONY: $(HEX_FILE) $(ELF_FILE)
+BIN_FILE = $(addprefix $(BUILD_DIR)/, $(PROJECT_NAME).bin)
+HEX_FILE = $(addprefix $(BUILD_DIR)/, $(PROJECT_NAME).hex)
+.PHONY: $(ELF_FILE) $(BIN_FILE) $(HEX_FILE)
 
 SOURCE_FILES = $(addprefix $(APPLICATION_SOURCE_DIR)/, \
 	$(APPLICATION_SOURCE_FILES))
@@ -140,10 +140,13 @@ SOURCE_FILES += $(addprefix $(CMSIS_SYSTEM_SOURCE_DIR)/, \
 SOURCE_FILES += $(addprefix $(CMSIS_STARTUP_SOURCE_DIR)/, \
 	$(CMSIS_STARTUP_SOURCE_FILES))
 
-all: $(HEX_FILE) $(ELF_FILE)
+all: $(HEX_FILE) $(BIN_FILE) $(ELF_FILE)
 
 $(HEX_FILE): $(ELF_FILE)
-	$(OBJCOPY_BIN) $(OBJCOPY_FLAGS) $< $@
+	$(OBJCOPY_BIN) -O ihex $< $@
+
+$(BIN_FILE): $(ELF_FILE)
+	$(OBJCOPY_BIN) -O binary $< $@
 
 $(ELF_FILE): $(SOURCE_FILES)
 	mkdir -p $(BUILD_DIR)
