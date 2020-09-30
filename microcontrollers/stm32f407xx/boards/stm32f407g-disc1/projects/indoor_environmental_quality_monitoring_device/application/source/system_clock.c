@@ -29,7 +29,7 @@ void system_clock_init(void)
         ;
     }
 
-    LL_FLASH_SetLatency(LL_FLASH_LATENCY_5);
+    LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
 
     LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
     LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
