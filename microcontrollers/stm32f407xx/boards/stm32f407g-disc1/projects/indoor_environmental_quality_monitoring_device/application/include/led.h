@@ -14,10 +14,10 @@
 /*****************************************************************************/
 
 typedef enum led_pin {
-    LED_PIN_BOARD_BLUE,
     LED_PIN_BOARD_GREEN,
     LED_PIN_BOARD_ORANGE,
-    LED_PIN_BOARD_RED
+    LED_PIN_BOARD_RED,
+    LED_PIN_BOARD_BLUE
 }led_pin_t;
 
 
