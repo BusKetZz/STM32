@@ -80,3 +80,26 @@ void led_turn_on(led_pin_t led_pin)
     }
 }
 
+
+
+void led_turn_off(led_pin_t led_pin)
+{
+    switch (led_pin) {
+        case LED_PIN_BOARD_GREEN:
+            LL_GPIO_ResetOutputPin(GPIOD, LL_GPIO_PIN_12);
+            break;
+
+        case LED_PIN_BOARD_ORANGE:
+            LL_GPIO_ResetOutputPin(GPIOD, LL_GPIO_PIN_13);
+            break;
+
+        case LED_PIN_BOARD_RED:
+            LL_GPIO_ResetOutputPin(GPIOD, LL_GPIO_PIN_14);
+            break;
+
+        case LED_PIN_BOARD_BLUE:
+            LL_GPIO_ResetOutputPin(GPIOD, LL_GPIO_PIN_15);
+            break;
+    }
+}
+
