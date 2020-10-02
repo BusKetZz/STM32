@@ -156,3 +156,17 @@ $(ELF_FILE): $(SOURCE_FILES)
 clean:
 	rm -rf $(BUILD_DIR)
 
+
+
+#-----------------------------------------------------------------------------#
+# FLASH PROCEDURE #
+#-----------------------------------------------------------------------------#
+
+FLASH_START_ADDRESS = 0x08000000
+
+flash:
+	st-flash write $(BIN_FILE) $(FLASH_START_ADDRESS)
+
+erase:
+	st-flash erase
+
