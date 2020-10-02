@@ -10,11 +10,20 @@
 /* HEADERS */
 /*****************************************************************************/
 
+#include "led.h"
 #include "system_clock.h"
 
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_rcc.h"
 #include "stm32f4xx_ll_system.h"
+
+
+
+/*****************************************************************************/
+/* PRIVATE DEFINES */
+/*****************************************************************************/
+
+#define SYSTICKS_COUNT    SYSTEM_CLOCK_HSI_VALUE
 
 
 
@@ -39,5 +48,19 @@ void system_clock_init(void)
 
     LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
     LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+}
+
+
+
+void system_clock_systick_config_init(void)
+{
+    SysTick_Config(SYSTICKS_COUNT);
+}
+
+
+
+void SysTick_Handler(void)
+{
+    led_toggle(LED_PIN_BOARD_GREEN);
 }
 
