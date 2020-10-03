@@ -29,7 +29,25 @@
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
+/**
+ * @brief   Initialize clock source (e.g. HSI or PLL), system clock (HCLK),
+ *          AHB prescaler, APB1 prescaler, APB2 prescaler and Flash latency.
+ *
+ * @param   None
+ *
+ * @retval  None
+ */
 void system_clock_init(void);
+
+
+
+/**
+ * @brief   Initialize cortex system timer (Systick timer).
+ *
+ * @param   None
+ *
+ * @retval  None
+ */
 void system_clock_systick_config_init(void);
 
 #endif /* SYSTEM_CLOCK_H */
