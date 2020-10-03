@@ -26,9 +26,46 @@ typedef enum led_pin {
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
+/**
+ * @brief   Initialize LED pin configuration and its clock.
+ *
+ * @param   led_pin - LED pin being a member of @ref led_pin_t.
+ *
+ * @retval  None.
+ */
 void led_pin_init(led_pin_t led_pin);
+
+
+
+/**
+ * @brief   Turn on LED pin.
+ *
+ * @param   led_pin - LED pin being a member of @ref led_pin_t.
+ *
+ * @retval  None.
+ */
 void led_pin_turn_on(led_pin_t led_pin);
+
+
+
+/**
+ * @brief   Turn off LED pin.
+ *
+ * @param   led_pin - LED pin being a member of @ref led_pin_t.
+ *
+ * @retval  None.
+ */
 void led_pin_turn_off(led_pin_t led_pin);
+
+
+
+/**
+ * @brief   Toggle LED pin.
+ *
+ * @param   led_pin - LED pin being a member of @ref led_pin_t.
+ *
+ * @retval  None.
+ */
 void led_pin_toggle(led_pin_t led_pin);
 
 
