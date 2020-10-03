@@ -24,11 +24,8 @@ etc.
 ### Bare metal programming
 
 Bare metal programming means that there is lack of any operating system like
-Embedded Linux, FreeRTOS or Zephyr.
-
-In other words programs are written in C programming language (sometimes C++
-or assembly language are used), compiled into binary format and flash straight
-into Flash memory of a microcontroller.
+Embedded Linux, FreeRTOS or Zephyr. This kind of programming is mostly based
+on interrupts, there are no tasks and scheduler, which manages them.
 
 Nowadays, popularity of bare-metal programming falls down, but it is still
 crucial tool in the hands of every embedded systems developer/programmer.
@@ -37,7 +34,7 @@ crucial tool in the hands of every embedded systems developer/programmer.
 ### Peripherals drivers low layer API
 
 Peripherals drivers low layer API allows programmers to write code which is
-very close to register level. Usage of this API makes application better
+very close to hardware level. Usage of this API makes application better
 optimized and increases its performance. Also code written in low-layer API
 gives better understanding of peripherals and "guts" of a microcontroller.
 
