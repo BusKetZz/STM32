@@ -26,10 +26,10 @@ typedef enum led_pin {
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
-void led_init(led_pin_t led_pin);
-void led_turn_on(led_pin_t led_pin);
-void led_turn_off(led_pin_t led_pin);
-void led_toggle(led_pin_t led_pin);
+void led_pin_init(led_pin_t led_pin);
+void led_pin_turn_on(led_pin_t led_pin);
+void led_pin_turn_off(led_pin_t led_pin);
+void led_pin_toggle(led_pin_t led_pin);
 
 
 

@@ -21,7 +21,7 @@
 /* PUBLIC FUNCTIONS DEFINITIONS */
 /*****************************************************************************/
 
-void led_init(led_pin_t led_pin)
+void led_pin_init(led_pin_t led_pin)
 {
     LL_GPIO_InitTypeDef led_pin_config = {
         .Mode = LL_GPIO_MODE_OUTPUT,
@@ -59,7 +59,7 @@ void led_init(led_pin_t led_pin)
 
 
 
-void led_turn_on(led_pin_t led_pin)
+void led_pin_turn_on(led_pin_t led_pin)
 {
     switch (led_pin) {
         case LED_PIN_BOARD_GREEN:
@@ -82,7 +82,7 @@ void led_turn_on(led_pin_t led_pin)
 
 
 
-void led_turn_off(led_pin_t led_pin)
+void led_pin_turn_off(led_pin_t led_pin)
 {
     switch (led_pin) {
         case LED_PIN_BOARD_GREEN:
@@ -105,7 +105,7 @@ void led_turn_off(led_pin_t led_pin)
 
 
 
-void led_toggle(led_pin_t led_pin)
+void led_pin_toggle(led_pin_t led_pin)
 {
     switch (led_pin) {
         case LED_PIN_BOARD_GREEN:
