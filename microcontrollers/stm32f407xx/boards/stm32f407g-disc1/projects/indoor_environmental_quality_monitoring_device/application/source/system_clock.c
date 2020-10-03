@@ -59,6 +59,10 @@ void system_clock_systick_config_init(void)
 
 
 
+/*****************************************************************************/
+/* INTERRUPT HANDLERS DEFINITIONS */
+/*****************************************************************************/
+
 void SysTick_Handler(void)
 {
     led_toggle(LED_PIN_BOARD_GREEN);
