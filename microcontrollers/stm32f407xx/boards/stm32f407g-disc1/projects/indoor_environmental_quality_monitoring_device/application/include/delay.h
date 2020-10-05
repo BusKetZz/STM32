@@ -13,6 +13,7 @@
 /* PUBLIC FUNCTIONS PROTOTYPES */
 /*****************************************************************************/
 
+void delay_timer_init(void);
 void delay_us(uint32_t delay_time_us);
 void delay_ms(uint32_t delay_time_ms);
 
