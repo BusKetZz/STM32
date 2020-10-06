@@ -22,7 +22,7 @@
 /*****************************************************************************/
 
 /**
- * @brief   Initialize timer (timer 2) settings, responsible of delay
+ * @brief   Initialize timer (systick timer) settings, responsible of delay
  *          functions.
  *
  * @param   None.
