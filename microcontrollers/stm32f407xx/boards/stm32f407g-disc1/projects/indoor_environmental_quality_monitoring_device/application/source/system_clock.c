@@ -20,10 +20,10 @@
 
 
 /*****************************************************************************/
-/* PRIVATE DEFINES */
+/* PUBLIC EXTERN VARIABLES */
 /*****************************************************************************/
 
-#define SYSTICKS_COUNT    SYSTEM_CLOCK_HSI_VALUE
+extern uint32_t SystemCoreClock;
 
 
 
@@ -33,38 +33,29 @@
 
 void system_clock_init(void)
 {
-    LL_RCC_HSI_Enable();
-    while (LL_RCC_HSI_IsReady() != 1) {
+    LL_RCC_HSE_Enable();
+    while (LL_RCC_HSE_IsReady() != 1) {
         ;
     }
 
-    LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
+    LL_FLASH_SetLatency(LL_FLASH_LATENCY_5);
 
-    LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
-    LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-    while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI) {
+    LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE, LL_RCC_PLLM_DIV_8, 336,
+        LL_RCC_PLLP_DIV_2);
+    LL_RCC_PLL_Enable();
+    while (LL_RCC_PLL_IsReady() != 1) {
         ;
     }
 
-    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+    LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_2);
+    LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
+    while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL) {
+        ;
+    }
+
+    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
     LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
-}
 
-
-
-void system_clock_systick_config_init(void)
-{
-    SysTick_Config(SYSTICKS_COUNT);
-}
-
-
-
-/*****************************************************************************/
-/* INTERRUPT HANDLERS DEFINITIONS */
-/*****************************************************************************/
-
-void SysTick_Handler(void)
-{
-    led_pin_toggle(LED_PIN_BOARD_GREEN);
+    SystemCoreClock = 84000000;
 }
 
