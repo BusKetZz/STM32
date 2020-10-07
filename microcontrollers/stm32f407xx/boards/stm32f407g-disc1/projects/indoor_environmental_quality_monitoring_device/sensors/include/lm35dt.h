@@ -6,3 +6,8 @@
  *
  */
 
+#ifndef LM35DT_H
+    #define LM35DT_H
+
+#endif /* LM35DT_H */
+
