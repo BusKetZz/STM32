@@ -89,6 +89,8 @@ static void lm35dt_adc_peripheral_init(void)
         .SequencersScanMode = LL_ADC_SEQ_SCAN_DISABLE
     };
     LL_ADC_Init(LM35DT_ADC_PERIPHERAL, &adc_instance_settings);
+    LL_ADC_SetChannelSamplingTime(LM35DT_ADC_PERIPHERAL,
+        LL_ADC_CHANNEL_10, LL_ADC_SAMPLINGTIME_56CYCLES);
 
 
     LL_ADC_REG_InitTypeDef adc_regular_settings = {
@@ -96,6 +98,8 @@ static void lm35dt_adc_peripheral_init(void)
         .ContinuousMode = LL_ADC_REG_CONV_CONTINUOUS
     };
     LL_ADC_REG_Init(LM35DT_ADC_PERIPHERAL, &adc_regular_settings);
+    LL_ADC_REG_SetFlagEndOfConversion(LM35DT_ADC_PERIPHERAL,
+        LL_ADC_REG_FLAG_EOC_UNITARY_CONV);
 
     LL_ADC_EnableIT_EOCS(LM35DT_ADC_PERIPHERAL);
     LL_ADC_Enable(LM35DT_ADC_PERIPHERAL);
