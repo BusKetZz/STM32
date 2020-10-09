@@ -34,6 +34,17 @@ APPLICATION_SOURCE_FILES += system_clock.c
 
 
 #-----------------------------------------------------------------------------#
+# SENSORS SETTINGS #
+#-----------------------------------------------------------------------------#
+
+SENSORS_PATH = ./sensors
+SENSORS_INCLUDE_DIR = $(SENSORS_PATH)/include
+SENSORS_SOURCE_DIR = $(SENSORS_PATH)/source
+SENSORS_SOURCE_FILES = lm35dt.c
+
+
+
+#-----------------------------------------------------------------------------#
 # PERIPHERALS DRIVERS SETTINGS #
 #-----------------------------------------------------------------------------#
 
@@ -41,7 +52,8 @@ PERIPHERALS_DRIVERS_PATH = $(DEPENDENCIES_PATH)/peripherals_drivers/low_layer
 
 PERIPHERALS_DRIVERS_INCLUDE_DIR = $(PERIPHERALS_DRIVERS_PATH)/include
 PERIPHERALS_DRIVERS_SOURCE_DIR = $(PERIPHERALS_DRIVERS_PATH)/source
-PERIPHERALS_DRIVERS_SOURCE_FILES = stm32f4xx_ll_gpio.c
+PERIPHERALS_DRIVERS_SOURCE_FILES = stm32f4xx_ll_adc.c
+PERIPHERALS_DRIVERS_SOURCE_FILES += stm32f4xx_ll_gpio.c
 
 
 
@@ -89,6 +101,7 @@ MCU = -DSTM32F407xx
 PERIPHERALS_DRIVERS_TYPE = -DUSE_FULL_LL_DRIVER
 
 HEADER_FILES = -I$(APPLICATION_INCLUDE_DIR)
+HEADER_FILES += -I$(SENSORS_INCLUDE_DIR)
 HEADER_FILES += -I$(PERIPHERALS_DRIVERS_INCLUDE_DIR)
 HEADER_FILES += -I$(CMSIS_COMPILER_INCLUDE_DIR)
 HEADER_FILES += -I$(CMSIS_CORE_INCLUDE_DIR)
@@ -136,6 +149,8 @@ HEX_FILE = $(addprefix $(BUILD_DIR)/, $(PROJECT_NAME).hex)
 
 SOURCE_FILES = $(addprefix $(APPLICATION_SOURCE_DIR)/, \
 	$(APPLICATION_SOURCE_FILES))
+SOURCE_FILES += $(addprefix $(SENSORS_SOURCE_DIR)/, \
+	$(SENSORS_SOURCE_FILES))
 SOURCE_FILES += $(addprefix $(PERIPHERALS_DRIVERS_SOURCE_DIR)/, \
 	$(PERIPHERALS_DRIVERS_SOURCE_FILES))
 SOURCE_FILES += $(addprefix $(CMSIS_SYSTEM_SOURCE_DIR)/, \
