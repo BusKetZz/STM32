@@ -33,6 +33,7 @@ extern uint32_t SystemCoreClock;
 
 void system_clock_init(void)
 {
+    /*
     LL_RCC_HSE_Enable();
     while (LL_RCC_HSE_IsReady() != 1) {
         ;
@@ -54,8 +55,25 @@ void system_clock_init(void)
     }
 
     LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
+    LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
+    */
+
+    LL_RCC_HSI_Enable();
+    while (LL_RCC_HSI_IsReady() != 1) {
+        ;
+    }
+
+    LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
+
+    LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
+    while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI) {
+        ;
+    }
+
+    LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
     LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
 
-    SystemCoreClock = 84000000;
+    SystemCoreClock = 16000000;
 }
 
