@@ -40,17 +40,7 @@ static volatile uint32_t delay_time = 0;
 
 void delay_timer_init(void)
 {
-    while (SysTick_Config(SystemCoreClock / 1000000) != 0) {
-        ;
-    }
-}
-
-
-
-void delay_us(uint32_t delay_time_us)
-{
-    delay_time = delay_time_us;
-    while (delay_time != 0) {
+    while (SysTick_Config(SystemCoreClock / 1000) != 0) {
         ;
     }
 }
@@ -59,7 +49,7 @@ void delay_us(uint32_t delay_time_us)
 
 void delay_ms(uint32_t delay_time_ms)
 {
-    delay_time = delay_time_ms * 1000;
+    delay_time = delay_time_ms;
     while (delay_time != 0) {
         ;
     }
