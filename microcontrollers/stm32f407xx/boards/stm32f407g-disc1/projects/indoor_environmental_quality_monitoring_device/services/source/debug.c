@@ -65,7 +65,7 @@ static void debug_uart_peripheral_init(void)
     LL_APB2_GRP1_EnableClock(DEBUG_UART_PERIPHERAL_CLOCK);
 
     LL_USART_InitTypeDef uart_peripheral_settings = {
-        .BaudRate = 9600,
+        .BaudRate = (uint32_t)9600,
         .DataWidth = LL_USART_DATAWIDTH_8B,
         .StopBits = LL_USART_STOPBITS_1,
         .Parity = LL_USART_PARITY_NONE,
